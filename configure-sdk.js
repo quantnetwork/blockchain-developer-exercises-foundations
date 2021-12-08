@@ -35,11 +35,7 @@ log.info("Executing ", courseModule);
   try {
     log.info("Initialize the SDK");
     const overledger = new OverledgerSDK({
-      dlts: [
-        { dlt: dltOptions.BITCOIN },
-        { dlt: dltOptions.ETHEREUM },
-        { dlt: dltOptions.XRP_LEDGER },
-      ],
+      dlts: [],
       userPoolID: "us-east-1_xfjNg5Nv9", // your default userpool id
       provider: { network: "https://api.sandbox.overledger.io/" },
       envFilePassword: SENV_PASSWORD,
