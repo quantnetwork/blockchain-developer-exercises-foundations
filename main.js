@@ -1,53 +1,61 @@
-import dotenv from "dotenv";
-import path from "path";
-import log4js from "log4js";
-import secureEnv from 'secure-env';
-import OverledgerBundle from '@quantnetwork/overledger-bundle';
-import OverledgerTypes from '@quantnetwork/overledger-types';
+const log4js = require("log4js");
+const OverledgerBundle = require("@quantnetwork/overledger-bundle");
+const OverledgerTypes = require("@quantnetwork/overledger-types");
+
 const dltOptions = OverledgerTypes.DltNameOptions;
 const OverledgerSDK = OverledgerBundle.default;
+const courseModule = "configure-credentials";
+const log = log4js.getLogger(courseModule);
 
-const log = log4js.getLogger("main");
+// Initialize log
 log4js.configure({
-    appenders: {
-      console: { type: "console" },
-    },
-    categories: {
-      default: { appenders: ["console"], level: "debug" },
-    },
-  });
-dotenv.config();
-const WALLET_NAME = process.env.WALLET_NAME;
-const WALLET_APPLICATION = process.env.WALLET_APPLICATION;
-const MDAPP_ID = process.env.MDAPP_ID;
-const MDAPP_KEY = process.env.MDAPP_KEY;
+  appenders: {
+    console: { type: "console" },
+  },
+  categories: {
+    default: { appenders: ["console"], level: "debug" },
+  },
+});
 
-log.info("Starting demo using mdapp: ", MDAPP_ID);
+log.info("Loading secure environment variables defined in .env.enc");
+const PASSWORD_INPUT = process.argv.slice(2).toString();
+const SENV_PASSWORD = PASSWORD_INPUT.split("=")[1];
 
-// create account
+// Check for provided password for the secure env
+if (!SENV_PASSWORD) {
+  log.error(
+    "Please insert a password to decrypt the secure env file. Example: \n node generate-credentials.js password=MY_PASSWORD",
+  );
+  throw new Error(
+    "Please insert a password to decrypt the secure env file. Example: \n node generate-credentials.js password=MY_PASSWORD",
+  );
+}
+log.info("Executing ", courseModule);
 (async () => {
   try {
-      const overledger = new OverledgerSDK({
-          dlts: [{ dlt: dltOptions.BITCOIN },
-          { dlt: dltOptions.ETHEREUM },
-          { dlt: dltOptions.XRP_LEDGER }
-          ],
-          provider: { network: 'testnet' },
-          envFilePassword: 'PASSWORD_HERE',
-      });
-      
-      const bitcoinAccount = await overledger.dlts.bitcoin.createAccount();
-      console.log('Bitcoin account:\n', bitcoinAccount);
-      console.log("");
-
-      const ethAccount = await overledger.dlts.ethereum.createAccount();
-      console.log('Ethereum account:\n', ethAccount);
-      console.log("");
-
-      const xrpAccount = await overledger.dlts["xrp-ledger"].createAccount();
-      console.log('XRP ledger account:\n', xrpAccount);
-      console.log("");
+    log.info("Initialize the SDK");
+    const overledger = new OverledgerSDK({
+      dlts: [
+        { dlt: dltOptions.BITCOIN },
+        { dlt: dltOptions.ETHEREUM },
+        { dlt: dltOptions.XRP_LEDGER },
+      ],
+      userPoolID: "us-east-1_xfjNg5Nv9", // your default userpool id
+      provider: { network: "https://api.sandbox.overledger.io/" },
+      envFilePassword: SENV_PASSWORD,
+    });
+    log.info("Obtain Access Token to interact with Overledger  ");
+    const refreshTokensResponse =
+      await overledger.getTokensUsingClientIdAndSecret(
+        process.env.USER_NAME,
+        process.env.PASSWORD,
+        process.env.CLIENT_ID,
+        process.env.CLIENT_SECRET,
+      );
+    log.info("accessToken:\n", refreshTokensResponse.accessToken);
+    log.info("refreshToken:\n", refreshTokensResponse.refreshToken);
+    log.info("idToken:\n", refreshTokensResponse.idToken);
   } catch (e) {
-      console.error('error', e);
+    log.error("error", e);
   }
 })();
