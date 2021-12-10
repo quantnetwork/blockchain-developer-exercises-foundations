@@ -32,6 +32,10 @@ We now install a tool allowing us to directly run packages on the terminal:
 
 ``npm install -g npm-run``
 
+Finally, we need to install the dependencies. For that run:
+
+``npm i``
+
 The development environment is set! 
 
 #### Signing Up to Overledger
@@ -50,7 +54,7 @@ To connect to the Overledger SDK, you need a number of credentials. Take a look 
 
 - USER_NAME: which corresponds to your [Overledger Dev Portal](https://developer.quant.network/login) username (typically an e-mail)
 - PASSWORD: is your [Overledger Dev Portal](https://developer.quant.network/login) password
-- CLIENT_ID: The unique Id of your mDapp. It is obtained through the applications tab of the [Overledger Dev Portal](https://developer.quant.network/user/applications) 
+- CLIENT_ID: The unique Id of your mDapp. It is obtained through the applications tab of the [Overledger Dev Portal](https://developer.quannpm installt.network/user/applications) 
 - CLIENT_SECRET: The secret associated to your mDapp. Obtained through the applications tab of the [Overledger Dev Portal](https://developer.quant.network/user/applications) 
 
 
@@ -69,8 +73,6 @@ When looking into our scripts that connects to Overledger, you may notice that c
 Run the script (make sure to replace MY_PASSWORD by the password you used to encrypt *.env*):
 
 ``node configure-sdk.js password=MY_PASSWORD``
-
-If any packages are missing, make sure to install them via `npm install PACKAGE_NAME`.
 
 Great! You can see how access tokens are obtained from Overledger.
 
