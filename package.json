@@ -4,7 +4,9 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "generate-env": "secure-env .env -s MY_PASSWORD"
+    "generate-env": "secure-env .env -s MY_PASSWORD",
+    "format:lint": "eslint 'examples/**/*.js' --quiet --fix",
+    "format:prettier": "prettier --config ./.prettierrc.js 'examples/**/*.js' --write"  
   },
   "repository": {
     "type": "git",
