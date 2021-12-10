@@ -1,4 +1,4 @@
-//NOTE: You need to have a .env.enc file in the root directory where you are running the node command
+// NOTE: You need to have a .env.enc file in the root directory where you are running the node command
 
 const log4js = require("log4js");
 const OverledgerBundle = require("@quantnetwork/overledger-bundle");
@@ -36,7 +36,7 @@ log.info("Executing ", courseModule);
     log.info("Initialize the SDK");
     const overledger = new OverledgerSDK({
       dlts: [],
-      userPoolID: "us-east-1_xfjNg5Nv9", //where your userpool id is located
+      userPoolID: "us-east-1_xfjNg5Nv9", // where your userpool id is located
       provider: { network: "https://api.sandbox.overledger.io/" },
       envFilePassword: SENV_PASSWORD,
     });

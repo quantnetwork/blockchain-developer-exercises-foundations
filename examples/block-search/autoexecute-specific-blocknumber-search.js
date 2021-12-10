@@ -1,10 +1,13 @@
-//NOTE: You need to have a .env.enc file in the root directory where you are running the node command
+// NOTE: You need to have a .env.enc file in the root directory where you are running the node command
 
 const log4js = require("log4js");
 const OverledgerBundle = require("@quantnetwork/overledger-bundle");
+const OverledgerTypes = require("@quantnetwork/overledger-types");
 
 const OverledgerSDK = OverledgerBundle.default;
 const courseModule = "specific-blocknumber-search";
+const { DltNameOptions } = OverledgerTypes;
+
 const log = log4js.getLogger(courseModule);
 
 // Initialize log
@@ -33,14 +36,15 @@ if (!SENV_PASSWORD) {
 log.info("Executing ", courseModule);
 (async () => {
   try {
-
     log.info("Initialize the SDK");
     const overledger = new OverledgerSDK({
-      dlts: [{ dlt: DltNameOptions.BITCOIN },
+      dlts: [
+        { dlt: DltNameOptions.BITCOIN },
         { dlt: DltNameOptions.ETHEREUM },
-        { dlt: DltNameOptions.XRP_LEDGER }], //connects OVL to these 3 technologies
-      userPoolID: "us-east-1_xfjNg5Nv9", //where your userpool id is located
-      provider: { network: "https://api.sandbox.overledger.io/" }, //URL for the testnet versions of these DLTs
+        { dlt: DltNameOptions.XRP_LEDGER },
+      ], // connects OVL to these 3 technologies
+      userPoolID: "us-east-1_xfjNg5Nv9", // where your userpool id is located
+      provider: { network: "https://api.sandbox.overledger.io/" }, // URL for the testnet versions of these DLTs
       envFilePassword: SENV_PASSWORD,
     });
 
@@ -52,26 +56,39 @@ log.info("Executing ", courseModule);
         process.env.CLIENT_ID,
         process.env.CLIENT_SECRET,
       );
-      
-      log.info("Create Overledger Request Object with Correct Location");
-      const overledgerRequestMetaData = {
-        "location": {
-            "technology": "Bitcoin",
-            "network": "Testnet"
-        }
-      }
-      const overledgerInstance = overledger.provider.createRequest(refreshTokensResponse.accessToken.toString());
 
-      log.info("Send Request to Overledger for the Latest Block");
-      const overledgerLatestBlockResponse = await overledgerInstance.post("/autoexecution/search/block/latest",overledgerRequestMetaData);
+    log.info("Create Overledger Request Object with Correct Location");
+    const overledgerRequestMetaData = {
+      location: {
+        technology: "Bitcoin",
+        network: "Testnet",
+      },
+    };
+    const overledgerInstance = overledger.provider.createRequest(
+      refreshTokensResponse.accessToken.toString(),
+    );
 
-      log.info("Send Request to Overledger for the Parent Block");
-      const parentBlockNumber = overledgerLatestBlockResponse.data.executionBlockSearchResponse.block.number-1;
-      const overledgerParentBlockResponse = await overledgerInstance.post("/autoexecution/search/block/"+parentBlockNumber,overledgerRequestMetaData);
+    log.info("Send Request to Overledger for the Latest Block");
+    const overledgerLatestBlockResponse = await overledgerInstance.post(
+      "/autoexecution/search/block/latest",
+      overledgerRequestMetaData,
+    );
 
-      log.info("Print Out Overledger Response");
-      console.log("\n\overledgerParentBlockResponse:\n\n" + JSON.stringify(overledgerParentBlockResponse.data));
+    log.info("Send Request to Overledger for the Parent Block");
+    const parentBlockNumber =
+      overledgerLatestBlockResponse.data.executionBlockSearchResponse.block
+        .number - 1;
+    const overledgerParentBlockResponse = await overledgerInstance.post(
+      `/autoexecution/search/block/${parentBlockNumber}`,
+      overledgerRequestMetaData,
+    );
 
+    log.info("Print Out Overledger Response");
+    console.log(
+      `\noverledgerParentBlockResponse:\n\n${JSON.stringify(
+        overledgerParentBlockResponse.data,
+      )}`,
+    );
   } catch (e) {
     log.error("error", e);
   }
