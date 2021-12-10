@@ -63,10 +63,8 @@ H. TRANSACTIONS_RECEIPT_ROOT = The Merkle root hash, when the transaction proces
 
 2. executionBlockSearchResponse.block.size - This is an array of all the sizes that describe this block. The options are: 
 
-A. MEMORY = The memory size of the entire block. WHAT UNIT?
-B. MEMORY_WITHOUT_SIGNATURES = The memory size of the block, minus the signature sizes. WHAT UNIT?
-C. WEIGHT = ????
-D. COMPUTATION = The computational processing size of the block. WHAT UNIT?
+A. MEMORY = The memory size of the entire block in terms of the total number of bytes.
+B. COMPUTATION = The computational processing size of the block expressed as the number of native individual computational units (e.g. gas for Ethereum, exUnits for Cardano, etc). 
 
 
 #### Searching for the Latest Block in Other DLT Networks
