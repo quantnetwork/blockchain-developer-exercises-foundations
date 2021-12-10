@@ -82,22 +82,25 @@ log.info("Executing ", courseModule);
                 //check if there is any transactions in this block
             while (transactionsInBlockCounter == 0){
                     //if there is no transactions then ...
-                log.info("Block number " +  overledgerBlockResponse.data.executionBlockSearchResponse.block.blockNumber + "does not have any transactions");
+                log.info("Block Number " +  overledgerBlockResponse.data.executionBlockSearchResponse.block.number + "does not have any transactions");
                 log.info("Therefore searching for previous block...");
                 previousBlock = overledgerBlockResponse.data.executionBlockSearchResponse.block.number-1;
                 overledgerBlockResponse = await overledgerInstance.post("/autoexecution/search/block/"+previousBlock,overledgerRequestMetaData);
                 transactionsInBlockCounter = overledgerBlockResponse.data.executionBlockSearchResponse.block.numberOfTransactions-1;               
             }
-            log.info("Block number " +  overledgerBlockResponse.data.executionBlockSearchResponse.block.blockNumber + "includes transactions");
+            log.info("Block number " +  overledgerBlockResponse.data.executionBlockSearchResponse.block.number + "includes transactions");
               //start from the last transaction of the block (as blockchains process from transaction 1 of the block to transaction n)
             log.info("Payment Transaction Search Will Start From Transaction Number: " + transactionsInBlockCounter);
 
             while (transactionsInBlockCounter < numberOfTransactionsInBlock){
                     //get n'th transaction id
+                log.info("Asking Overledger for Transaction " + transactionsInBlockCounter + " in Block " + blockToSearch);
                 transactionId = overledgerBlockResponse.data.executionBlockSearchResponse.transactionIds[transactionsInBlockCounter];
+                log.info("The Id of this Transaction is " + transactionId);
                     //query Overledger for this transaction
                 overledgerTransactionResponse = await overledgerInstance.post("/autoexecution/search/transaction?transactionId=" + transactionId,overledgerRequest);
-                if (overledgerTransactionResponse.data.executionTransactionSearchResponse.type == "PAYMENT"){
+                log.info("The Type of this Transaction is " + overledgerTransactionResponse.data.executionTransactionSearchResponse.block.type);
+                if (overledgerTransactionResponse.data.executionTransactionSearchResponse.block.type == "PAYMENT"){
                     transactionsInBlockCounter = numberOfTransactionsInBlock;
                     locatedPaymentTransaction = true;
                 } else {
@@ -106,7 +109,8 @@ log.info("Executing ", courseModule);
             }
 
             if (locatedPaymentTransaction == false){
-                blockToSearch = overledgerBlockResponse.data.executionBlockSearchResponse.blockNumber;
+              log.info("No Payment Transactions Found in Block Number " +  overledgerBlockResponse.data.executionBlockSearchResponse.block.number);
+                blockToSearch = overledgerBlockResponse.data.executionBlockSearchResponse.block.number-1;
             }
 
         }
