@@ -36,7 +36,7 @@ if (!SENV_PASSWORD) {
 log.info("Executing ", courseModule);
 (async () => {
   try {
-    log.info("Initialize the SDK");
+    log.info("Initializing the SDK");
     const overledger = new OverledgerSDK({
       dlts: [
         { dlt: DltNameOptions.BITCOIN },
@@ -48,7 +48,7 @@ log.info("Executing ", courseModule);
       envFilePassword: SENV_PASSWORD,
     });
 
-    log.info("Obtain Access Token to interact with Overledger");
+    log.info("Obtaining the Access Token to Interact with Overledger");
     const refreshTokensResponse =
       await overledger.getTokensUsingClientIdAndSecret(
         process.env.USER_NAME,
@@ -57,7 +57,7 @@ log.info("Executing ", courseModule);
         process.env.CLIENT_SECRET,
       );
 
-    log.info("Create Overledger Request Object with Correct Location");
+    log.info("Creating Overledger Request Object with the Correct Location");
     const overledgerRequestMetaData = {
       location: {
         technology: "Bitcoin",
@@ -68,15 +68,14 @@ log.info("Executing ", courseModule);
       refreshTokensResponse.accessToken.toString(),
     );
 
-    log.info("Send Request to Overledger for the Latest Block");
+    log.info("Sending a Request to Overledger for the Latest Block");
     const overledgerResponse = await overledgerInstance.post(
       "/autoexecution/search/block/latest",
       overledgerRequestMetaData,
     );
 
-    log.info("Print Out Overledger Response");
-    console.log(
-      `\n\nOverledgerResponse:\n\n${JSON.stringify(overledgerResponse.data)}`,
+    log.info(
+      `Printing Out Overledger's Response:\n\n${JSON.stringify(overledgerResponse.data)}\n\n`,
     );
   } catch (e) {
     log.error("error", e);

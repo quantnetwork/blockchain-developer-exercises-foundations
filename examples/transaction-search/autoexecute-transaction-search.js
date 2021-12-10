@@ -36,7 +36,7 @@ if (!SENV_PASSWORD) {
 log.info("Executing ", courseModule);
 (async () => {
   try {
-    log.info("Initialize the SDK");
+    log.info("Initializing the SDK");
     const overledger = new OverledgerSDK({
       dlts: [
         { dlt: DltNameOptions.BITCOIN },
@@ -48,7 +48,7 @@ log.info("Executing ", courseModule);
       envFilePassword: SENV_PASSWORD,
     });
 
-    log.info("Obtain Access Token to interact with Overledger");
+    log.info("Obtaining the Access Token to Interact with Overledger");
     const refreshTokensResponse =
       await overledger.getTokensUsingClientIdAndSecret(
         process.env.USER_NAME,
@@ -57,22 +57,21 @@ log.info("Executing ", courseModule);
         process.env.CLIENT_SECRET,
       );
 
-    log.info("Create Overledger Request Object with Correct Location");
+    log.info("Creating the Overledger Request Object with the Correct Location");
     const overledgerRequestMetaData = {
       location: {
-        technology: "Bitcoin",
-        network: "Testnet",
+        technology: "Ethereum",
+        network: "Ropsten Testnet",
       },
     };
     const overledgerInstance = overledger.provider.createRequest(
       refreshTokensResponse.accessToken.toString(),
     );
 
-    log.info("Locate the latest Payment Transaction on the Blockchain");
+    log.info("Locating the Latest Payment Transaction on the Blockchain");
     let locatedPaymentTransaction = false;
     let numberOfTransactionsInBlock;
     let transactionsInBlockCounter;
-    let previousBlock;
     let transactionId;
     let overledgerTransactionResponse;
     let overledgerBlockResponse;
@@ -92,17 +91,17 @@ log.info("Executing ", courseModule);
         `Transactions in Block = ${overledgerBlockResponse.data.executionBlockSearchResponse.block.numberOfTransactions}`,
       );
       // check if there is any transactions in this block
-      while (transactionsInBlockCounter == 0) {
+      while (transactionsInBlockCounter < 0) {
         // if there is no transactions then ...
         log.info(
-          `Block Number ${overledgerBlockResponse.data.executionBlockSearchResponse.block.number}does not have any transactions`,
+          `Block Number ${overledgerBlockResponse.data.executionBlockSearchResponse.block.number} does not have any transactions`,
         );
         log.info("Therefore searching for previous block...");
-        previousBlock =
+        blockToSearch =
           overledgerBlockResponse.data.executionBlockSearchResponse.block
             .number - 1;
         overledgerBlockResponse = await overledgerInstance.post(
-          `/autoexecution/search/block/${previousBlock}`,
+          `/autoexecution/search/block/${blockToSearch}`,
           overledgerRequestMetaData,
         );
         transactionsInBlockCounter =
@@ -110,38 +109,41 @@ log.info("Executing ", courseModule);
             .numberOfTransactions - 1;
       }
       log.info(
-        `Block number ${overledgerBlockResponse.data.executionBlockSearchResponse.block.number}includes transactions`,
+        `Block number ${overledgerBlockResponse.data.executionBlockSearchResponse.block.number} includes transactions`,
+      );
+      log.info(
+        `Transactions in Block = ${overledgerBlockResponse.data.executionBlockSearchResponse.block.numberOfTransactions}`,
       );
       // start from the last transaction of the block (as blockchains process from transaction 1 of the block to transaction n)
       log.info(
         `Payment Transaction Search Will Start From Transaction Number: ${transactionsInBlockCounter}`,
       );
 
-      while (transactionsInBlockCounter < numberOfTransactionsInBlock) {
+      while (transactionsInBlockCounter >= 0) {
         // get n'th transaction id
         log.info(
           `Asking Overledger for Transaction ${transactionsInBlockCounter} in Block ${blockToSearch}`,
         );
         transactionId =
-          overledgerBlockResponse.data.executionBlockSearchResponse
+          overledgerBlockResponse.data.executionBlockSearchResponse.block
             .transactionIds[transactionsInBlockCounter];
         log.info(`The Id of this Transaction is ${transactionId}`);
         // query Overledger for this transaction
         overledgerTransactionResponse = await overledgerInstance.post(
           `/autoexecution/search/transaction?transactionId=${transactionId}`,
-          overledgerRequest,
+          overledgerRequestMetaData,
         );
         log.info(
-          `The Type of this Transaction is ${overledgerTransactionResponse.data.executionTransactionSearchResponse.block.type}`,
+          `The Type of this Transaction is ${overledgerTransactionResponse.data.executionTransactionSearchResponse.type}`,
         );
         if (
           overledgerTransactionResponse.data.executionTransactionSearchResponse
-            .block.type == "PAYMENT"
+            .type == "PAYMENT"
         ) {
           transactionsInBlockCounter = numberOfTransactionsInBlock;
           locatedPaymentTransaction = true;
         } else {
-          transactionsInBlockCounter++;
+          transactionsInBlockCounter--;
         }
       }
 
@@ -155,10 +157,10 @@ log.info("Executing ", courseModule);
       }
     }
 
-    console.log(
-      `\n\nOverledgerPaymentTransactionResponse: ${JSON.stringify(
+    log.info(
+      `Printing Out Overledger's Response:\n\n${JSON.stringify(
         overledgerTransactionResponse.data,
-      )}`,
+      )}\n\n`,
     );
   } catch (e) {
     log.error("error", e);

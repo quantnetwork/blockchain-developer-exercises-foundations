@@ -36,7 +36,7 @@ if (!SENV_PASSWORD) {
 log.info("Executing ", courseModule);
 (async () => {
   try {
-    log.info("Initialize the SDK");
+    log.info("Initializing the SDK");
     const overledger = new OverledgerSDK({
       dlts: [
         { dlt: DltNameOptions.BITCOIN },
@@ -48,7 +48,7 @@ log.info("Executing ", courseModule);
       envFilePassword: SENV_PASSWORD,
     });
 
-    log.info("Obtain Access Token to interact with Overledger");
+    log.info("Obtaining the Access Token to interact with Overledger");
     const refreshTokensResponse =
       await overledger.getTokensUsingClientIdAndSecret(
         process.env.USER_NAME,
@@ -57,10 +57,10 @@ log.info("Executing ", courseModule);
         process.env.CLIENT_SECRET,
       );
 
-    log.info("Create Overledger Request Object with Correct Location");
+    log.info("Createing the Overledger Request Object with Correct Location");
     const overledgerRequestMetaData = {
       location: {
-        technology: "Bitcoin",
+        technology: "XRP Ledger",
         network: "Testnet",
       },
     };
@@ -68,13 +68,13 @@ log.info("Executing ", courseModule);
       refreshTokensResponse.accessToken.toString(),
     );
 
-    log.info("Send Request to Overledger for the Latest Block");
+    log.info("Sending a Request to Overledger for the Latest Block");
     const overledgerLatestBlockResponse = await overledgerInstance.post(
       "/autoexecution/search/block/latest",
       overledgerRequestMetaData,
     );
 
-    log.info("Send Request to Overledger for the Parent Block");
+    log.info("Sending a Request to Overledger for the Parent Block");
     const parentBlockNumber =
       overledgerLatestBlockResponse.data.executionBlockSearchResponse.block
         .number - 1;
@@ -83,11 +83,10 @@ log.info("Executing ", courseModule);
       overledgerRequestMetaData,
     );
 
-    log.info("Print Out Overledger Response");
-    console.log(
-      `\noverledgerParentBlockResponse:\n\n${JSON.stringify(
+    log.info(
+      `Printing Out Overledger's Response:\n\n${JSON.stringify(
         overledgerParentBlockResponse.data,
-      )}`,
+      )}\n\n`,
     );
   } catch (e) {
     log.error("error", e);
