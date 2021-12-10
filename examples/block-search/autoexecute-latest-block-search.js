@@ -44,7 +44,7 @@ log.info("Executing ", courseModule);
         { dlt: DltNameOptions.XRP_LEDGER },
       ], // connects OVL to these 3 technologies
       userPoolID: "us-east-1_xfjNg5Nv9", // where your userpool id is located
-      provider: { network: "https://api.sandbox.overledger.io/" }, // URL for the testnet versions of these DLTs
+      provider: { network: "https://api.sandbox.overledger.io/v2" }, // URL for the testnet versions of these DLTs
       envFilePassword: SENV_PASSWORD,
     });
 
