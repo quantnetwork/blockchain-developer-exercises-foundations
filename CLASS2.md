@@ -69,14 +69,14 @@ B. COMPUTATION = The computational processing size of the block expressed as the
 
 #### Searching for the Latest Block in Other DLT Networks
 
-Given the example `autoexecute-latest-block-search.js` file and the location information listed above, can you understand how to change this file to instead query the latest block of the Ethereum Ropsten and XRP Ledger testnets?
+Given the example `./block-search/autoexecute-latest-block-search.js` file and the location information listed above, can you understand how to change this file to instead query the latest block on the Ethereum Ropsten and XRP Ledger testnets?
 
 
 #### Searching for a Specific Block in Other DLT Networks
 
 You can search for a specific block in the Ethereum Ropsten DLT network by running the following:
 
- `node examples/block-search/autoexecute-specific-blockid-search.js`
+ `node examples/block-search/autoexecute-specific-blockid-search.js password=MY_PASSWORD`
 
 Notice that to find a valid blockId it firstly searches the current block, then finds the parent of the current block using the standardised data model and searches for that block.
 
@@ -84,7 +84,7 @@ Because the logic of this file is built on the standardised data model, all we h
 
 Finally note that you can search for a specific block via the blockId or the block number. You can search for a specific block in the XRP Ledger DLT network by running the following:
 
-`node examples/block-search/autoexecute-specific-blocknumber-search.js`
+`node examples/block-search/autoexecute-specific-blocknumber-search.js password=MY_PASSWORD`
 
 #### Troubleshooting
 This class was tested in  Ubuntu 20.04.2 LTS Release: 20.04 Codename: focal, with nvm version 0.35.3, and node version 16.3.0. 

@@ -60,8 +60,8 @@ log.info("Executing ", courseModule);
     log.info("Creating the Overledger Request Object with the Correct Location");
     const overledgerRequestMetaData = {
       location: {
-        technology: "Ethereum",
-        network: "Ropsten Testnet",
+        technology: "Bitcoin",
+        network: "Testnet",
       },
     };
     const overledgerInstance = overledger.provider.createRequest(
