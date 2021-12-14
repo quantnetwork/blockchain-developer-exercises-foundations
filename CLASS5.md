@@ -1,6 +1,6 @@
 # Week 2 Ledger State and Updates
 
-## The Unspent Transaction Output Model
+## The Accounts Model
 
 ### Exercise 2.8 - Read your first Accounts Transaction
 
