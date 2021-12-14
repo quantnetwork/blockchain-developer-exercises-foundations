@@ -18,13 +18,13 @@ Note that Ethereum has a named test network above as Ethereum has multiple test 
 
 #### Prerequisites
 
-It is assumed that you have already setup your environment by following [these instructions]()
+It is assumed that you have already setup your environment by following [these instructions](./CLASS1.md).
 
 #### Searching for the Latest Block
 
 We will start by searching for the latest block on the Bitcoin DLT network. To do so, run the following script:
 
-`node examples/block-search/autoexecute-latest-block-search.js`
+`node examples/block-search/autoexecute-latest-block-search.js password=MY_PASSWORD`
 
 ##### Overledger Auto Execute Block Search API Response
 
@@ -67,11 +67,6 @@ A. MEMORY = The memory size of the entire block in terms of the total number of 
 B. COMPUTATION = The computational processing size of the block expressed as the number of native individual computational units (e.g. gas for Ethereum, exUnits for Cardano, etc). 
 
 
-#### Searching for the Latest Block in Other DLT Networks
-
-Given the example `./block-search/autoexecute-latest-block-search.js` file and the location information listed above, can you understand how to change this file to instead query the latest block on the Ethereum Ropsten and XRP Ledger testnets?
-
-
 #### Searching for a Specific Block in Other DLT Networks
 
 You can search for a specific block in the Ethereum Ropsten DLT network by running the following:
@@ -85,6 +80,18 @@ Because the logic of this file is built on the standardised data model, all we h
 Finally note that you can search for a specific block via the blockId or the block number. You can search for a specific block in the XRP Ledger DLT network by running the following:
 
 `node examples/block-search/autoexecute-specific-blocknumber-search.js password=MY_PASSWORD`
+
+#### Challenges
+
+##### Searching for the Latest Block in Other DLT Networks
+
+Given the example `examples/block-search/autoexecute-latest-block-search.js` file and the location information listed above, can you understand how to change this file to instead query the latest block on the Ethereum Ropsten and XRP Ledger testnets?
+
+##### Searching for a Specific Block
+
+Take a look at a third party explorer for the DLT testnets we are using, e.g. [the Bitcoin Testnet](https://blockstream.info/testnet/), [the Ethereum Ropsten Testnet](https://ropsten.etherscan.io/), or [the XRP Ledger Testnet](https://blockexplorer.one/xrp/testnet). 
+
+Choose a block from these explorers. Can you understand how to modify the example scripts to search for your chosen block?
 
 #### Troubleshooting
 This class was tested in  Ubuntu 20.04.2 LTS Release: 20.04 Codename: focal, with nvm version 0.35.3, and node version 16.3.0. 

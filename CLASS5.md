@@ -15,21 +15,12 @@ We will be interacting with the Ethereum Ropsten and the XRP Ledger testnets. Th
 
 #### Prerequisites
 
-It is assumed that you have already setup your environment by following [these instructions]() and that you have completed the previous exercise to search for a block using Overledger [here]() and to search for a UTXO transaction using Overledger [here]().
+It is assumed that you have already setup your environment by following [these instructions](./CLASS1.md) and that you have completed the previous exercise to search for a block using Overledger [here](./CLASS2.md) and to search for a UTXO transaction using Overledger [here](./CLASS3.md).
 
-#### Searching for the Latest Payment Transaction
-
-Given the example `./transaction-search/autoexecute-transaction-search.js` file and the location information listed above, can you understand how to change this file to instead return the latest payment transaction on the Ethereum Ropsten and XRP Ledger testnets?
-
-`node examples/transaction-search/autoexecute-transaction-search.js password=MY_PASSWORD`
-
-Recall that this script first gets the latest block, then if the block is not empty it will ask Overledger for the last transaction in the block. It gets the last transaction as transactions in a block are processed in order.
-
-All the logic in this script is based on the Overledger standardised data model. This means that the script can easily be reused for other DLTs that are UTXO or Accounts based.
 
 ##### Overledger Auto Execute Transaction Search API Response
 
-See [here]() for futher details on the response body.
+See [here](./CLASS3.md) for futher details on the response body.
 
 ###### Auto Execute Transaction Search API Response Origins and Destinations
 
@@ -41,6 +32,26 @@ In the Account model, a payment transaction contains one origin and usually one 
 In Ethereum and the XRP Ledger DLTs, there is only one destination for payment transactions. But this is not true for all Accounts based DLTs. For instance the Stellar DLT allows multiple payments in one transaction.
 
 Note that accounts based transactions that are contract invocations have a more complicated origin and destination structure. We will cover that in the next course.
+
+#### Challenges
+
+#### Searching for the Latest Payment Transaction
+
+Given the example `examples/transaction-search/autoexecute-transaction-search.js` file and the location information listed above, can you understand how to change this file to instead return the latest payment transaction on the Ethereum Ropsten and XRP Ledger testnets? Recall that the following is required to run the file:
+
+`node examples/transaction-search/autoexecute-transaction-search.js password=MY_PASSWORD`
+
+Remember that this script first gets the latest block, then if the block is not empty it will ask Overledger for the last transaction in the block. It gets the last transaction as transactions in a block are processed in order. Should the last transaction in the block not be a payment one, then the script will ask Overledger for the previous transaction in the block, and so on until a payment transaction is found.
+
+Note that in the foundations course, you don't have to concern yourself with the other transaction types, but they will be covered in a future course.
+
+All the logic in this script is based on the Overledger standardised data model. This means that the script can easily be reused for other DLTs that are UTXO or Accounts based.
+
+##### Searching for a Specific Transaction
+
+Take a look at a third party explorer for the DLT testnets we are using, e.g. [the Ethereum Ropsten Testnet](https://ropsten.etherscan.io/) or [the XRP Ledger Testnet](https://blockexplorer.one/xrp/testnet).
+
+Choose a transaction from a block in these explorers. Can you understand how to modify the example script to search for your chosen transactions?
 
 #### Troubleshooting
 This class was tested in  Ubuntu 20.04.2 LTS Release: 20.04 Codename: focal, with nvm version 0.35.3, and node version 16.3.0. 

@@ -14,7 +14,7 @@ We will be interacting with the Bitcoin testnet. This network has been designate
 
 #### Prerequisites
 
-It is assumed that you have already setup your environment by following [these instructions]() and that you have completed the previous exercise to search for a block using Overledger [here]().
+It is assumed that you have already setup your environment by following [these instructions](./CLASS1.md) and that you have completed the previous exercise to search for a block using Overledger [here](./CLASS2.md).
 
 #### Searching for the Latest Payment Transaction
 
@@ -22,7 +22,9 @@ We will search for the latest payment transaction on the Bitcoin test network. T
 
 `node examples/transaction-search/autoexecute-transaction-search.js password=MY_PASSWORD`
 
-This script first gets the latest block, then if the block is not empty it will ask Overledger for the last transaction in the block. It gets the last transaction as transactions in a block are processed in order.
+This script first gets the latest block, then if the block is not empty it will ask Overledger for the last transaction in the block. It gets the last transaction as transactions in a block are processed in order. Should the last transaction in the block not be a payment one, then the script will ask Overledger for the previous transaction in the block, and so on until a payment transaction is found.
+
+Note that in the foundations course, you don't have to concern yourself with the other transaction types, but they will be covered in a future course.
 
 All the logic in this script is based on the Overledger standardised data model. This means that the script can easily be reused for other DLTs that are UTXO or Accounts based. All that is required is to change the location object to another network.
 
@@ -43,7 +45,7 @@ i. Location: Each Overledger DLT data response includes a reference to the locat
 ii. Status: Overledger responses regarding blocks and transactions come with a status. Due to some DLTs having probabilistic finality of transactions/blocks and other DLTs having deterministic finality of transaction/blocks, the status object is used to indicate to the developer when the requested data is assumed to be final (therefore status.value = “SUCCESSFUL”) or not (therefore status.value=“PENDING”).
 iii. Transaction = The requested transaction data in standardised and nativeData formats.
 
-For parameter by parameter descriptions see the [openAPI3 doc](https://docs.overledger.io/#operation/autoExecuteSearchBlockRequest).
+For parameter by parameter descriptions see the [openAPI3 doc](https://docs.overledger.io/#operation/autoExecuteSearchTransactionRequest).
 
 ###### Auto Execute Transaction Search API Response Origins and Destinations
 
@@ -52,6 +54,13 @@ In the UTXO model, a transaction contains one or more origins (inputs) and one o
 - OriginId: This is a reference to a transactionId:DestinationArrayIndex of an unspent transaction output that is now being spent.
 - DestinationId: This is a reference to an externally owned account (controlled by a private key) or to a smart contract address (controlled by smart contract code). An externally owned account requires a signature to spent the BTC associated to this transaction output. Whereas a smart contract address requires some user defined parameters to be satisfied in order for the transaction output to be spent. 
 
+#### Challenges
+
+##### Searching for a Specific Transaction
+
+Take a look at a third party explorer for the Bitcoin testnet we are using, e.g. [here](https://blockstream.info/testnet/). 
+
+Choose a transaction from a block in this explorer. Can you understand how to modify the example script to search for your chosen transaction?
 
 #### Troubleshooting
 This class was tested in  Ubuntu 20.04.2 LTS Release: 20.04 Codename: focal, with nvm version 0.35.3, and node version 16.3.0. 
