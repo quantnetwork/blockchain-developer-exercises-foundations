@@ -8,14 +8,14 @@ For this task, we will read our first Accounts transaction via Overledger’s au
 
 #### DLT Network Information
 
-We will be interacting with the Ethereum Ropsten and the XRP Ledger testnets. These network has been designated a location so that Overledger can route requests for these DLT networks correctly. These locations are as follows:
+We will be interacting with the Ethereum Ropsten and the XRP Ledger testnets. The relevant Overledger location objects are as follows:
 
 1. Location = {“technology”: “Ethereum”, “network”: “Ropsten Testnet”}
 2. Location = {“technology”: “XRP Ledger”, “network”: “Testnet”}
 
 #### Prerequisites
 
-It is assumed that you have already setup your environment by following [these instructions](./CLASS1.md) and that you have completed the previous exercise to search for a block using Overledger [here](./CLASS2.md) and to search for a UTXO transaction using Overledger [here](./CLASS3.md).
+It is assumed that you have already setup your environment by following [these instructions](./CLASS1.md) and that you have completed the previous exercises to search for a block using Overledger [here](./CLASS2.md) and to search for a UTXO transaction using Overledger [here](./CLASS3.md).
 
 
 ##### Overledger Auto Execute Transaction Search API Response

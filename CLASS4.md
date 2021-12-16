@@ -10,13 +10,13 @@ Note that unlike blocks and transactions, the state data model of utxo and accou
 
 #### DLT Network Information
 
-We will be interacting with the Bitcoin testnet. This network has been designated a location so that Overledger can route requests for these DLT networks correctly. This location is as follows:
+We will be interacting with the Bitcoin testnet. The relevant Overledger location object is as follows:
 
 1. Location = {“technology”: “Bitcoin”, “network”: “Testnet”}
 
 #### Prerequisites
 
-It is assumed that you have already setup your environment by following [these instructions](./CLASS1.md) and that you have completed the previous exercisees to search for a block using Overledger [here](./CLASS2.md) and to search for a UTXO transaction using Overledger [here](./CLASS3.md).
+It is assumed that you have already setup your environment by following [these instructions](./CLASS1.md) and that you have completed the previous exercises to search for a block using Overledger [here](./CLASS2.md) and to search for a UTXO transaction using Overledger [here](./CLASS3.md).
 
 #### Searching for the Largest Unspent UTXO in a block
 

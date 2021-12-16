@@ -8,7 +8,7 @@ For this task, we will read our first UTXO transaction via Overledger’s autoEx
 
 #### DLT Network Information
 
-We will be interacting with the Bitcoin testnet. This network has been designated a location so that Overledger can route requests for these DLT networks correctly. This location is as follows:
+We will be interacting with the Bitcoin testnet. The relevant Overledger location object is as follows:
 
 1. Location = {“technology”: “Bitcoin”, “network”: “Testnet”}
 

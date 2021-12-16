@@ -4,20 +4,20 @@
 
 ### Exercise 2.10 - Read your first Accounts State
 
-For this task, we will read our first Accounts state via Overledger’s autoExecuteSearchAddressBalance and autoExecuteSearchAddressSequence APIs. The openAPI3 version of this endpoint can be found [here](https://docs.overledger.io/#operation/autoExecuteSearchAddressBalanceRequest) and [here](https://docs.overledger.io/#operation/prepareAddressSequenceSearchRequest_1). 
+For this task, we will read our first Accounts state via Overledger’s autoExecuteSearchAddressBalance and autoExecuteSearchAddressSequence APIs. The openAPI3 version of these endpoints can be found [here](https://docs.overledger.io/#operation/autoExecuteSearchAddressBalanceRequest) and [here](https://docs.overledger.io/#operation/prepareAddressSequenceSearchRequest_1). 
 
 Note that unlike blocks and transactions, the state data model of utxo and accounts based DLTs do have to diverge somewhat. This is because of the wide variety of parameters in the state of both models.
 
 #### DLT Network Information
 
-We will be interacting with the Ethereum Ropsten and the XRP Ledger testnets. These network has been designated a location so that Overledger can route requests for these DLT networks correctly. These locations are as follows:
+We will be interacting with the Ethereum Ropsten and the XRP Ledger testnets. The relevant Overledger location objects are as follows:
 
 1. Location = {“technology”: “Ethereum”, “network”: “Ropsten Testnet”}
 2. Location = {“technology”: “XRP Ledger”, “network”: “Testnet”}
 
 #### Prerequisites
 
-It is assumed that you have already setup your environment by following [these instructions](./CLASS1.md) and that you have completed the previous exercisees to search for a block using Overledger [here](./CLASS2.md) and to search for an Account transaction using Overledger [here](./CLASS5.md).
+It is assumed that you have already setup your environment by following [these instructions](./CLASS1.md) and that you have completed the previous exercises to search for a block using Overledger [here](./CLASS2.md) and to search for an Account transaction using Overledger [here](./CLASS5.md).
 
 #### Searching Accounts for Specific Properities
 
