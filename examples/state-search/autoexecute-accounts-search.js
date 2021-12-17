@@ -27,10 +27,10 @@ const SENV_PASSWORD = PASSWORD_INPUT.split("=")[1];
 // Check for provided password for the secure env
 if (!SENV_PASSWORD) {
   log.error(
-    "Please insert a password to decrypt the secure env file. Example: \n node generate-credentials.js password=MY_PASSWORD",
+    "Please insert a password to decrypt the secure env file. Example: \n node examples/state-search/autoexecute-accounts-search.js password=MY_PASSWORD",
   );
   throw new Error(
-    "Please insert a password to decrypt the secure env file. Example: \n node generate-credentials.js password=MY_PASSWORD",
+    "Please insert a password to decrypt the secure env file. Example: \n node examples/state-search/autoexecute-accounts-search.js password=MY_PASSWORD",
   );
 }
 log.info("Executing ", courseModule);
