@@ -5,7 +5,7 @@ const OverledgerBundle = require("@quantnetwork/overledger-bundle");
 const OverledgerTypes = require("@quantnetwork/overledger-types");
 
 const OverledgerSDK = OverledgerBundle.default;
-const courseModule = "latest-block-search";
+const courseModule = "submit-transaction";
 const { DltNameOptions } = OverledgerTypes;
 
 const log = log4js.getLogger(courseModule);
@@ -37,10 +37,10 @@ if (!SENV_PASSWORD) {
 // Check for provided bitcoin funding transaction
 if (!BITCOIN_FUNDING_TX) {
     log.error(
-      "Please insert a bitcoin funding transaction for your address. Example: \n node generate-credentials.js password=MY_PASSWORD",
+      "Please insert a bitcoin funding transaction for your address. Example: \n node examples/transaction-creation/submit-transaction.js password=MY_PASSWORD bitcoinTx=7f39571159935d849d1d7407754157921450c5252f1c79cced14ad56d3fdb3e4",
     );
     throw new Error(
-      "Please insert a password to decrypt the secure env file. Example: \n node generate-credentials.js password=MY_PASSWORD",
+      "Please insert a bitcoin funding transaction for your address. Example: \n node examples/transaction-creation/submit-transaction.js password=MY_PASSWORD bitcoinTx=7f39571159935d849d1d7407754157921450c5252f1c79cced14ad56d3fdb3e4",
     );
   }
 
@@ -68,7 +68,7 @@ log.info("Executing ", courseModule);
     const xrpAccount = await overledger.dlts["xrp-ledger"].createAccount();
     const xrpLedgerDestination = xrpAccount.address;
 
-    log.info("Setting our private key from the encrypted .env file");
+    log.info("Loading our private keys from the encrypted .env file");
     // this function is client side only (i.e. there is no interaction with the Overledger DLT gateway calling this function)
     overledger.dlts[DltNameOptions.BITCOIN].setAccount({privateKey: process.env.BITCOIN_PRIVATE_KEY});
     overledger.dlts[DltNameOptions.ETHEREUM].setAccount({privateKey: process.env.ETHEREUM_PRIVATE_KEY});
@@ -81,6 +81,10 @@ log.info("Executing ", courseModule);
         process.env.PASSWORD,
         process.env.CLIENT_ID,
         process.env.CLIENT_SECRET,
+      );
+
+      const overledgerInstance = overledger.provider.createRequest(
+        refreshTokensResponse.accessToken.toString(),
       );
 
     log.info("Creating Overledger Request Object with the Correct Location");
@@ -103,56 +107,65 @@ log.info("Executing ", courseModule);
       },
     }];
 
-    const overledgerInstance = overledger.provider.createRequest(
-        refreshTokensResponse.accessToken.toString(),
-      );
 
-    log.info("Creating the Correct Transaction Origins");
+    log.info("Setting the Correct Transaction Origins, Destinations, Amounts and Units");
 
+    //firstly lets check the bitcoin funding transaction
     const overledgerTransactionSearchResponse = await overledgerInstance.post(
         `/autoexecution/search/transaction?transactionId=${BITCOIN_FUNDING_TX}`,
         overledgerRequestMetaData[0],
       );
-    //loop over UTXOs and wait for a match to the users Bitcoin address
-    const bitcoinAddress = process.env.BITCOIN_ADDRESS;
+    //loop over UTXOs in the funding transaction and wait for a match to the users Bitcoin address
     let count = 0;
-    const destinations = overledgerTransactionSearchResponse.data.transaction.destination.length;
+    const bitcoinTxDestinations = overledgerTransactionSearchResponse.data.transaction.destination.length;
     let destination;
     let bitcoinOrigin;
-    while (count < destinations){
+    while (count < bitcoinTxDestinations){
         destination = overledgerTransactionSearchResponse.data.transaction.destination[count];
-        if (destination.destinationId == bitcoinAddress){
+        if (destination.destinationId == process.env.BITCOIN_ADDRESS){
             bitcoinOrigin = BITCOIN_FUNDING_TX + ":" + count.toString();
         }
         count++;
     }
 
+    if (!bitcoinOrigin){
+        log.error(
+            "The providing bitcoin funding transaction does not have a transaction output assigned to your Bitcoin address. Please recheck the provided bitcoinTx.",
+          );
+          throw new Error(
+            "The providing bitcoin funding transaction does not have a transaction output assigned to your Bitcoin address. Please recheck the provided bitcoinTx.",
+          );        
+    }
+
+    // Set the origins. Recall that Account based DLT origins are accountIds,
+    // whereas UTXO based DLT origins are transactionIds:TransactionOutputIndex (hence the search for the bitcoin origin above)
     const overledgerOrigins = [
-        "mmLuhHniRM79mdpN9TZzTje4kiKL2pqWvT",
-        "0x99B1D2ee55FbADedC48BDA5B0cFb9e21634b7af8",
+        bitcoinOrigin,
+        process.env.ETHEREUM_ADDRESS,
         process.env.XRP_LEDGER_ADDRESS,
     ];
 
     const overledgerDestinations = [
         bitcoinDestination,
         ethereumDestination,
-        xrpLedgerDestination
+        xrpLedgerDestination,
     ];
 
-    //we will send the minimal amounts of each DLT
+    // We will send the minimal amounts of each DLT
     const overledgerAmounts = [
         "0.0000001",
         "0.000000000000000001",
         "0.000001"
     ]
+    // We will send be sending the main protocol token on each DLT network
+    // Note that as we are connected to the testnet DLT networks, these tokens do not have real world value
     const overledgerUnits = [
         "BTC",
         "ETH",
         "XRP"
     ]
-    log.info(`Transaction Origins = ${JSON.stringify(overledgerOrigins)}`); 
 
-    log.info("Loop to prepare, sign and send transactions for each DLT");
+    log.info("Entering loop to prepare, sign and send transactions for each DLT network");
 
     count = 0;
     let signedTransaction;
@@ -207,20 +220,12 @@ log.info("Executing ", courseModule);
             executeTransactionRequest[count],
           ).data;
         count++;
+        log.info(
+            `Printing Out Overledger's Response for a transaction prepared, signed and submitted onto the ${overledgerRequestMetaData[count].location.technology} testnet:\n\n${JSON.stringify(executeTransactionResponse.data)}\n\n`,
+          );
     }
 
 
-
-
-    log.info("Sending a Request to Overledger for the Latest Block");
-    const overledgerResponse = await overledgerInstance.post(
-      "/autoexecution/search/block/latest",
-      overledgerRequestMetaData,
-    );
-
-    log.info(
-      `Printing Out Overledger's Response:\n\n${JSON.stringify(overledgerResponse.data)}\n\n`,
-    );
   } catch (e) {
     log.error("error", e);
   }
