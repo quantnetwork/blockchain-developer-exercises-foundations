@@ -37,7 +37,7 @@ The block information will be returned in cross-DLT standardised form and in the
 
 ##### Auto Execute Block Search API Response Main Components
 
-The block response will contain a few main components
+The block response will contain a few main components:
 
 i. Location: Each Overledger DLT data response includes a reference to the location (technology, network) of where this data was taken from. This helps with auditing.
 ii. Status: Overledger responses regarding blocks and transactions come with a status. Due to some DLTs having probabilistic finality of transactions/blocks and other DLTs having deterministic finality of transaction/blocks, the status object is used to indicate to the developer when the requested data is assumed to be final (therefore status.value = “SUCCESSFUL”) or not (therefore status.value=“PENDING”).

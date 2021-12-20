@@ -28,19 +28,19 @@ const BITCOIN_FUNDING_TX = BITCOIN_FUNDING_TX_INPUT.split("=")[2];
 // Check for provided password for the secure env
 if (!SENV_PASSWORD) {
   log.error(
-    "Please insert a password to decrypt the secure env file. Example: \n node examples/transaction-creation/submit-transaction.js password=MY_PASSWORD bitcoinTx=7f39571159935d849d1d7407754157921450c5252f1c79cced14ad56d3fdb3e4",
+    "Please insert a password to decrypt the secure env file. Example: \n node examples/transaction-creation/submit-transaction.js password=MY_PASSWORD bitcoinTx=MY_BITCOIN_FUNDING_TX",
   );
   throw new Error(
-    "Please insert a password to decrypt the secure env file. Example: \n node examples/transaction-creation/submit-transaction.js password=MY_PASSWORD bitcoinTx=7f39571159935d849d1d7407754157921450c5252f1c79cced14ad56d3fdb3e4",
+    "Please insert a password to decrypt the secure env file. Example: \n node examples/transaction-creation/submit-transaction.js password=MY_PASSWORD bitcoinTx=MY_BITCOIN_FUNDING_TX",
   );
 }
 // Check for provided bitcoin funding transaction
 if (!BITCOIN_FUNDING_TX) {
     log.error(
-      "Please insert a bitcoin funding transaction for your address. Example: \n node examples/transaction-creation/submit-transaction.js password=MY_PASSWORD bitcoinTx=7f39571159935d849d1d7407754157921450c5252f1c79cced14ad56d3fdb3e4",
+      "Please insert a bitcoin funding transaction for your address. Example: \n node examples/transaction-creation/submit-transaction.js password=MY_PASSWORD bitcoinTx=MY_BITCOIN_FUNDING_TX",
     );
     throw new Error(
-      "Please insert a bitcoin funding transaction for your address. Example: \n node examples/transaction-creation/submit-transaction.js password=MY_PASSWORD bitcoinTx=7f39571159935d849d1d7407754157921450c5252f1c79cced14ad56d3fdb3e4",
+      "Please insert a bitcoin funding transaction for your address. Example: \n node examples/transaction-creation/submit-transaction.js password=MY_PASSWORD bitcoinTx=MY_BITCOIN_FUNDING_TX",
     );
   }
 

@@ -54,39 +54,40 @@ As we list a few publicly available faucets options below:
 
 Note that faucets can be occasionally empty or can change frequently, if your having trouble with all of the ones listed above for your desired DLT, have a Google and let us know if you find a better one.
 
-### 
+### Creating Transactions
 
-See that the response has two main objects due to Overledger’s preparation and execution model:
+This example will create transactions on the Bitcoin testnet, Ethereum Ropsten testnet and the XRP ledger test:
 
-1. preparationAddressBalanceSearchResponse: This includes the request id and any QNT fee that must be paid for use of this endpoint.
-2. executionAddressBalanceSearchResponse: This includes the requested address balance. 
+`node examples/transaction-creation/submit-transactions.js password=MY_PASSWORD bitcoinTx=MY_BITCOIN_FUNDING_TX`
 
-The balance information will be returned in cross-DLT standardised form for the account data model. There is no associated status object as balances are read from the state of the latest block.
+Note that an extra command line parameter is required, a bitcoin transaction that you have received from the bitcoin faucet, including an unspent transaction output that you have not yet used. 
 
-For parameter by parameter descriptions see the [openAPI3 doc](https://docs.overledger.io/#operation/autoExecuteSearchAddressBalanceRequest).
+This is required because...
 
-##### Overledger Auto Execute Balance Search API Response
+This script does the following...
 
-See that the response has two main objects due to Overledger’s preparation and execution model:
+#### Overledger Execute Transaction API Response
 
-1. preparationAddressSequenceSearchResponse: This includes the request id and any QNT fee that must be paid for use of this endpoint.
-2. executionAddressSequenceSearchResponse: This includes the requested address sequence. 
+The execute transaction response will contain a few main components:
 
-The sequence information will be returned in cross-DLT standardised form for the account data model. There is no associated status object as balances are read from the state of the latest block.
+i. Location: Each Overledger DLT data response includes a reference to the location (technology, network) of where this data was taken from. This helps with auditing.
+ii. Status: Overledger responses regarding blocks and transactions come with a status. Due to some DLTs having probabilistic finality of transactions/blocks and other DLTs having deterministic finality of transaction/blocks, the status object is used to indicate to the developer when the requested data is assumed to be final (therefore status.value = “SUCCESSFUL”) or not (therefore status.value=“PENDING”).
+iii. Transaction = The requested transaction data in standardised and nativeData formats.
 
-For parameter by parameter descriptions see the [openAPI3 doc](https://docs.overledger.io/#operation/prepareAddressSequenceSearchRequest_1).
+For parameter by parameter descriptions see the [openAPI3 doc](https://docs.overledger.io/#operation/executePreparedRequestTransaction).
+
 
 #### Challenges
 
-##### Searching the XRP Ledger Testnet
+(THE FOLLOWING ARE POSSIBLE IDEAS)
 
-Given the example `./examples/state-search/autoexecute-accounts-search.js` file and the location information listed above, can you understand how to change this file to instead run for the XRP Ledger testnets?
+##### Sending Transactions to Specific Addresses
 
-##### Searching for a Specific Address
+Given the example `./examples/transaction-creation/submit-transactions.js` file, can you understand how to change this file send to specific addresses that you choose from each DLT network? How will you choose these addresses?
 
-Take a look at a third party explorer for the DLT testnets we are using, e.g. [the Ethereum Ropsten Testnet](https://ropsten.etherscan.io/) or [the XRP Ledger Testnet](https://blockexplorer.one/xrp/testnet).
+##### Sending Transactions for a Specific Amount
 
-Choose any account address from these explorers. Can you understand how to modify the example script to search for that account's balance and sequence?
+Given the example `./examples/transaction-creation/submit-transactions.js` file, can you understand how to change this file send specific amounts of your choosing? Do you have any limitations on the amounts that you choose and how can you modify the code to deal with this issue?
 
 #### Troubleshooting
 This class was tested in  Ubuntu 20.04.2 LTS Release: 20.04 Codename: focal, with nvm version 0.35.3, and node version 16.3.0. 
