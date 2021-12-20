@@ -46,7 +46,7 @@
           "--async-stack-traces"
         ],
         "args": [
-          "--password=MY_PASSWORD"
+          "--password=MY_PASSWORD", "--fundingTx=cd00aa114c0390f744c6a9615f7902f21de835e7df629e7d8d1028cdb58d4a41"
         ],
         "outFiles": [
           "dist/lib/*"
