@@ -4,13 +4,13 @@
 
 ### Exercise 2.4 - Read your first UTXO Transaction
 
-For this task, we will read our first UTXO transaction via Overledger’s autoExecuteSearchTransaction API. The openAPI3 version of this endpoint can be found [here](https://docs.overledger.io/#operation/autoExecuteSearchTransactionRequest). 
+For this task, we will read our first UTXO transaction via Overledger’s autoExecuteSearchTransaction API. The documentation for this endpoint can be found [here](https://docs.overledger.io/#operation/autoExecuteSearchTransactionRequest). 
 
 #### DLT Network Information
 
 We will be interacting with the Bitcoin testnet. The relevant Overledger location object is as follows:
 
-1. Location = {“technology”: “Bitcoin”, “network”: “Testnet”}
+``Location = {“technology”: “Bitcoin”, “network”: “Testnet”}``
 
 #### Prerequisites
 
@@ -41,17 +41,21 @@ The transaction information will be returned in cross-DLT standardised form and 
 
 The transaction response will contain a few main components. Notice that the metadata components (location and status) are the same for a transaction as they are with a block.
 
-i. Location: Each Overledger DLT data response includes a reference to the location (technology, network) of where this data was taken from. This helps with auditing.
-ii. Status: Overledger responses regarding blocks and transactions come with a status. Due to some DLTs having probabilistic finality of transactions/blocks and other DLTs having deterministic finality of transaction/blocks, the status object is used to indicate to the developer when the requested data is assumed to be final (therefore status.value = “SUCCESSFUL”) or not (therefore status.value=“PENDING”).
-iii. Transaction = The requested transaction data in standardised and nativeData formats.
+1. Location: Each Overledger DLT data response includes a reference to the location (technology, network) of where this data was taken from. This helps with auditing.
 
-For parameter by parameter descriptions see the [openAPI3 doc](https://docs.overledger.io/#operation/autoExecuteSearchTransactionRequest).
+2. Status: Overledger responses regarding blocks and transactions come with a status. Due to some DLTs having probabilistic finality of transactions/blocks and other DLTs having deterministic finality of transaction/blocks, the status object is used to indicate to the developer when the requested data is assumed to be final (therefore status.value = “SUCCESSFUL”) or not (therefore status.value=“PENDING”).
+
+
+3. Transaction = The requested transaction data in standardised and nativeData formats.
+
+For parameter by parameter descriptions see the [documentation](https://docs.overledger.io/#operation/autoExecuteSearchTransactionRequest).
 
 ###### Auto Execute Transaction Search API Response Origins and Destinations
 
 In the UTXO model, a transaction contains one or more origins (inputs) and one or more destinations (inputs). In the UTXO model the related identifiers have specific meaning:
 
 - OriginId: This is a reference to a transactionId:DestinationArrayIndex of an unspent transaction output that is now being spent.
+  
 - DestinationId: This is a reference to an externally owned account (controlled by a private key) or to a smart contract address (controlled by smart contract code). An externally owned account requires a signature to spent the BTC associated to this transaction output. Whereas a smart contract address requires some user defined parameters to be satisfied in order for the transaction output to be spent. 
 
 #### Challenges

@@ -57,7 +57,9 @@ log.info("Executing ", courseModule);
         process.env.CLIENT_SECRET,
       );
 
-    log.info("Creating the Overledger Request Object with the Correct Location");
+    log.info(
+      "Creating the Overledger Request Object with the Correct Location",
+    );
     const overledgerRequestMetaData = {
       location: {
         technology: "Bitcoin",
@@ -77,7 +79,7 @@ log.info("Executing ", courseModule);
     let overledgerBlockResponse;
     let blockToSearch = "latest";
 
-    while (locatedPaymentTransaction == false) {
+    while (locatedPaymentTransaction === false) {
       log.info(`Asking Overledger for Block: ${blockToSearch}`);
       overledgerBlockResponse = await overledgerInstance.post(
         `/autoexecution/search/block/${blockToSearch}`,
@@ -138,16 +140,16 @@ log.info("Executing ", courseModule);
         );
         if (
           overledgerTransactionResponse.data.executionTransactionSearchResponse
-            .type == "PAYMENT"
+            .type === "PAYMENT"
         ) {
           transactionsInBlockCounter = numberOfTransactionsInBlock;
           locatedPaymentTransaction = true;
         } else {
-          transactionsInBlockCounter--;
+          transactionsInBlockCounter -= 1;
         }
       }
 
-      if (locatedPaymentTransaction == false) {
+      if (locatedPaymentTransaction === false) {
         log.info(
           `No Payment Transactions Found in Block Number ${overledgerBlockResponse.data.executionBlockSearchResponse.block.number}`,
         );
