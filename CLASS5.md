@@ -4,13 +4,14 @@
 
 ### Exercise 2.8 - Read your first Accounts Transaction
 
-For this task, we will read our first Accounts transaction via Overledger’s autoExecuteSearchTransaction API. The openAPI3 version of this endpoint can be found [here](https://docs.overledger.io/#operation/autoExecuteSearchTransactionRequest). 
+For this task, we will read our first Accounts transaction via Overledger’s autoExecuteSearchTransaction API. The documentation can be found [here](https://docs.overledger.io/#operation/autoExecuteSearchTransactionRequest). 
 
 #### DLT Network Information
 
 We will be interacting with the Ethereum Ropsten and the XRP Ledger testnets. The relevant Overledger location objects are as follows:
 
 1. Location = {“technology”: “Ethereum”, “network”: “Ropsten Testnet”}
+   
 2. Location = {“technology”: “XRP Ledger”, “network”: “Testnet”}
 
 #### Prerequisites
@@ -20,13 +21,14 @@ It is assumed that you have already setup your environment by following [these i
 
 ##### Overledger Auto Execute Transaction Search API Response
 
-See [here](./CLASS3.md) for futher details on the response body.
+See [here](./CLASS3.md) for further details on the response body.
 
 ###### Auto Execute Transaction Search API Response Origins and Destinations
 
 In the Account model, a payment transaction contains one origin and usually one destination. In the Account model for payment transactions the related identifiers have specific meaning:
 
 - OriginId: This is a reference to the (externally owned) account that is being debited the payment.
+  
 - DestinationId: This is a reference to the account that is being credited the payment. 
 
 In Ethereum and the XRP Ledger DLTs, there is only one destination for payment transactions. But this is not true for all Accounts based DLTs. For instance the Stellar DLT allows multiple payments in one transaction.

@@ -4,7 +4,7 @@
 
 ### Exercise 2.10 - Read your first Accounts State
 
-For this task, we will read our first Accounts state via Overledger’s autoExecuteSearchAddressBalance and autoExecuteSearchAddressSequence APIs. The openAPI3 version of these endpoints can be found [here](https://docs.overledger.io/#operation/autoExecuteSearchAddressBalanceRequest) and [here](https://docs.overledger.io/#operation/prepareAddressSequenceSearchRequest_1). 
+For this task, we will read our first Accounts state via Overledger’s autoExecuteSearchAddressBalance and autoExecuteSearchAddressSequence APIs. The documentation for these endpoints can be found [here](https://docs.overledger.io/#operation/autoExecuteSearchAddressBalanceRequest) and [here](https://docs.overledger.io/#operation/prepareAddressSequenceSearchRequest_1). 
 
 Note that unlike blocks and transactions, the state data model of utxo and accounts based DLTs do have to diverge somewhat. This is because of the wide variety of parameters in the state of both models.
 
@@ -13,19 +13,20 @@ Note that unlike blocks and transactions, the state data model of utxo and accou
 We will be interacting with the Ethereum Ropsten and the XRP Ledger testnets. The relevant Overledger location objects are as follows:
 
 1. Location = {“technology”: “Ethereum”, “network”: “Ropsten Testnet”}
+   
 2. Location = {“technology”: “XRP Ledger”, “network”: “Testnet”}
 
 #### Prerequisites
 
 It is assumed that you have already setup your environment by following [these instructions](./CLASS1.md) and that you have completed the previous exercises to search for a block using Overledger [here](./CLASS2.md) and to search for an Account transaction using Overledger [here](./CLASS5.md).
 
-#### Searching Accounts for Specific Properities
+#### Searching Accounts for Specific Properties
 
 This example will search a subset of addresses and identify the address with the largest balance and the address with the largest sequence number. To be in the subset of addresses searched, an address will have had to send a transaction in the latest block of the Ethereum Ropsten testnet. To run the example, enter:
 
 `node examples/state-search/autoexecute-accounts-search.js password=MY_PASSWORD`
 
-This script first gets the latest block, then gets each transaction from the block. For each transaction origin address, the script gets that addresses balance and sequence number. The script keeps track of the largest address for each parameter.
+This script first gets the latest block, then gets each transaction from the block. For each transaction origin address, the script gets that addresses balance and sequence number. The script keeps track of the address with the largest parameters.
 
 All the logic in this script is based on the Overledger standardised data model. This means that the script can easily be reused for other DLTs that are Account based.
 
@@ -34,6 +35,7 @@ All the logic in this script is based on the Overledger standardised data model.
 See that the response has two main objects due to Overledger’s preparation and execution model:
 
 1. preparationAddressBalanceSearchResponse: This includes the request id and any QNT fee that must be paid for use of this endpoint.
+   
 2. executionAddressBalanceSearchResponse: This includes the requested address balance. 
 
 The balance information will be returned in cross-DLT standardised form for the account data model. There is no associated status object as balances are read from the state of the latest block.
@@ -45,11 +47,12 @@ For parameter by parameter descriptions see the [openAPI3 doc](https://docs.over
 See that the response has two main objects due to Overledger’s preparation and execution model:
 
 1. preparationAddressSequenceSearchResponse: This includes the request id and any QNT fee that must be paid for use of this endpoint.
+   
 2. executionAddressSequenceSearchResponse: This includes the requested address sequence. 
 
 The sequence information will be returned in cross-DLT standardised form for the account data model. There is no associated status object as balances are read from the state of the latest block.
 
-For parameter by parameter descriptions see the [openAPI3 doc](https://docs.overledger.io/#operation/prepareAddressSequenceSearchRequest_1).
+For parameter by parameter descriptions see the [documentation](https://docs.overledger.io/#operation/prepareAddressSequenceSearchRequest_1).
 
 #### Challenges
 
