@@ -57,7 +57,9 @@ log.info("Executing ", courseModule);
         process.env.CLIENT_SECRET,
       );
 
-    log.info("Creating the Overledger Request Object with the Correct Location");
+    log.info(
+      "Creating the Overledger Request Object with the Correct Location",
+    );
     const overledgerRequestMetaData = {
       location: {
         technology: "Ethereum",

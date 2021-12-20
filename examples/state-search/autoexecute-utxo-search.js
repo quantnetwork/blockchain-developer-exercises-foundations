@@ -57,7 +57,9 @@ log.info("Executing ", courseModule);
         process.env.CLIENT_SECRET,
       );
 
-    log.info("Creating the Overledger Request Object with the Correct Location");
+    log.info(
+      "Creating the Overledger Request Object with the Correct Location",
+    );
     const overledgerRequestMetaData = {
       location: {
         technology: "Bitcoin",
@@ -69,7 +71,7 @@ log.info("Executing ", courseModule);
     );
 
     log.info("Locating the Largest Unspent UTXO in a recent Block");
-    let locatedPaymentTransaction = false;
+    const locatedPaymentTransaction = false;
     let transactionId;
     let overledgerTransactionResponse;
     let overledgerUTXOResponse;
@@ -87,27 +89,25 @@ log.info("Executing ", courseModule);
       `/autoexecution/search/block/latest`,
       overledgerRequestMetaData,
     );
-    const blockNumber = 
-    overledgerBlockResponse.data.executionBlockSearchResponse.block.number-20;
+    const blockNumber =
+      overledgerBlockResponse.data.executionBlockSearchResponse.block.number -
+      20;
     log.info(`Asking Overledger for the Block 20 Back from the Latest`);
     overledgerBlockResponse = await overledgerInstance.post(
-      `/autoexecution/search/block/` + blockNumber,
+      `/autoexecution/search/block/${blockNumber}`,
       overledgerRequestMetaData,
     );
     const transactionsInBlock =
-    overledgerBlockResponse.data.executionBlockSearchResponse.block
-      .numberOfTransactions - 1;
+      overledgerBlockResponse.data.executionBlockSearchResponse.block
+        .numberOfTransactions - 1;
     log.info(
       `Transactions in Block = ${overledgerBlockResponse.data.executionBlockSearchResponse.block.numberOfTransactions}`,
     );
 
     // check if there is any transactions in this block
-    if (transactionsInBlock < 0){
-      log.info(
-        `The latest block has no transactions. Please try again later`,
-      );     
+    if (transactionsInBlock < 0) {
+      log.info(`The latest block has no transactions. Please try again later`);
     } else {
-
       let counter = 0;
       while (counter <= transactionsInBlock) {
         // get n'th transaction id
@@ -123,12 +123,14 @@ log.info("Executing ", courseModule);
           `/autoexecution/search/transaction?transactionId=${transactionId}`,
           overledgerRequestMetaData,
         );
-        utxoCount = overledgerTransactionResponse.data.executionTransactionSearchResponse.transaction.destination.length-1;
+        utxoCount =
+          overledgerTransactionResponse.data.executionTransactionSearchResponse
+            .transaction.destination.length - 1;
         log.info(
           `This Transaction has ${overledgerTransactionResponse.data.executionTransactionSearchResponse.transaction.destination.length} destinations`,
         );
-        while (utxoCount >= 0){
-          utxoId = transactionId + ":" + utxoCount.toString();
+        while (utxoCount >= 0) {
+          utxoId = `${transactionId}:${utxoCount.toString()}`;
           log.info(
             `Asking Overledger for UTXO ${utxoCount} in Transaction ${counter}`,
           );
@@ -136,16 +138,19 @@ log.info("Executing ", courseModule);
             `/autoexecution/search/utxo/${utxoId}`,
             overledgerRequestMetaData,
           );
-          utxoStatus = overledgerUTXOResponse.data.executionUtxoSearchResponse.status.code;
-          log.info(
-            `The UTXO has a status of ${utxoStatus}`,
-          );
-          if (utxoStatus === "UNSPENT_SUCCESSFUL"){
-            thisUtxoAmount = overledgerUTXOResponse.data.executionUtxoSearchResponse.destination[0].payment.amount;
-            if (thisUtxoAmount > maxUtxoAmount){
+          utxoStatus =
+            overledgerUTXOResponse.data.executionUtxoSearchResponse.status.code;
+          log.info(`The UTXO has a status of ${utxoStatus}`);
+          if (utxoStatus === "UNSPENT_SUCCESSFUL") {
+            thisUtxoAmount =
+              overledgerUTXOResponse.data.executionUtxoSearchResponse
+                .destination[0].payment.amount;
+            if (thisUtxoAmount > maxUtxoAmount) {
               maxUtxoAmount = thisUtxoAmount;
               maxUtxoId = utxoId;
-              maxUtxoDestination = overledgerUTXOResponse.data.executionUtxoSearchResponse.destination[0].destinationId;
+              maxUtxoDestination =
+                overledgerUTXOResponse.data.executionUtxoSearchResponse
+                  .destination[0].destinationId;
               overledgerUTXOMaxBalanceResponse = overledgerUTXOResponse;
             }
           }
@@ -154,22 +159,21 @@ log.info("Executing ", courseModule);
         counter++;
       }
 
-      const balanceUnit = overledgerUTXOResponse.data.executionUtxoSearchResponse.destination[0].payment.unit;
+      const balanceUnit =
+        overledgerUTXOResponse.data.executionUtxoSearchResponse.destination[0]
+          .payment.unit;
       log.info();
       log.info(`In Block ${blockNumber}:`);
       log.info(`The Largest UTXO is: ${maxUtxoId}`);
       log.info(`The Address with the Largest UTXO is: ${maxUtxoDestination}`);
       log.info(`This UTXO has locked: ${maxUtxoAmount} ${balanceUnit}`);
-  
+
       log.info(
         `Overledger's Response For the Max UTXO Was:\n\n${JSON.stringify(
           overledgerUTXOMaxBalanceResponse.data,
         )}\n\n`,
       );
-
     }
-
-
   } catch (e) {
     log.error("error", e);
   }
