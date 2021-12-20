@@ -127,12 +127,14 @@ log.info("Executing ", courseModule);
     // loop over UTXOs in the funding transaction and wait for a match to the users Bitcoin address
     let count = 0;
     const bitcoinTxDestinations =
-      overledgerTransactionSearchResponse.data.executionTransactionSearchResponse.transaction.destination.length;
+      overledgerTransactionSearchResponse.data
+        .executionTransactionSearchResponse.transaction.destination.length;
     let destination;
     let bitcoinOrigin;
     while (count < bitcoinTxDestinations) {
       destination =
-        overledgerTransactionSearchResponse.data.executionTransactionSearchResponse.transaction.destination[count];
+        overledgerTransactionSearchResponse.data
+          .executionTransactionSearchResponse.transaction.destination[count];
       if (destination.destinationId == process.env.BITCOIN_ADDRESS) {
         bitcoinOrigin = `${BITCOIN_FUNDING_TX}:${count.toString()}`;
       }
@@ -206,11 +208,13 @@ log.info("Executing ", courseModule);
           ],
         },
       };
+
       // send the standardised transaction to Overledger to prepare the native data stucture
       prepareTransactionResponse[count] = await overledgerInstance.post(
         "/preparation/transaction",
         prepareTransactionRequest[count],
       ).data;
+
       // sign the native transaction
       signedTransaction = (
         await overledger.sign(
