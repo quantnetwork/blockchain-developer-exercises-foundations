@@ -71,7 +71,6 @@ log.info("Executing ", courseModule);
     );
 
     log.info("Locating the Largest Unspent UTXO in a recent Block");
-    const locatedPaymentTransaction = false;
     let transactionId;
     let overledgerTransactionResponse;
     let overledgerUTXOResponse;
@@ -154,9 +153,9 @@ log.info("Executing ", courseModule);
               overledgerUTXOMaxBalanceResponse = overledgerUTXOResponse;
             }
           }
-          utxoCount--;
+          utxoCount -= 1;
         }
-        counter++;
+        counter += 1;
       }
 
       const balanceUnit =

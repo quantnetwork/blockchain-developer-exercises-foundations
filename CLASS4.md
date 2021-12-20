@@ -4,7 +4,7 @@
 
 ### Exercise 2.6 - Read your first UTXO State
 
-For this task, we will read our first UTXO state via Overledger’s autoExecuteSearchUtxo API. The openAPI3 version of this endpoint can be found [here](https://docs.overledger.io/#operation/autoExecuteSearchUtxoRequest). 
+For this task, we will read our first UTXO state via Overledger’s autoExecuteSearchUtxo API. The documentation for this endpoint can be found [here](https://docs.overledger.io/#operation/autoExecuteSearchUtxoRequest). 
 
 Note that unlike blocks and transactions, the state data model of utxo and accounts based DLTs do have to diverge somewhat. This is because of the wide variety of parameters in the state of both models.
 
@@ -12,7 +12,7 @@ Note that unlike blocks and transactions, the state data model of utxo and accou
 
 We will be interacting with the Bitcoin testnet. The relevant Overledger location object is as follows:
 
-1. Location = {“technology”: “Bitcoin”, “network”: “Testnet”}
+``Location = {“technology”: “Bitcoin”, “network”: “Testnet”}``
 
 #### Prerequisites
 
@@ -46,13 +46,15 @@ The utxo information will be returned in cross-DLT standardised form for the utx
 
 ##### Auto Execute Transaction Search API Response Main Components
 
-The utxo response will contain a few main components. Notice that the metadata components (location and status) are the same for a utxo as they are for a transaction and block. The only difference is the status codes, as described in the section above.
+The UTXO response will contain a few main components. Notice that the metadata components (location and status) are the same for a UTXO as they are for a transaction and block. The only difference is the status codes, as described in the section above.
 
-i. Location: Each Overledger DLT data response includes a reference to the location (technology, network) of where this data was taken from. This helps with auditing.
-ii. Status: Overledger responses regarding utxos come with a status. Due to some DLTs having probabilistic finality of transactions/blocks and other DLTs having deterministic finality of transaction/blocks, the status object is used to indicate to the developer when the requested data is assumed to be final (therefore status.value has the suffix “SUCCESSFUL”) or not (therefore status.value has the suffix “PENDING”). As transaction outputs can have an additional three statuses ("SPENT", "UNSPENT", "UNSPENDABLE", as described above), this part of the status is included as the prefix.
-iii. Destination = The requested transaction output, presented as the Overledger standardised destination and nativeData formats.
+1. Location: Each Overledger DLT data response includes a reference to the location (technology, network) of where this data was taken from. This helps with auditing.
 
-For parameter by parameter descriptions see the [openAPI3 doc](https://docs.overledger.io/#operation/autoExecuteSearchUtxoRequest).
+2. Status: Overledger responses regarding utxos come with a status. Due to some DLTs having probabilistic finality of transactions/blocks and other DLTs having deterministic finality of transaction/blocks, the status object is used to indicate to the developer when the requested data is assumed to be final (therefore status.value has the suffix “SUCCESSFUL”) or not (therefore status.value has the suffix “PENDING”). As transaction outputs can have an additional three statuses ("SPENT", "UNSPENT", "UNSPENDABLE", as described above), this part of the status is included as the prefix.
+
+3. Destination = The requested transaction output, presented as the Overledger standardised destination and nativeData formats.
+
+For parameter by parameter descriptions see the [documentation](https://docs.overledger.io/#operation/autoExecuteSearchUtxoRequest).
 
 ###### Auto Execute Transaction Search API Response Origins and Destinations
 
