@@ -57,7 +57,9 @@ log.info("Executing ", courseModule);
         process.env.CLIENT_SECRET,
       );
 
-    log.info("Creating the Overledger Request Object with the Correct Location");
+    log.info(
+      "Creating the Overledger Request Object with the Correct Location",
+    );
     const overledgerRequestMetaData = {
       location: {
         technology: "Ethereum",
@@ -68,7 +70,9 @@ log.info("Executing ", courseModule);
       refreshTokensResponse.accessToken.toString(),
     );
 
-    log.info("Locating the Largest Balance and Sequence Number of any Account Who Sent a Transaction in the Latest Block");
+    log.info(
+      "Locating the Largest Balance and Sequence Number of any Account Who Sent a Transaction in the Latest Block",
+    );
     let transactionId;
     let originId;
     let thisBalance;
@@ -89,21 +93,18 @@ log.info("Executing ", courseModule);
       overledgerRequestMetaData,
     );
     const transactionsInBlock =
-    overledgerBlockResponse.data.executionBlockSearchResponse.block
-      .numberOfTransactions - 1;
-    const blockNumber = 
-    overledgerBlockResponse.data.executionBlockSearchResponse.block.number;
+      overledgerBlockResponse.data.executionBlockSearchResponse.block
+        .numberOfTransactions - 1;
+    const blockNumber =
+      overledgerBlockResponse.data.executionBlockSearchResponse.block.number;
     log.info(
       `Transactions in Block = ${overledgerBlockResponse.data.executionBlockSearchResponse.block.numberOfTransactions}`,
     );
 
     // check if there is any transactions in this block
-    if (transactionsInBlock < 0){
-      log.info(
-        `The latest block has no transactions. Please try again later.`,
-      );     
+    if (transactionsInBlock < 0) {
+      log.info(`The latest block has no transactions. Please try again later.`);
     } else {
-
       let counter = 0;
       while (counter <= transactionsInBlock) {
         // get n'th transaction id
@@ -119,59 +120,70 @@ log.info("Executing ", courseModule);
           `/autoexecution/search/transaction?transactionId=${transactionId}`,
           overledgerRequestMetaData,
         );
-        originId = overledgerTransactionResponse.data.executionTransactionSearchResponse.transaction.origin[0].originId;
+        originId =
+          overledgerTransactionResponse.data.executionTransactionSearchResponse
+            .transaction.origin[0].originId;
         log.info(`The originId of this Transaction is ${originId}`);
         // query Overledger for the origin's balance
         overledgerAddressBalanceResponse = await overledgerInstance.post(
           `/autoexecution/search/address/balance/${originId}`,
           overledgerRequestMetaData,
         );
-        thisBalance = overledgerAddressBalanceResponse.data.executionAddressBalanceSearchResponse.balances[0].amount;
-        // query Overledger for the origin's sequence        
+        thisBalance =
+          overledgerAddressBalanceResponse.data
+            .executionAddressBalanceSearchResponse.balances[0].amount;
+        // query Overledger for the origin's sequence
         overledgerAddressSequenceResponse = await overledgerInstance.post(
           `/autoexecution/search/address/sequence/${originId}`,
           overledgerRequestMetaData,
         );
-        thisSequence = overledgerAddressSequenceResponse.data.executionAddressSequenceSearchResponse.sequence;
+        thisSequence =
+          overledgerAddressSequenceResponse.data
+            .executionAddressSequenceSearchResponse.sequence;
 
         // change the maximums if required
         if (thisBalance > maxBalance) {
           maxBalance = thisBalance;
           originIdWithMaxBalance = originId;
-          overledgerAddressMaxBalanceResponse = overledgerAddressBalanceResponse;
+          overledgerAddressMaxBalanceResponse =
+            overledgerAddressBalanceResponse;
         }
-        if (thisSequence > maxSequence){
+        if (thisSequence > maxSequence) {
           maxSequence = thisSequence;
           originIdWithMaxSequence = originId;
-          overledgerAddressMaxSequenceResponse = overledgerAddressSequenceResponse;
+          overledgerAddressMaxSequenceResponse =
+            overledgerAddressSequenceResponse;
         }
 
         counter++;
-
       }
 
-      const balanceUnit = overledgerAddressBalanceResponse.data.executionAddressBalanceSearchResponse.balances[0].unit;
+      const balanceUnit =
+        overledgerAddressBalanceResponse.data
+          .executionAddressBalanceSearchResponse.balances[0].unit;
       log.info();
       log.info(`In Block ${blockNumber}:`);
-      log.info(`The Address with the Largest Balance is: ${originIdWithMaxBalance}`);
+      log.info(
+        `The Address with the Largest Balance is: ${originIdWithMaxBalance}`,
+      );
       log.info(`This Address had a Balance of: ${maxBalance} ${balanceUnit}`);
-      log.info(`The Address with the Largest Sequence is: ${originIdWithMaxSequence}`);
+      log.info(
+        `The Address with the Largest Sequence is: ${originIdWithMaxSequence}`,
+      );
       log.info(`This Address had a Sequence Number of: ${maxSequence}`);
-  
+
       log.info(
         `Overledger's Response For the Max Balance Was:\n\n${JSON.stringify(
           overledgerAddressMaxBalanceResponse.data,
         )}\n\n`,
       );
-  
+
       log.info(
         `Overledger's Response For the Max Sequence Was:\n\n${JSON.stringify(
           overledgerAddressMaxSequenceResponse.data,
         )}\n\n`,
       );
-
     }
-
   } catch (e) {
     log.error("error", e);
   }
