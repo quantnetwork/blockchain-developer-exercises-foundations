@@ -21,9 +21,9 @@ log4js.configure({
 });
 
 log.info("Loading secure environment variables defined in .env.enc");
-const PASSWORD_INPUT = process.argv.slice(2).toString();
-const SENV_PASSWORD = PASSWORD_INPUT.split("=")[1].split(" ")[0];
-const BITCOIN_FUNDING_TX = BITCOIN_FUNDING_TX_INPUT.split("=")[2];
+
+const SENV_PASSWORD = process.argv[2].split("=")[1];
+const BITCOIN_FUNDING_TX = process.argv[3].split("=")[1];
 
 // Check for provided password for the secure env
 if (!SENV_PASSWORD) {
@@ -58,7 +58,7 @@ log.info("Executing ", courseModule);
       provider: { network: "https://api.sandbox.overledger.io/v2" }, // URL for the testnet versions of these DLTs
       envFilePassword: SENV_PASSWORD,
     });
-    log.info("Creating random addresses to send transactions too");
+    log.info("Creating random addresses to send transactions to");
     const bitcoinAccount = await overledger.dlts.bitcoin.createAccount();
     const bitcoinDestination = bitcoinAccount.address;
 
@@ -127,16 +127,16 @@ log.info("Executing ", courseModule);
     // loop over UTXOs in the funding transaction and wait for a match to the users Bitcoin address
     let count = 0;
     const bitcoinTxDestinations =
-      overledgerTransactionSearchResponse.data.transaction.destination.length;
+      overledgerTransactionSearchResponse.data.executionTransactionSearchResponse.transaction.destination.length;
     let destination;
     let bitcoinOrigin;
     while (count < bitcoinTxDestinations) {
       destination =
-        overledgerTransactionSearchResponse.data.transaction.destination[count];
+        overledgerTransactionSearchResponse.data.executionTransactionSearchResponse.transaction.destination[count];
       if (destination.destinationId == process.env.BITCOIN_ADDRESS) {
         bitcoinOrigin = `${BITCOIN_FUNDING_TX}:${count.toString()}`;
       }
-      count++;
+      count += 1;
     }
 
     if (!bitcoinOrigin) {

@@ -2,7 +2,7 @@
 
 ## Exercise 3.10 - Create your first DLT transactions
 
-For this task, we will create our transactions via Overledger’s prepareTransactionRequest and executePreparedRequestTransaction APIs. The openAPI3 version of these endpoints can be found [here](https://docs.overledger.io/#operation/prepareTransactionRequest) and [here](https://docs.overledger.io/#operation/executePreparedRequestTransaction). 
+For this task, we will create our transactions via Overledger’s prepareTransactionRequest and executePreparedRequestTransaction APIs. The documentation for these endpoints can be found [here](https://docs.overledger.io/#operation/prepareTransactionRequest) and [here](https://docs.overledger.io/#operation/executePreparedRequestTransaction). 
 
 
 ### DLT Network Information
@@ -10,7 +10,9 @@ For this task, we will create our transactions via Overledger’s prepareTransac
 We will be interacting with the Bitcoin, Ethereum & XRP Ledger testnets. The relevant Overledger location objects are as follows:
 
 1. Location = {“technology”: “Bitcoin”, “network”: “Testnet”}
+   
 2. Location = {“technology”: “Ethereum”, “network”: “Ropsten Testnet”}
+   
 3. Location = {“technology”: “XRP Ledger”, “network”: “Testnet”}
 
 ### Prerequisites
@@ -36,14 +38,14 @@ To use them, recall the *.env.example.* from Class 1. This file defines environm
 - ETHEREUM_ADDRESS: set this equal to your newly generated EthereumAccount.address
 - XRP_LEDGER_ADDRESS: set this equal to your newly generated XRPLedgerAccount.address
 
-Therefore you will once again need to duplicate the *.env.example* file and rename it to *.env*. Make sure to set the previous four parameters from Class 1 and the new six parameters from this class in *.env*. You will also need to once again encrypt the *.env* file. For this, run on your terminal (replace MY_PASSWORD for a password of your choice):
+Therefore you will once again need to setup the *.env.enc* file as stated in Class 1. In particular, you need to duplicate the *.env.example* file and rename it to *.env*. Make sure to set the previous four parameters from Class 1 and the new six parameters from this class in *.env*. You will also need to once again encrypt the *.env* file. For this, run on your terminal (replace MY_PASSWORD for a password of your choice):
 
 ``npm-run secure-env .env -s MY_PASSWORD``
 
 
 ### Attaining Testnet Cryptocurrency
 
-As we are interacting with permissionless DLT networks, we will have to pay a transaction fee to get our transactions accepted on the DLT networks. As we are interacting with testnets, the transaction fee will actually be paid in a worthless cryptocurrency. But the transaction fee system needs to still be present in the testnets, otherwise the testnets would not accurately simulate the mainnets. 
+As we are interacting with permissionless DLT networks, we will have to pay a transaction fee to get our transactions accepted on the DLT networks. As we are interacting with testnets, the transaction fee will actually be paid in a test cryptocurrency (typically without monetary value). But the transaction fee system needs to still be present in the testnets, otherwise the testnets would not accurately simulate the mainnets. 
 
 There you will need to fund your addresses before you can send transactions from those addresses. To fund your addresses on testnets, we can request a faucet to provide us some funds. These services are named as faucets as the "drip" funds to users that require them. 
 
@@ -58,23 +60,26 @@ Note that faucets can be occasionally empty or can change frequently, if your ha
 
 This example will create transactions on the Bitcoin testnet, Ethereum Ropsten testnet and the XRP ledger test:
 
-`node examples/transaction-creation/submit-transactions.js password=MY_PASSWORD bitcoinTx=MY_BITCOIN_FUNDING_TX`
+`node examples/transaction-creation/submit-transactions.js password=MY_PASSWORD fundingTx=MY_BITCOIN_FUNDING_TX`
 
 Note that an extra command line parameter is required, a bitcoin transaction that you have received from the bitcoin faucet, including an unspent transaction output that you have not yet used. 
 
-This is required because...
+We will use the bitcoin funding transaction as the starting point to explore. This script does the following: it first fetches the bitcoin funding transaction that you created using the faucet. Then, it loops over UTXOs in the funding transaction and wait for a match to your Bitcoin address. If it doesn't find it, it means that you have provided the wrong Bitcoin address to *.env*, or the provided transaction is not the funding transaction issued by the faucet (or the faucet is not working correctly). 
 
-This script does the following...
+Then, the script constructs the origin, which is the UTXO's index from the faucet transaction that was directed to our account. That means that UTXO is unspent (unless you have already spent it) and thus it is usable. This origin is now used to create a prepareTransactionRequest. The request is signed and then sent to Overledger. Overledger gateways then issue the transaction against Bitcoin's test ledger. 
+
 
 #### Overledger Execute Transaction API Response
 
 The execute transaction response will contain a few main components:
 
-i. Location: Each Overledger DLT data response includes a reference to the location (technology, network) of where this data was taken from. This helps with auditing.
-ii. Status: Overledger responses regarding blocks and transactions come with a status. Due to some DLTs having probabilistic finality of transactions/blocks and other DLTs having deterministic finality of transaction/blocks, the status object is used to indicate to the developer when the requested data is assumed to be final (therefore status.value = “SUCCESSFUL”) or not (therefore status.value=“PENDING”).
-iii. Transaction = The requested transaction data in standardised and nativeData formats.
+1. Location: Each Overledger DLT data response includes a reference to the location (technology, network) of where this data was taken from. This helps with auditing.
 
-For parameter by parameter descriptions see the [openAPI3 doc](https://docs.overledger.io/#operation/executePreparedRequestTransaction).
+2. Status: Overledger responses regarding blocks and transactions come with a status. Due to some DLTs having probabilistic finality of transactions/blocks and other DLTs having deterministic finality of transaction/blocks, the status object is used to indicate to the developer when the requested data is assumed to be final (therefore status.value = “SUCCESSFUL”) or not (therefore status.value=“PENDING”).
+   
+3. Transaction = The requested transaction data in standardised and nativeData formats.
+
+For parameter by parameter descriptions see the [documentation](https://docs.overledger.io/#operation/executePreparedRequestTransaction).
 
 
 #### Challenges
@@ -87,7 +92,7 @@ Given the example `./examples/transaction-creation/submit-transactions.js` file,
 
 ##### Sending Transactions for a Specific Amount
 
-Given the example `./examples/transaction-creation/submit-transactions.js` file, can you understand how to change this file send specific amounts of your choosing? Do you have any limitations on the amounts that you choose and how can you modify the code to deal with this issue?
+Given the example `examples/transaction-creation/submit-transactions.js` file, can you understand how to change this file send specific amounts of your choosing? Do you have any limitations on the amounts that you choose and how can you modify the code to deal with this issue?
 
 #### Troubleshooting
 This class was tested in  Ubuntu 20.04.2 LTS Release: 20.04 Codename: focal, with nvm version 0.35.3, and node version 16.3.0. 
