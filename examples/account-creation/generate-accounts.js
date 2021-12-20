@@ -18,7 +18,6 @@ log4js.configure({
 log.info("Initializing the SDK");
 (async () => {
   try {
-    log.info("Initializing the SDK");
     const overledger = new OverledgerSDK({
       dlts: [
         { dlt: DltNameOptions.BITCOIN },
