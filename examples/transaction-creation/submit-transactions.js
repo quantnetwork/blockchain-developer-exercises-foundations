@@ -219,13 +219,13 @@ log.info("Executing ", courseModule);
     );
 
     // sign the native transaction
-    signedTransaction = await overledger.sign(
+    let signedTransactionResponse = await overledger.sign(
       overledgerRequestMetaData[count].location.technology.toLowerCase(),
       prepareTransactionResponse[count].data,
     );
     executeTransactionRequest[count] = {
       requestId: prepareTransactionResponse[count].data.requestId,
-      signed: signedTransaction,
+      signed: signedTransactionResponse.signedTransaction,
     };
     log.info(`Execute transaction request ${count}: ${JSON.stringify(executeTransactionRequest[count])}`);
     // submit the signed transaction to Overledger
@@ -236,7 +236,7 @@ log.info("Executing ", courseModule);
     log.info(
       `Printing Out Overledger's Response for a transaction prepared, signed and submitted onto the ${
         overledgerRequestMetaData[count].location.technology
-      } testnet:\n\n${JSON.stringify(executeTransactionResponse[count])}\n\n`,
+      } testnet:\n\n${JSON.stringify(executeTransactionResponse[count].data)}\n\n`,
     );
   } catch (e) {
     log.error("error", e);
