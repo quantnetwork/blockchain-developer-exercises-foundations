@@ -74,8 +74,30 @@ log.info("Executing ", courseModule);
       overledgerRequestMetaData,
     );
 
+    log.info(`Printing Out Overledger's Response:\n\n`);
+
+    // includes the request id and any QNT fee that must be paid for use of this endpoint.
     log.info(
-      `Printing Out Overledger's Response:\n\n${JSON.stringify(overledgerResponse.data)}\n\n`,
+      `preparationBlockSearchResponse: ${JSON.stringify(
+        overledgerResponse.data.preparationBlockSearchResponse,
+      )}`,
+    );
+
+    // includes the response to the request. it includes a location, status, and block objects
+    log.info(
+      `executionBlockSearchResponse: ${JSON.stringify(
+        overledgerResponse.data.executionBlockSearchResponse.location,
+      )}`,
+    );
+    log.info(
+      `executionBlockSearchResponse: ${JSON.stringify(
+        overledgerResponse.data.executionBlockSearchResponse.status,
+      )}`,
+    );
+    log.info(
+      `executionBlockSearchResponse: ${JSON.stringify(
+        overledgerResponse.data.executionBlockSearchResponse.block,
+      )}`,
     );
   } catch (e) {
     log.error("error", e);
