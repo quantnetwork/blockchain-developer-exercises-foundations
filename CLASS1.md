@@ -8,6 +8,7 @@ In this class, we are going to setup the development environment and introduce t
 
 The distributed ledger technologies studied can be accessed via Overledger SDK. The SDK that we will be using is written in Javascript, so our development environment will use [Node.js](https://nodejs.org/en/). Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine. Node comes with a package manager called [npm](https://www.npmjs.com/). We will use npm to install the necessary dependencies to our project.
 
+
 #### Installing Correct Node Version
 
 To manage the different versions of Node.js, we will use the [node version manager (nvm)](https://github.com/nvm-sh/nvm). To do so, on your terminal run:
@@ -40,7 +41,10 @@ The development environment is set!
 
 #### Signing Up to Overledger
 
-In these exercises we will connect to DLT nodes via the Overledger DLT gateway. Overledger provides access to multiple DLT networks of different DLT types, allowing multi-ledger applications (mDapps) to be built. Additionally Overledger utilises a standardised data model, easing the learning process for software developers.
+
+<img src="https://avatars1.githubusercontent.com/u/31103999?s=400&v=4" width="150">
+
+In the following exercises we will connect to DLT nodes via the Overledger DLT gateway. Overledger provides access to multiple DLT networks of different DLT types, allowing multi-ledger applications (mDapps) to be built. Additionally Overledger utilises a standardised data model, easing the learning process for software developers.
 
 To use Overledger, you will need to sign up [here](https://developer.quant.network/). 
 
@@ -72,7 +76,7 @@ When looking into our scripts that connects to Overledger, you may notice that c
 
 Run the script (make sure to replace MY_PASSWORD by the password you used to encrypt *.env*):
 
-``node configure-sdk.js password=MY_PASSWORD``
+``node examples/configuration/configure-sdk.js password=MY_PASSWORD``
 
 Great! You can see how access tokens are obtained from Overledger.
 

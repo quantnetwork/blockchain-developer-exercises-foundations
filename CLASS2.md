@@ -4,15 +4,20 @@
 
 ### Exercise 1.9 - Read Data From Distributed Ledgers
 
-For this task, we will be reading blocks via Overledger’s autoExecuteSearchBlock API. The openAPI3 version of this endpoint can be found [here](https://docs.overledger.io/#operation/autoExecuteSearchBlockRequest). 
+For this task, we will be reading blocks via Overledger’s *autoExecuteSearchBlock* API. The documentation for this endpoint can be found [here](https://docs.overledger.io/#operation/autoExecuteSearchBlockRequest). 
 
 #### DLT Network Information
 
 We will be interacting with the Bitcoin, Ethereum & XRP Ledger testnets. Each network has been designated a location so that Overledger can route requests for these DLT networks correctly. These locations are as follows:
 
-1. Location = {“technology”: “Bitcoin”, “network”: “Testnet”}
-2. Location = {“technology”: “Ethereum”, “network”: “Ropsten Testnet”}
-3. Location = {“technology”: “XRP Ledger”, “network”: “Testnet”}
+1. Bitcoin
+``Location = {“technology”: “Bitcoin”, “network”: “Testnet”}``
+
+2. Ethereum 
+``Location = {“technology”: “Ethereum”, “network”: “Ropsten Testnet”}``
+
+3. XRP
+``Location = {“technology”: “XRP Ledger”, “network”: “Testnet”}``
 
 Note that Ethereum has a named test network above as Ethereum has multiple test networks. Therefore the additional name differentiates one test network from another. 
 
@@ -26,14 +31,12 @@ We will start by searching for the latest block on the Bitcoin DLT network. To d
 
 `node examples/block-search/autoexecute-latest-block-search.js password=MY_PASSWORD`
 
-##### Overledger Auto Execute Block Search API Response
-
 See that the response has two main objects due to Overledger’s preparation and execution model:
 
-1. PreparationBlockSearchResponse: This includes the request id and any QNT fee that must be paid for use of this endpoint.
-2. ExecutionBlockSearchResponse: This includes information on the requested block and related metadata. 
+1. *PreparationBlockSearchResponse*: This includes the request id and any QNT fee that must be paid for use of this endpoint.
+2. *ExecutionBlockSearchResponse*: This includes information on the requested block and related metadata. 
 
-The block information will be returned in cross-DLT standardised form and in the DLT specific form (referred to as nativeData). This allows maximum flexibility to software developers, as they can choose to use either data models.
+The block information will be returned in cross-DLT standardised form and in the DLT specific form (referred to as nativeData). This allows maximum flexibility to software developers, as they can use different DLTs with the same data model.
 
 ##### Auto Execute Block Search API Response Main Components
 
@@ -75,7 +78,7 @@ You can search for a specific block in the Ethereum Ropsten DLT network by runni
 
 Notice that to find a valid blockId it firstly searches the current block, then finds the parent of the current block using the standardised data model and searches for that block.
 
-Because the logic of this file is built on the standardised data model, all we have to do to make the same script applicable to the Bitcoin testnet or the XRP Ledger testnet is to change the location object. So give it a go!
+Because the logic of this file is built on the standardised data model, all we have to do to make the same script applicable to the Bitcoin testnet or the XRP Ledger testnet is to change the location object (in line 60). So give it a go!
 
 Finally note that you can search for a specific block via the blockId or the block number. You can search for a specific block in the XRP Ledger DLT network by running the following:
 
