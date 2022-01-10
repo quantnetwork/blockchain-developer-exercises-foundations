@@ -42,4 +42,4 @@ Future courses will expand on these features to show how more complicated mDapps
 
 This course was developed through a collaboration between [Quant Network](https://www.quant.network/), [King's College London](https://www.kcl.ac.uk/) and [FutureLearn](https://www.futurelearn.com/).
 
-Authors have previously worked on related university modules. Luke developed King's College London's [Distributed Ledgers and Cryptocurrencies Module](https://rl.talis.com/3/kcl/lists/CB92E513-A866-5EFF-7E83-2EA72DF78D00.html?lang=en-GB) and Rafael developed ...
+Authors have previously worked on related university modules. Luke developed King's College London's [Distributed Ledgers and Cryptocurrencies Module](https://rl.talis.com/3/kcl/lists/CB92E513-A866-5EFF-7E83-2EA72DF78D00.html?lang=en-GB) and Rafael developed Hyperledger Lab's Open Source [Enterprise Blockchain Technologies Course for Universities](https://github.com/hyperledger-labs/university-course).
