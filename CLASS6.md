@@ -12,9 +12,9 @@ Note that unlike blocks and transactions, the state data model of utxo and accou
 
 We will be interacting with the Ethereum Ropsten and the XRP Ledger testnets. The relevant Overledger location objects are as follows:
 
-1. Location = {“technology”: “Ethereum”, “network”: “Ropsten Testnet”}
+1. `Location = {“technology”: “Ethereum”, “network”: “Ropsten Testnet”}`
    
-2. Location = {“technology”: “XRP Ledger”, “network”: “Testnet”}
+2. `Location = {“technology”: “XRP Ledger”, “network”: “Testnet”}`
 
 #### Prerequisites
 

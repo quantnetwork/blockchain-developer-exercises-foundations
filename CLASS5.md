@@ -10,9 +10,9 @@ For this task, we will read our first Accounts transaction via Overledger’s au
 
 We will be interacting with the Ethereum Ropsten and the XRP Ledger testnets. The relevant Overledger location objects are as follows:
 
-1. Location = {“technology”: “Ethereum”, “network”: “Ropsten Testnet”}
+1. `Location = {“technology”: “Ethereum”, “network”: “Ropsten Testnet”}`
    
-2. Location = {“technology”: “XRP Ledger”, “network”: “Testnet”}
+2. `Location = {“technology”: “XRP Ledger”, “network”: “Testnet”}`
 
 #### Prerequisites
 
