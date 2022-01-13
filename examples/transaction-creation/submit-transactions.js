@@ -220,7 +220,7 @@ log.info("Executing ", courseModule);
 
     // sign the native transaction
     let signedTransactionResponse = await overledger.sign(
-      overledgerRequestMetaData[count].location.technology.toLowerCase(),
+      overledgerRequestMetaData[count].location.technology.replace(/\s+/g, '-').toLowerCase(),
       prepareTransactionResponse[count].data,
     );
     executeTransactionRequest[count] = {
