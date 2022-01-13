@@ -105,7 +105,14 @@ Run the script (make sure to replace MY_PASSWORD by the password you used to enc
 node examples/configuration/configure-sdk.js password=MY_PASSWORD
 ```
 
-Great! You can see how access tokens are obtained from Overledger.
+Great! You can see how tokens are obtained from Overledger. Three types of tokens are given (following the [OAuth 2.0 protocol](https://oauth.net/2/)): the `access token`, the `refresh token` and the `id token`. 
+
+The `access token` allows Overledger to make API requests on behalf of you. In practice, you are issuing requests to Overledger, and this token authenticates you. It is important that you keep this token private, as someone holding it can make requests to Overledger on your behalf. The access token has an expiration date, typically ranging from a few hours to a few weeks. The `refresh token` does not expire and it is used to re-issue an access token. The refresh token helps the user avoiding to sign-in every time an access token expires. The `id token` refers to a token specific to [OpenID Connect](https://openid.net/connect/), a protocol built on top of OAuth 2.0. The id token encodes the user’s authentication information, for example, different types of attributes.
+
+All the tokens are [JSON Web Tokens (JWT)](https://en.wikipedia.org/wiki/JSON_Web_Token). "JWTs are an open, industry standard RFC 7519 method for representing claims securely between two parties".
+
+You can inspect the content of each token with a [JWT decoder](https://jwt.io/). 
+
 
 ### Troubleshooting
 This class was tested in  Ubuntu 20.04.2 LTS Release: 20.04 Codename: focal, with nvm version 0.35.3, and node version 16.3.0. 
