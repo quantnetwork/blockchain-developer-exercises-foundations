@@ -42,7 +42,7 @@ The balance information will be returned in cross-DLT standardised form for the 
 
 For parameter by parameter descriptions see the [openAPI3 doc](https://docs.overledger.io/#operation/autoExecuteSearchAddressBalanceRequest).
 
-##### Overledger Auto Execute Balance Search API Response
+##### Overledger Auto Execute Sequence Search API Response
 
 See that the response has two main objects due to Overledger’s preparation and execution model:
 

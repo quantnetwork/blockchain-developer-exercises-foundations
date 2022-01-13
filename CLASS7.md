@@ -47,7 +47,7 @@ Therefore you will once again need to setup the *.env.enc* file as stated in Cla
 
 As we are interacting with permissionless DLT networks, we will have to pay a transaction fee to get our transactions accepted on the DLT networks. As we are interacting with testnets, the transaction fee will actually be paid in a test cryptocurrency (typically without monetary value). But the transaction fee system needs to still be present in the testnets, otherwise the testnets would not accurately simulate the mainnets. 
 
-There you will need to fund your addresses before you can send transactions from those addresses. To fund your addresses on testnets, we can request a faucet to provide us some funds. These services are named as faucets as the "drip" funds to users that require them. 
+There you will need to fund your addresses before you can send transactions from those addresses. To fund your addresses on testnets, we can request a faucet to provide us some funds. These services are named as faucets as they "drip" funds to users that require them. 
 
 As we list a few publicly available faucets options below:
 - Ethereum Ropsten Testnet: https://faucet.ropsten.be/ or https://faucet.dimensions.network/
@@ -88,11 +88,11 @@ For parameter by parameter descriptions see the [documentation](https://docs.ove
 
 ##### Sending Transactions to Specific Addresses
 
-Given the example `./examples/transaction-creation/submit-transactions.js` file, can you understand how to change this file send to specific addresses that you choose from each DLT network? How will you choose these addresses?
+Given the example `./examples/transaction-creation/submit-transactions.js` file, can you understand how to change this file to send to specific addresses that you choose from each DLT network? How will you choose these addresses?
 
 ##### Sending Transactions for a Specific Amount
 
-Given the example `examples/transaction-creation/submit-transactions.js` file, can you understand how to change this file send specific amounts of your choosing? Do you have any limitations on the amounts that you choose and how can you modify the code to deal with this issue?
+Given the example `examples/transaction-creation/submit-transactions.js` file, can you understand how to change this file to send specific amounts of your choosing? Do you have any limitations on the amounts that you choose and how can you modify the code to deal with this issue?
 
 #### Troubleshooting
 This class was tested in  Ubuntu 20.04.2 LTS Release: 20.04 Codename: focal, with nvm version 0.35.3, and node version 16.3.0. 
