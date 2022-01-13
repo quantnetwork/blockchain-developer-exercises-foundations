@@ -1,6 +1,6 @@
 # Week 3 Cryptography in Distributed Ledger Technologies
 
-## Exercise 3.10 - Create your first DLT transactions
+## Exercise - Create your first DLT transactions
 
 For this task, we will create our transactions via Overledger’s prepareTransactionRequest and executePreparedRequestTransaction APIs. The documentation for these endpoints can be found [here](https://docs.overledger.io/#operation/prepareTransactionRequest) and [here](https://docs.overledger.io/#operation/executePreparedRequestTransaction). 
 

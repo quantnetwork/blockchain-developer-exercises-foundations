@@ -2,7 +2,7 @@
 
 ## The Unspent Transaction Output Model
 
-### Exercise 2.6 - Read your first UTXO State
+### Exercise - Read your first UTXO State
 
 For this task, we will read our first UTXO state via Overledger’s autoExecuteSearchUtxo API. The documentation for this endpoint can be found [here](https://docs.overledger.io/#operation/autoExecuteSearchUtxoRequest). 
 

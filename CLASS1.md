@@ -2,7 +2,7 @@
 
 ## Distributed Ledger Technologies
 
-### Exercise 1.6 - Establish Your DLT Network Connection
+### Exercise - Establish Your DLT Network Connection
 
 In this class, we are going to setup the development environment and introduce the Github repository containing the code for assignments. 
 

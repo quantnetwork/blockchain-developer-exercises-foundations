@@ -2,7 +2,7 @@
 
 ## The Accounts Model
 
-### Exercise 2.8 - Read your first Accounts Transaction
+### Exercise - Read your first Accounts Transaction
 
 For this task, we will read our first Accounts transaction via Overledger’s autoExecuteSearchTransaction API. The documentation can be found [here](https://docs.overledger.io/#operation/autoExecuteSearchTransactionRequest). 
 

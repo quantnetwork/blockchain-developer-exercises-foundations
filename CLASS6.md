@@ -2,7 +2,7 @@
 
 ## The Accounts Model
 
-### Exercise 2.10 - Read your first Accounts State
+### Exercise - Read your first Accounts State
 
 For this task, we will read our first Accounts state via Overledger’s autoExecuteSearchAddressBalance and autoExecuteSearchAddressSequence APIs. The documentation for these endpoints can be found [here](https://docs.overledger.io/#operation/autoExecuteSearchAddressBalanceRequest) and [here](https://docs.overledger.io/#operation/prepareAddressSequenceSearchRequest_1). 
 
