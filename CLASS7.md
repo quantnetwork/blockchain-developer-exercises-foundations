@@ -9,11 +9,11 @@ For this task, we will create our transactions via Overledger’s prepareTransac
 
 We will be interacting with the Bitcoin, Ethereum & XRP Ledger testnets. The relevant Overledger location objects are as follows:
 
-1. Location = {“technology”: “Bitcoin”, “network”: “Testnet”}
+1. `Location = {“technology”: “Bitcoin”, “network”: “Testnet”}`
    
-2. Location = {“technology”: “Ethereum”, “network”: “Ropsten Testnet”}
+2. `Location = {“technology”: “Ethereum”, “network”: “Ropsten Testnet”}`
    
-3. Location = {“technology”: “XRP Ledger”, “network”: “Testnet”}
+3. `Location = {“technology”: “XRP Ledger”, “network”: “Testnet”}`
 
 ### Prerequisites
 
