@@ -180,7 +180,7 @@ log.info("Executing ", courseModule);
     const executeTransactionResponse = [];
     // format the transaction request
     prepareTransactionRequest = {
-      type: "payment",
+      type: "PAYMENT",
       location: {
         technology: overledgerRequestMetaData[count].location.technology,
         network: overledgerRequestMetaData[count].location.network,
