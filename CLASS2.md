@@ -94,7 +94,7 @@ node examples/block-search/autoexecute-specific-blocknumber-search.js password=M
 
 ##### Searching for the Latest Block in Other DLT Networks
 
-Given the example `examples/block-search/autoexecute-latest-block-search.js` file and the location information listed above, can you understand how to change this file to instead query the latest block on the Ethereum Ropsten and XRP Ledger testnets?
+Given the example `examples/block-search/autoexecute-latest-block-search.js` file and the location information listed above, can you understand how to change this file to instead query the latest block on the Ethereum Ropsten and XRP Ledger testnets? Hint: Look at the overledgerRequestMetaData object.
 
 ##### Searching for a Specific Block
 
