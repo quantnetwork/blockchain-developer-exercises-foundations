@@ -8,6 +8,16 @@ In this class, we are going to setup the development environment and introduce t
 
 The distributed ledger technologies studied can be accessed via Overledger SDK. The SDK that we will be using is written in Javascript, so our development environment will use [Node.js](https://nodejs.org/en/). Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine. Node comes with a package manager called [npm](https://www.npmjs.com/). We will use npm to install the necessary dependencies to our project.
 
+#### Obtaining the project
+First, you need to clone the project (or fork and clone). We advise you to [fork the project](https://docs.github.com/en/get-started/quickstart/fork-a-repo).
+
+To clone the project, on the terminal run:
+`git clone https://github.com/quantnetwork/blockchain-developer-exercises-foundations` (in case you forked the project, the clone would be `https://github.com/YOUR_USERNAME/blockchain-developer-exercises-foundations`, where `YOUR_USERNAME` is your Github username).
+
+Navigate to the first class folder by typing:
+`cd blockchain-developer-exercises-foundations`
+
+You're almost go to go! But first, we need to install the dependencies.
 
 #### Installing Correct Node Version
 
@@ -33,7 +43,9 @@ We now install a tool allowing us to directly run packages on the terminal:
 
 ``npm install -g npm-run``
 
-Finally, we need to install the dependencies. For that run:
+Finally, we need to install the dependencies. Before doing so, examine the file that stores the dependencies, called `package.json`. You will notice that this repository has a set of scripts to help development tasks, a set of administrative-related items, and two sets of dependencies. The first set, `dependencies` state the runtime dependencies, this is, the software packages you will need to use with your code. The second set, `devDependencies` set the dependencies for development that are not used in runtime (for example, the linter).
+
+To install the dependencies, run:
 
 ``npm i``
 
