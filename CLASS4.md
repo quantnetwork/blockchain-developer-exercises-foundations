@@ -22,7 +22,9 @@ It is assumed that you have already setup your environment by following [these i
 
 This example will search for the largest Unspent UTXO in a recent block of the Bitcoin test network. To run the example, enter:
 
-`node examples/state-search/autoexecute-utxo-search.js password=MY_PASSWORD`
+```
+node examples/state-search/autoexecute-utxo-search.js password=MY_PASSWORD
+```
 
 This script first gets the latest block, then requests the block that is 20 block's back from the current latest block. If that block is empty, the script will complete. Otherwise it will ask Overledger for information on each transaction in the block. The script will then get information from Overledger on each transaction destination. The script check if each related output is currently unspent or not by utilising Overledger's standardised UTXO status codes, which are as follows:
 
@@ -78,7 +80,9 @@ This class was tested in  Ubuntu 20.04.2 LTS Release: 20.04 Codename: focal, wit
 
 Description:
 
-``Secure-env :  ERROR OCCURED Error: error:06065064:digital envelope routines:EVP_DecryptFinal_ex:bad decrypt``
+```
+Secure-env :  ERROR OCCURED Error: error:06065064:digital envelope routines:EVP_DecryptFinal_ex:bad decrypt
+```
 
 Cause: the secure env package cannot decrypt the .env.enc file because the provided password was incorrect.
 

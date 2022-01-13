@@ -41,7 +41,9 @@ Note that accounts based transactions that are contract invocations have a more 
 
 Given the example `examples/transaction-search/autoexecute-transaction-search.js` file and the location information listed above, can you understand how to change this file to instead return the latest payment transaction on the Ethereum Ropsten and XRP Ledger testnets? Recall that the following is required to run the file:
 
-`node examples/transaction-search/autoexecute-transaction-search.js password=MY_PASSWORD`
+```
+node examples/transaction-search/autoexecute-transaction-search.js password=MY_PASSWORD
+```
 
 Remember that this script first gets the latest block, then if the block is not empty it will ask Overledger for the last transaction in the block. It gets the last transaction as transactions in a block are processed in order. Should the last transaction in the block not be a payment one, then the script will ask Overledger for the previous transaction in the block, and so on until a payment transaction is found.
 
@@ -62,7 +64,9 @@ This class was tested in  Ubuntu 20.04.2 LTS Release: 20.04 Codename: focal, wit
 
 Description:
 
-``Secure-env :  ERROR OCCURED Error: error:06065064:digital envelope routines:EVP_DecryptFinal_ex:bad decrypt``
+```
+Secure-env :  ERROR OCCURED Error: error:06065064:digital envelope routines:EVP_DecryptFinal_ex:bad decrypt
+```
 
 Cause: the secure env package cannot decrypt the .env.enc file because the provided password was incorrect.
 

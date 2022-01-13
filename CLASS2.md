@@ -11,13 +11,13 @@ For this task, we will be reading blocks via Overledger’s *autoExecuteSearchBl
 We will be interacting with the Bitcoin, Ethereum & XRP Ledger testnets. Each network has been designated a location so that Overledger can route requests for these DLT networks correctly. These locations are as follows:
 
 1. Bitcoin
-``Location = {“technology”: “Bitcoin”, “network”: “Testnet”}``
+`Location = {“technology”: “Bitcoin”, “network”: “Testnet”}`
 
 2. Ethereum 
-``Location = {“technology”: “Ethereum”, “network”: “Ropsten Testnet”}``
+`Location = {“technology”: “Ethereum”, “network”: “Ropsten Testnet”}`
 
 3. XRP
-``Location = {“technology”: “XRP Ledger”, “network”: “Testnet”}``
+`Location = {“technology”: “XRP Ledger”, “network”: “Testnet”}`
 
 Note that Ethereum has a named test network above as Ethereum has multiple test networks. Therefore the additional name differentiates one test network from another. 
 
@@ -29,7 +29,9 @@ It is assumed that you have already setup your environment by following [these i
 
 We will start by searching for the latest block on the Bitcoin DLT network. To do so, run the following script:
 
-`node examples/block-search/autoexecute-latest-block-search.js password=MY_PASSWORD`
+```
+node examples/block-search/autoexecute-latest-block-search.js password=MY_PASSWORD
+```
 
 See that the response has two main objects due to Overledger’s preparation and execution model:
 
@@ -74,7 +76,9 @@ B. COMPUTATION = The computational processing size of the block expressed as the
 
 You can search for a specific block in the Ethereum Ropsten DLT network by running the following:
 
- `node examples/block-search/autoexecute-specific-blockid-search.js password=MY_PASSWORD`
+ ```
+ node examples/block-search/autoexecute-specific-blockid-search.js password=MY_PASSWORD
+ ```
 
 Notice that to find a valid blockId it firstly searches the current block, then finds the parent of the current block using the standardised data model and searches for that block.
 
@@ -82,7 +86,9 @@ Because the logic of this file is built on the standardised data model, all we h
 
 Finally note that you can search for a specific block via the blockId or the block number. You can search for a specific block in the XRP Ledger DLT network by running the following:
 
-`node examples/block-search/autoexecute-specific-blocknumber-search.js password=MY_PASSWORD`
+```
+node examples/block-search/autoexecute-specific-blocknumber-search.js password=MY_PASSWORD
+```
 
 #### Challenges
 
@@ -103,7 +109,9 @@ This class was tested in  Ubuntu 20.04.2 LTS Release: 20.04 Codename: focal, wit
 
 Description:
 
-``Secure-env :  ERROR OCCURED Error: error:06065064:digital envelope routines:EVP_DecryptFinal_ex:bad decrypt``
+```
+Secure-env :  ERROR OCCURED Error: error:06065064:digital envelope routines:EVP_DecryptFinal_ex:bad decrypt
+```
 
 Cause: the secure env package cannot decrypt the .env.enc file because the provided password was incorrect.
 

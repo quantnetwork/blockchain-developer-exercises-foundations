@@ -23,7 +23,9 @@ It is assumed that you have already setup your environment by following [these i
 
 This example will create and console log new DLT accounts for all of the Bitcoin testnet, Ethereum Ropsten testnet and the XRP ledger test:
 
-`node examples/account-creation/generate-accounts.js`
+```
+node examples/account-creation/generate-accounts.js
+```
 
 **NOTE that key pairs can be reused on different DLT networks including mainnets, so we recommend for you to only use these generated accounts for these tutorials.**
 
@@ -40,7 +42,9 @@ To use them, recall the *.env.example.* from Class 1. This file defines environm
 
 Therefore you will once again need to setup the *.env.enc* file as stated in Class 1. In particular, you need to duplicate the *.env.example* file and rename it to *.env*. Make sure to set the previous four parameters from Class 1 and the new six parameters from this class in *.env*. You will also need to once again encrypt the *.env* file. For this, run on your terminal (replace MY_PASSWORD for a password of your choice):
 
-``npm-run secure-env .env -s MY_PASSWORD``
+```
+npm-run secure-env .env -s MY_PASSWORD
+```
 
 
 ### Attaining Testnet Cryptocurrency
@@ -60,7 +64,9 @@ Note that faucets can be occasionally empty or can change frequently, if your ha
 
 This example will create transactions on the Bitcoin testnet, Ethereum Ropsten testnet and the XRP ledger test:
 
-`node examples/transaction-creation/submit-transactions.js password=MY_PASSWORD fundingTx=MY_BITCOIN_FUNDING_TX`
+```
+node examples/transaction-creation/submit-transactions.js password=MY_PASSWORD fundingTx=MY_BITCOIN_FUNDING_TX
+```
 
 Note that an extra command line parameter is required, a bitcoin transaction that you have received from the bitcoin faucet, including an unspent transaction output that you have not yet used. 
 
@@ -101,7 +107,9 @@ This class was tested in  Ubuntu 20.04.2 LTS Release: 20.04 Codename: focal, wit
 
 Description:
 
-``Secure-env :  ERROR OCCURED Error: error:06065064:digital envelope routines:EVP_DecryptFinal_ex:bad decrypt``
+```
+Secure-env :  ERROR OCCURED Error: error:06065064:digital envelope routines:EVP_DecryptFinal_ex:bad decrypt
+```
 
 Cause: the secure env package cannot decrypt the .env.enc file because the provided password was incorrect.
 
