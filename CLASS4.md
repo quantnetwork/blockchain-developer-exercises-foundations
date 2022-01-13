@@ -71,7 +71,7 @@ In the UTXO model, a transaction contains one or more origins (inputs) and one o
 
 Take a look at a third party explorer for the Bitcoin testnet we are using, e.g. [here](https://blockstream.info/testnet/). 
 
-Choose a transaction from a block in this explorer. Then choose a specific transaction output. Can you understand how to modify the example script to search for your chosen transaction output?
+Choose a transaction from a block in this explorer. Then choose a specific transaction output. Can you understand how to modify the example script to search for your chosen transaction output, by searching for the specific payment amount?
 
 #### Troubleshooting
 This class was tested in  Ubuntu 20.04.2 LTS Release: 20.04 Codename: focal, with nvm version 0.35.3, and node version 16.3.0. 
