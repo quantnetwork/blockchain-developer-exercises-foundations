@@ -55,7 +55,7 @@ All the logic in this script is based on the Overledger standardised data model.
 
 Take a look at a third party explorer for the DLT testnets we are using, e.g. [the Ethereum Ropsten Testnet](https://ropsten.etherscan.io/) or [the XRP Ledger Testnet](https://blockexplorer.one/xrp/testnet).
 
-Choose a transaction from a block in these explorers. Can you understand how to modify the example script to search for your chosen transactions?
+Choose a transaction from a block in these explorers. Can you understand how to modify the example script to search for your chosen transactions (use your transaction IDs)?
 
 #### Troubleshooting
 This class was tested in  Ubuntu 20.04.2 LTS Release: 20.04 Codename: focal, with nvm version 0.35.3, and node version 16.3.0. 
