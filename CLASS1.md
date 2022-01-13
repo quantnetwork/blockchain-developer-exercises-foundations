@@ -23,33 +23,42 @@ You're almost go to go! But first, we need to install the dependencies.
 
 To manage the different versions of Node.js, we will use the [node version manager (nvm)](https://github.com/nvm-sh/nvm). To do so, on your terminal run:
 
-``curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
-``
+```
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+```
 
 and then:
 
-```
+````
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-```
+````
 
 nvm is now installed and ready to use. Now we need to install a specific version of node with nvm. Run:
 
-``nvm install 16.3.0``
+```
+nvm install 16.3.0
+```
 
 This installed Node.js version 16.3.0. It is important for everyone to have the same Node version, to avoid inconsistent results when it is running modules. Now we make sure we have the latest npm
 
-``nvm install-latest-npm``
+```
+nvm install-latest-npm
+```
 
 We now install a tool allowing us to directly run packages on the terminal:
 
-``npm install -g npm-run``
+```
+npm install -g npm-run
+```
 
 Finally, we need to install the dependencies. Before doing so, examine the file that stores the dependencies, called `package.json`. You will notice that this repository has a set of scripts to help development tasks, a set of administrative-related items, and two sets of dependencies. The first set, `dependencies` state the runtime dependencies, this is, the software packages you will need to use with your code. The second set, `devDependencies` set the dependencies for development that are not used in runtime (for example, the linter).
 
 To install the dependencies, run:
 
-``npm i``
+```
+npm i
+```
 
 The development environment is set! 
 
@@ -82,7 +91,9 @@ Since the environment variables information is very sensitive, we want to secure
 
 Now, we will encrypt the *.env* file. For this, run on your terminal (replace MY_PASSWORD for a password of your choice):
 
-``npm-run secure-env .env -s MY_PASSWORD``
+```
+npm-run secure-env .env -s MY_PASSWORD
+```
 
 Great! Now we have an encrypted env file, *.env.enc*, that will be parsed and securely read by the SDK. For extra security, delete *.env*.
 
@@ -90,7 +101,9 @@ When looking into our scripts that connects to Overledger, you may notice that c
 
 Run the script (make sure to replace MY_PASSWORD by the password you used to encrypt *.env*):
 
-``node examples/configuration/configure-sdk.js password=MY_PASSWORD``
+```
+node examples/configuration/configure-sdk.js password=MY_PASSWORD
+```
 
 Great! You can see how access tokens are obtained from Overledger.
 
@@ -101,7 +114,9 @@ This class was tested in  Ubuntu 20.04.2 LTS Release: 20.04 Codename: focal, wit
 
 Description:
 
-``Secure-env :  ERROR OCCURED Error: error:06065064:digital envelope routines:EVP_DecryptFinal_ex:bad decrypt``
+```
+Secure-env :  ERROR OCCURED Error: error:06065064:digital envelope routines:EVP_DecryptFinal_ex:bad decrypt
+```
 
 Cause: the secure env package cannot decrypt the .env.enc file because the provided password was incorrect.
 

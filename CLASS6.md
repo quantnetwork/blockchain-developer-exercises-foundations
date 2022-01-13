@@ -24,7 +24,9 @@ It is assumed that you have already setup your environment by following [these i
 
 This example will search a subset of addresses and identify the address with the largest balance and the address with the largest sequence number. To be in the subset of addresses searched, an address will have had to send a transaction in the latest block of the Ethereum Ropsten testnet. To run the example, enter:
 
-`node examples/state-search/autoexecute-accounts-search.js password=MY_PASSWORD`
+```
+node examples/state-search/autoexecute-accounts-search.js password=MY_PASSWORD
+```
 
 This script first gets the latest block, then gets each transaction from the block. For each transaction origin address, the script gets that addresses balance and sequence number. The script keeps track of the address with the largest parameters.
 
@@ -73,7 +75,9 @@ This class was tested in  Ubuntu 20.04.2 LTS Release: 20.04 Codename: focal, wit
 
 Description:
 
-``Secure-env :  ERROR OCCURED Error: error:06065064:digital envelope routines:EVP_DecryptFinal_ex:bad decrypt``
+```
+Secure-env :  ERROR OCCURED Error: error:06065064:digital envelope routines:EVP_DecryptFinal_ex:bad decrypt
+```
 
 Cause: the secure env package cannot decrypt the .env.enc file because the provided password was incorrect.
 
