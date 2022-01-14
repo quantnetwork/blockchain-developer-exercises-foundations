@@ -58,12 +58,19 @@ Notice that there are two standardised array parameters that have multiple type 
 1. executionBlockSearchResponse.block.hashes - This is an array of all the hashes that describe this block. The options are:
 
 A. BLOCK_HASH = The hash of this block. Also referred as to as the blockId
+
 B. PARENT_HASH = The hash of the previous block in the blockchain
+
 C. CHILD_HASH = the hash of the next block in the blockchain
+
 D. TRANSACTIONS_HASH = The hash of all the transactions in the block
+
 E. TRANSACTIONS_MERKLE_ROOT = The Merkle root hash when the transaction of the block are organised into a merkle tree structure
+
 F. STATE_HASH = The hash of the entire current state of the ledger
+
 G. STATE_MERKLE_ROOT = The Merkle root hash, when the current ledger state is organised into a Merkle tree structure
+
 H. TRANSACTIONS_RECEIPT_ROOT = The Merkle root hash, when the transaction processing details are organised into a Merkle tree structure
 
 2. executionBlockSearchResponse.block.size - This is an array of all the sizes that describe this block. The options are: 
