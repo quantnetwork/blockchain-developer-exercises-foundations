@@ -2,7 +2,7 @@
 
 ## Exercise - Create your first DLT transactions
 
-For this task, we will create our transactions via Overledger’s prepareTransactionRequest and executePreparedRequestTransaction APIs. The documentation for these endpoints can be found [here](https://docs.overledger.io/#operation/prepareTransactionRequest) and [here](https://docs.overledger.io/#operation/executePreparedRequestTransaction). 
+In this exercise, we will create our own transactions via Overledger’s prepareTransactionRequest and executePreparedRequestTransaction APIs. The documentation for these endpoints can be found [here](https://docs.overledger.io/#operation/prepareTransactionRequest) and [here](https://docs.overledger.io/#operation/executePreparedRequestTransaction) respectively. 
 
 
 ### DLT Network Information
@@ -21,7 +21,7 @@ It is assumed that you have already setup your environment by following [these i
 
 ### Creating Accounts
 
-This example will create and console log new DLT accounts for all of the Bitcoin testnet, Ethereum Ropsten testnet and the XRP ledger test:
+You will need to have DLT accounts to create transactions. The following example will create and console log new DLT accounts for all of the Bitcoin testnet, Ethereum Ropsten testnet and the XRP ledger testnet:
 
 ```
 node examples/account-creation/generate-accounts.js
@@ -31,29 +31,13 @@ node examples/account-creation/generate-accounts.js
 
 **TAKEAWAY: Do not mix the accounts that you use on testnets and mainnets!**
 
-To use these generated accounts (or any others), recall the *.env.example.* from Class 1. This file defines environment variables that our programs will later use. In Class 1, we set the USER_NAME, PASSWORD, CLIENT_ID and CLIENT_SECRET environment variables. In this class we still require those previous four variables but now we will also enter the following: 
-
-- BITCOIN_PRIVATE_KEY: set this equal to your newly generated BitcoinAccount.privateKey
-- ETHEREUM_PRIVATE_KEY: set this equal to your newly generated EthereumAccount.privateKey
-- XRP_LEDGER_PRIVATE_KEY: set this equal to your newly generated XRPLedgerAccount.privateKey
-- BITCOIN_ADDRESS: set this equal to your newly generated BitcoinAccount.address
-- ETHEREUM_ADDRESS: set this equal to your newly generated EthereumAccount.address
-- XRP_LEDGER_ADDRESS: set this equal to your newly generated XRPLedgerAccount.address
-
-Therefore you will once again need to setup the *.env.enc* file as stated in Class 1. In particular, you need to duplicate the *.env.example* file and rename it to *.env*. Make sure to set the previous four parameters from Class 1 and the new six parameters from this class in *.env*. You will also need to once again encrypt the *.env* file. For this, run on your terminal (replace MY_PASSWORD for a password of your choice):
-
-```
-npm-run secure-env .env -s MY_PASSWORD
-```
-
-
 ### Attaining Testnet Cryptocurrency
 
-As we are interacting with permissionless DLT networks, we will have to pay a transaction fee to get our transactions accepted on the DLT networks. As we are interacting with testnets, the transaction fee will actually be paid in a test cryptocurrency (typically without monetary value). But the transaction fee system needs to still be present in the testnets, otherwise the testnets would not accurately simulate the mainnets. 
+As we are interacting with permissionless DLT networks, we will have to pay a transaction fee to get our transactions accepted on the DLT networks. As we are interacting with testnets, the transaction fee will actually be paid in a test cryptocurrency (typically without monetary value). But the transaction fee system is still present on the testnets, in order to accurately simulate the mainnets. 
 
 Therefore you will need to fund your addresses before you can send transactions from those addresses. To fund your addresses on testnets, we can request a faucet to provide us some funds. These services are named as faucets as they "drip" funds to users that require them. 
 
-As we list a few publicly available faucets options below:
+We list a few publicly available faucets options below:
 - Ethereum Ropsten Testnet: https://faucet.ropsten.be/ or https://faucet.dimensions.network/
 - XRP Ledger Testnet: https://xrpl.org/xrp-testnet-faucet.html
 - Bitcoin Testnet: https://bitcoinfaucet.uo1.net/ or https://coinfaucet.eu/en/btc-testnet/ or https://testnet-faucet.mempool.co/ 
@@ -61,6 +45,26 @@ As we list a few publicly available faucets options below:
 Note that faucets can be occasionally empty or can change frequently, if your having trouble with all of the ones listed above for your desired DLT, have a Google and let us know if you find a better one.
 
 For Ethereum, there are many different test networks available (e.g. Ropsten, Rinkeby, Kovan,...). Tokens issued on one test network cannot be used on another test network. So make sure that any faucet you use is a Ropsten testnet faucet. 
+
+**NOTE For XRP Ledger testnet, we recommend using the DLT account generated by the faucet as it comes provided with testnet XRP.**
+
+
+### Adding DLT accounts to the Environment File
+
+To use these generated accounts (or any others), recall the *.env.example.* from Exercise 1. This file defines environment variables that our programs will later use. In Exercise 1, we set the USER_NAME, PASSWORD, CLIENT_ID and CLIENT_SECRET environment variables. In this class we still require those previous four variables but now we will also enter the following: 
+
+- BITCOIN_PRIVATE_KEY: set this equal to the BitcoinAccount.privateKey parameter provided by the generate-accounts.js script
+- ETHEREUM_PRIVATE_KEY: set this equal to the EthereumAccount.privateKey parameter provided by the generate-accounts.js script
+- XRP_LEDGER_PRIVATE_KEY: set this equal to the [XRP ledger faucet](https://xrpl.org/xrp-testnet-faucet.html) generated secret
+- BITCOIN_ADDRESS: set this equal to the BitcoinAccount.address provided by the generate-accounts.js script
+- ETHEREUM_ADDRESS: set this equal to the EthereumAccount.address provided by the generate-accounts.js script
+- XRP_LEDGER_ADDRESS: set this equal to the [XRP ledger faucet](https://xrpl.org/xrp-testnet-faucet.html) generated address
+
+Therefore you will once again need to setup the *.env.enc* file as stated in Exercise 1. In particular, you need to duplicate the *.env.example* file and rename it to *.env*. Make sure to set the previous four parameters from Exercise 1 and the new six parameters from this class in *.env*. You will also need to once again encrypt the *.env* file. For this, run on your terminal (replace MY_PASSWORD for a password of your choice):
+
+```
+npm-run secure-env .env -s MY_PASSWORD
+```
 
 ### Creating Transactions
 

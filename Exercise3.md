@@ -18,7 +18,7 @@ It is assumed that you have already setup your environment by following [these i
 
 #### Searching for the Latest Payment Transaction
 
-We will search for the latest payment transaction on the Bitcoin test network. To do so, run the following script:
+We will demostrate searching for a UTXO transaction through a specific example. In this example we will search for the latest payment transaction on the Bitcoin test network. To do so, run the following script:
 
 ```
 node examples/transaction-search/autoexecute-transaction-search.js password=MY_PASSWORD

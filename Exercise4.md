@@ -20,7 +20,7 @@ It is assumed that you have already setup your environment by following [these i
 
 #### Searching for the Largest Unspent UTXO in a block
 
-This example will search for the largest Unspent UTXO in a recent block of the Bitcoin test network. To run the example, enter:
+We will demostrate searching the UTXO state through a specific example. This example will search for the largest Unspent UTXO in a recent block of the Bitcoin test network. To run the example, enter:
 
 ```
 node examples/state-search/autoexecute-utxo-search.js password=MY_PASSWORD
