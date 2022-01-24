@@ -73,12 +73,39 @@ This example will create transactions on the Bitcoin testnet, Ethereum Ropsten t
 ```
 node examples/transaction-creation/submit-transactions.js password=MY_PASSWORD fundingTx=MY_BITCOIN_FUNDING_TX
 ```
+Note that an extra command line parameter is required, which is a bitcoin transaction that you have received from the bitcoin faucet and includes an unspent transaction output that you have not yet used. 
 
-Note that an extra command line parameter is required, a bitcoin transaction that you have received from the bitcoin faucet, including an unspent transaction output that you have not yet used. 
+You will see in the example script that we are using:
 
-We will use the bitcoin funding transaction as the starting point to explore. This script does the following: it first fetches the bitcoin funding transaction that you created using the faucet. Then, it loops over UTXOs in the funding transaction and wait for a match to your Bitcoin address. If it doesn't find it, it means that you have provided the wrong Bitcoin address to *.env*, or the provided transaction is not the funding transaction issued by the faucet (or the faucet is not working correctly). 
+```
+    await overledgerInstance.post(
+      "/preparation/transaction",
+      prepareTransactionRequest,
+    );
+```
+to request that an Overledger standardised transaction is transformed into a transaction in the native DLT format ready for signing. We are subsequently using:
 
-Then, the script constructs the origin, which is the UTXO's index from the faucet transaction that was directed to our account. That means that UTXO is unspent (unless you have already spent it) and thus it is usable. This origin is now used to create a prepareTransactionRequest. The request is signed and then sent to Overledger. Overledger gateways then issue the transaction against Bitcoin's test ledger. 
+```
+    await overledger.sign(
+      overledgerRequestMetaData[count].location.technology.replace(/\s+/g, '-').toLowerCase(),
+      prepareTransactionResponse[count].data,
+    );
+```
+to sign the transaction and:
+
+```
+    await overledgerInstance.post(
+      "/execution/transaction",
+      executeTransactionRequest,
+    );
+```
+to send the transaction to Overledger and therefore onto the DLT network.
+
+The full details of this script is as follows. It firstly fetches the bitcoin funding transaction that the bitcoin testnet faucet sent you. Then, it loops over UTXOs in the funding transaction and waits for a match to your Bitcoin address. If it doesn't find it, it means that you have provided the wrong Bitcoin address to *.env*, or the provided transaction is not the funding transaction issued by the faucet (or the faucet is not working correctly). 
+
+After this, the script constructs your bitcoin transaction's origin, which includes the faucet transaction id and the index of the UTXO directed to your account. This origin is now used to create a prepareTransactionRequest. The request is signed and then sent to Overledger. Overledger gateways then issue the transaction against Bitcoin's test ledger. 
+
+...COMPLETE HERE...
 
 
 #### Overledger Execute Transaction API Response
@@ -96,18 +123,16 @@ For parameter by parameter descriptions see the [documentation](https://docs.ove
 
 #### Challenges
 
-(THE FOLLOWING ARE POSSIBLE IDEAS)
-
 ##### Sending Transactions to Specific Addresses
 
-Given the example `./examples/transaction-creation/submit-transactions.js` file, can you understand how to change this file to send to specific addresses that you choose from each DLT network? How will you choose these addresses?
+Given the example `./examples/transaction-creation/submit-transactions.js` file, can you understand how to change this file to send transactions to specific addresses that you choose from each DLT network? How will you choose these addresses?
 
 ##### Sending Transactions for a Specific Amount
 
 Given the example `examples/transaction-creation/submit-transactions.js` file, can you understand how to change this file to send specific amounts of your choosing? Do you have any limitations on the amounts that you choose and how can you modify the code to deal with this issue?
 
 #### Troubleshooting
-This class was tested in  Ubuntu 20.04.2 LTS Release: 20.04 Codename: focal, with nvm version 0.35.3, and node version 16.3.0. 
+This class was tested in Ubuntu 20.04.2 LTS Release: 20.04 Codename: focal, with nvm version 0.35.3, and node version 16.3.0. 
 
 #### Error: bad decrypt 
 
