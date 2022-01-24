@@ -20,8 +20,7 @@ log4js.configure({
   },
 });
 
-log.info("Loading secure environment variables defined in .env.enc");
-
+log.info("Loading password passed in via the command line");
 const SENV_PASSWORD = process.argv[2].split("=")[1];
 const BITCOIN_FUNDING_TX = process.argv[3].split("=")[1];
 

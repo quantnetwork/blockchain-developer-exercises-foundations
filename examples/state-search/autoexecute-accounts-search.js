@@ -20,7 +20,7 @@ log4js.configure({
   },
 });
 
-log.info("Loading secure environment variables defined in .env.enc");
+log.info("Loading password passed in via the command line");
 const PASSWORD_INPUT = process.argv.slice(2).toString();
 const SENV_PASSWORD = PASSWORD_INPUT.split("=")[1];
 

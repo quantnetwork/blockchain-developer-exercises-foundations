@@ -128,7 +128,7 @@ You can inspect the content of each token with a [JWT decoder](https://jwt.io/).
 
 
 ### Troubleshooting
-This exercise was tested in  Ubuntu 20.04.2 LTS Release: 20.04 Codename: focal, with nvm version 0.35.3, and node version 16.3.0. 
+This exercise was tested in Ubuntu 20.04.2 LTS Release: 20.04 Codename: focal, with nvm version 0.35.3, and node version 16.3.0. 
 
 #### Error: bad decrypt 
 

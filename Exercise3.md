@@ -26,7 +26,7 @@ node examples/transaction-search/autoexecute-transaction-search.js password=MY_P
 
 You will see in the example script that we are using the `/autoexecution/search/transaction?transactionId=${transactionId}` Overledger URL to search for the given transactionId.
 
-This script first gets the latest block, then if the block is not empty it will ask Overledger for the last transaction in the block. It gets the last transaction as transactions in a block are processed in order. Should the last transaction in the block not be a payment one, then the script will ask Overledger for the previous transaction in the block, and so on until a payment transaction is found.
+The full details of this script is as follows. Firstly it gets the latest block, then if the block is not empty it will ask Overledger for the last transaction in the block. It gets the last transaction as transactions in a block are processed in order. Should the last transaction in the block not be a payment one, then the script will ask Overledger for the previous transaction in the block, and so on until a payment transaction is found.
 
 Note that in the foundations course, you don't have to concern yourself with the other transaction types, but they will be covered in a future course.
 
@@ -56,11 +56,10 @@ For parameter by parameter descriptions see the [documentation](https://docs.ove
 
 ###### Auto Execute Transaction Search API Response Origins and Destinations
 
-In the UTXO model, a transaction contains one or more origins (inputs) and one or more destinations (inputs). In the UTXO model the related identifiers have specific meaning:
+In the UTXO model, a transaction contains one or more origins (inputs) and one or more destinations (outputs). In the UTXO model the origin and destination identifiers have specific meanings:
 
 - OriginId: This is a reference to a transactionId:DestinationArrayIndex of an unspent transaction output that is now being spent.
-  
-- DestinationId: This is a reference to an externally owned account (controlled by a private key) or to a smart contract address (controlled by smart contract code). An externally owned account requires a signature to spent the BTC associated to this transaction output. Whereas a smart contract address requires some user defined parameters to be satisfied in order for the transaction output to be spent. 
+- DestinationId: This is a reference to an externally owned account (controlled by a private key) or to a smart contract address (controlled by smart contract code). An externally owned account requires a signature to spent the BTC associated to this transaction output. Whereas a smart contract address requires some user defined parameters to be satisfied in order for the transaction output to be spent.
 
 #### Challenges
 
@@ -71,7 +70,7 @@ Take a look at a third party explorer for the Bitcoin testnet we are using, e.g.
 Choose a transaction from a block in this explorer. Can you understand how to modify the example script to search for your chosen transaction?
 
 #### Troubleshooting
-This exercise was tested in  Ubuntu 20.04.2 LTS Release: 20.04 Codename: focal, with nvm version 0.35.3, and node version 16.3.0. 
+This exercise was tested in Ubuntu 20.04.2 LTS Release: 20.04 Codename: focal, with nvm version 0.35.3, and node version 16.3.0. 
 
 #### Error: bad decrypt 
 
