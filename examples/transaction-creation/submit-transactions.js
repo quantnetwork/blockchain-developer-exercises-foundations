@@ -118,7 +118,7 @@ log.info("Executing ", courseModule);
       "Setting the Correct Transaction Origins, Destinations, Amounts and Units",
     );
 
-    // firstly lets check the bitcoin funding transaction
+    // check the bitcoin funding transaction
     const overledgerTransactionSearchResponse = await overledgerInstance.post(
       `/autoexecution/search/transaction?transactionId=${BITCOIN_FUNDING_TX}`,
       overledgerRequestMetaData[0],
@@ -163,16 +163,14 @@ log.info("Executing ", courseModule);
       xrpLedgerDestination,
     ];
 
-    // We will send the minimal amounts of each DLT
+    // We will send be sending the minimal amount of each main protocol token (BTC, ETH, XRP) on each DLT network
     const overledgerAmounts = ["0.00001", "0.000000000000000001", "0.00001"];
-    // We will send be sending the main protocol token on each DLT network
     // Note that as we are connected to the testnet DLT networks, these tokens do not have real world value
     const overledgerUnits = ["BTC", "ETH", "XRP"];
 
     log.info("Entering loop to prepare, sign and send one transaction");
 
     count = 0;
-    let signedTransaction;
     let prepareTransactionRequest = {};
     const prepareTransactionResponse = {};
     const executeTransactionRequest = [];
@@ -204,7 +202,7 @@ log.info("Executing ", courseModule);
         ],
       },
     };
-    log.info(`prepare request: ${JSON.stringify(prepareTransactionRequest)}`);
+    log.info(`OVL prepare transaction request:\n\n${JSON.stringify(prepareTransactionRequest)}`);
     // send the standardised transaction to Overledger to prepare the native data stucture
     prepareTransactionResponse[count] = await overledgerInstance.post(
       "/preparation/transaction",
@@ -212,12 +210,13 @@ log.info("Executing ", courseModule);
     );
 
     log.info(
-      `prepare request response: ${JSON.stringify(
+      `OVL prepare request response:\n\n${JSON.stringify(
         prepareTransactionResponse[count].data,
       )}`,
     );
 
     // sign the native transaction
+    log.info(`Signing transaction`);
     let signedTransactionResponse = await overledger.sign(
       overledgerRequestMetaData[count].location.technology.replace(/\s+/g, '-').toLowerCase(),
       prepareTransactionResponse[count].data,
@@ -226,7 +225,7 @@ log.info("Executing ", courseModule);
       requestId: prepareTransactionResponse[count].data.requestId,
       signed: signedTransactionResponse.signedTransaction,
     };
-    log.info(`Execute transaction request ${count}: ${JSON.stringify(executeTransactionRequest[count])}`);
+    log.info(`OVL execute transaction request ${count}: ${JSON.stringify(executeTransactionRequest[count])}`);
     // submit the signed transaction to Overledger
     executeTransactionResponse[count] = await overledgerInstance.post(
       "/execution/transaction",

@@ -99,13 +99,13 @@ to sign the transaction and:
       executeTransactionRequest,
     );
 ```
-to send the transaction to Overledger and therefore onto the DLT network.
+to send the transaction to Overledger, who forwards it onto the DLT network.
 
-The full details of this script is as follows. It firstly fetches the bitcoin funding transaction that the bitcoin testnet faucet sent you. Then, it loops over UTXOs in the funding transaction and waits for a match to your Bitcoin address. If it doesn't find it, it means that you have provided the wrong Bitcoin address to *.env*, or the provided transaction is not the funding transaction issued by the faucet (or the faucet is not working correctly). 
+The full details of this script is as follows. It firstly creates random DLT accounts to send the transactions to. Next the script makes sure that you provided a valid bitcoin funding transaction by fetching the given transaction and looping over it's UTXOs looking for a match to your Bitcoin address. If it doesn't find it, it means that either you have provided the wrong Bitcoin address to *.env*, or the provided transaction is not the funding transaction issued by the faucet, or the faucet is not working correctly. 
 
-After this, the script constructs your bitcoin transaction's origin, which includes the faucet transaction id and the index of the UTXO directed to your account. This origin is now used to create a prepareTransactionRequest. The request is signed and then sent to Overledger. Overledger gateways then issue the transaction against Bitcoin's test ledger. 
+After this, the script constructs the origin and destination of each of your bitcoin, ethereum and XRP ledger transactions. Recall that an accounts based transaction origin is an address, whereas a UTXO based transaction origin is a UTXOid (transactionId:OutputIndex). Whereas the transaction destination of both accounts and UTXO transactions is an address. The script then sets the minimum value of BTC, ETH or XRP to be transferred via these transactions. 
 
-...COMPLETE HERE...
+Now the script has enough information to submit each transaction to the DLT network. Therefore the script enters a loop which completes three main steps for each DLT network. Firstly the script sends a standardised transaction to OVL to be prepared and receives the response in the DLT native data format. Secondly the script signs the native data form of the transaction. Thirdly the script sends the signed transaction to Overledger for it to be added onto the DLT network.
 
 
 #### Overledger Execute Transaction API Response
@@ -116,7 +116,9 @@ The execute transaction response will contain a few main components:
 
 2. Status: Overledger responses regarding blocks and transactions come with a status. Due to some DLTs having probabilistic finality of transactions/blocks and other DLTs having deterministic finality of transaction/blocks, the status object is used to indicate to the developer when the requested data is assumed to be final (therefore status.value = “SUCCESSFUL”) or not (therefore status.value=“PENDING”).
    
-3. Transaction = The requested transaction data in standardised and nativeData formats.
+3. TransactionId: The id of the submitted signed transaction in the DLT native data format. This is the transaction id required for the OVL transaction Search APIs.
+
+4. OverledgerTransactionId: An overledger specific transaction id used for tracking a transaction status and for linking transactions to a particular client created decentralised application. 
 
 For parameter by parameter descriptions see the [documentation](https://docs.overledger.io/#operation/executePreparedRequestTransaction).
 
