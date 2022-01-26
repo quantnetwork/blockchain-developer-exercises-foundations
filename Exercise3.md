@@ -58,7 +58,7 @@ For parameter by parameter descriptions see the [documentation](https://docs.ove
 
 In the UTXO model, a transaction contains one or more origins (inputs) and one or more destinations (outputs). In the UTXO model the origin and destination identifiers have specific meanings:
 
-- OriginId: This is a reference to a transactionId:DestinationArrayIndex of an unspent transaction output that is now being spent.
+- OriginId: This is a reference to the transactionId and DestinationArrayIndex of an unspent transaction output that is now being spent.
 - DestinationId: This is a reference to an externally owned account (controlled by a private key) or to a smart contract address (controlled by smart contract code). An externally owned account requires a signature to spent the BTC associated to this transaction output. Whereas a smart contract address requires some user defined parameters to be satisfied in order for the transaction output to be spent.
 
 #### Challenges

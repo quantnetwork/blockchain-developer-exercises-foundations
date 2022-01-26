@@ -30,7 +30,7 @@ We will be interacting with the Bitcoin, Ethereum & XRP Ledger testnets. Each ne
 3. XRP
 `Location = {“technology”: “XRP Ledger”, “network”: “Testnet”}`
 
-Note that Ethereum has a named test network above as Ethereum has multiple test networks. Therefore the additional name differentiates one test network from another. 
+Note that Ethereum has a named test network (Ropsten) above as Ethereum has multiple test networks (e.g. Ropsten, Rinkeby, Kovan etc). Therefore the additional name differentiates one test network from another. 
 
 #### Prerequisites
 

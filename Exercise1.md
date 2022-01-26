@@ -94,8 +94,10 @@ To connect and use the Overledger DLT Gateway, you need a number of credentials.
 
 - USER_NAME: which corresponds to your [Overledger Dev Portal](https://developer.quant.network/login) username (typically an e-mail)
 - PASSWORD: is your [Overledger Dev Portal](https://developer.quant.network/login) password
-- CLIENT_ID: The unique ID of your mDapp. It is obtained through the applications tab of the [Overledger Dev Portal](https://developer.quannpm installt.network/user/applications) 
+- CLIENT_ID: The unique ID of your mDapp. It is obtained through the applications tab of the [Overledger Dev Portal](https://developer.quant.network/user/applications) 
 - CLIENT_SECRET: The secret associated to your mDapp. Obtained through the applications tab of the [Overledger Dev Portal](https://developer.quant.network/user/applications) 
+
+Note that in Exercise 7 we will be adding to the parameter list in the *.env* file to include private keys and addresses.
 
 
 #### Securing Your Overledger Connection Details

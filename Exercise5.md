@@ -39,7 +39,7 @@ Note that accounts based transactions that are contract invocations have a more 
 
 #### Searching for the Latest Payment Transaction
 
-We will demostrate searching the for an Accounts transaction through this specific challenge. Given the example `examples/transaction-search/autoexecute-transaction-search.js` file and the location information listed above, can you understand how to change this file to instead return the latest payment transaction on the Ethereum Ropsten and XRP Ledger testnets? Recall that the following is required to run the file:
+We will demostrate searching the for an Accounts transaction through this specific challenge. Given the example `examples/transaction-search/autoexecute-transaction-search.js` file (previously used in Exercise 3) and the location information listed above, can you understand how to change this file to instead return the latest payment transaction on the Ethereum Ropsten and XRP Ledger testnets? Recall that the following is required to run the file:
 
 ```
 node examples/transaction-search/autoexecute-transaction-search.js password=MY_PASSWORD
