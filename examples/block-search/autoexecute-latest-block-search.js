@@ -20,11 +20,11 @@ log4js.configure({
   },
 });
 
-log.info("Loading secure environment variables defined in .env.enc");
+log.info("Loading password passed in via the command line");
 const PASSWORD_INPUT = process.argv.slice(2).toString();
 const SENV_PASSWORD = PASSWORD_INPUT.split("=")[1];
 
-// Check for provided password for the secure env
+// Check for provided password
 if (!SENV_PASSWORD) {
   log.error(
     "Please insert a password to decrypt the secure env file. Example: \n node examples/block-search/autoexecute-latest-block-search.js password=MY_PASSWORD",
@@ -33,6 +33,8 @@ if (!SENV_PASSWORD) {
     "Please insert a password to decrypt the secure env file. Example: \n node examples/block-search/autoexecute-latest-block-search.js password=MY_PASSWORD",
   );
 }
+
+//if password provided continue
 log.info("Executing ", courseModule);
 (async () => {
   try {
@@ -76,26 +78,28 @@ log.info("Executing ", courseModule);
 
     log.info(`Printing Out Overledger's Response:\n\n`);
 
-    // includes the request id and any QNT fee that must be paid for use of this endpoint.
+    // The preparation object section of the response includes
+    // the request id and any QNT fee that must be paid for use of this endpoint 
+    // (API calls are free on testnets).
     log.info(
       `preparationBlockSearchResponse: ${JSON.stringify(
         overledgerResponse.data.preparationBlockSearchResponse,
       )}`,
     );
 
-    // includes the response to the request. it includes a location, status, and block objects
+    // The execution object section of the response includes a location, status, and block objects
     log.info(
-      `executionBlockSearchResponse: ${JSON.stringify(
+      `executionBlockSearchResponse (location): ${JSON.stringify(
         overledgerResponse.data.executionBlockSearchResponse.location,
       )}`,
     );
     log.info(
-      `executionBlockSearchResponse: ${JSON.stringify(
+      `executionBlockSearchResponse (status): ${JSON.stringify(
         overledgerResponse.data.executionBlockSearchResponse.status,
       )}`,
     );
     log.info(
-      `executionBlockSearchResponse: ${JSON.stringify(
+      `executionBlockSearchResponse (block): ${JSON.stringify(
         overledgerResponse.data.executionBlockSearchResponse.block,
       )}`,
     );

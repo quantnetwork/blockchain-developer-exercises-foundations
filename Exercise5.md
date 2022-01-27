@@ -4,7 +4,7 @@
 
 ### Exercise - Read your first Accounts Transaction
 
-For this task, we will read our first Accounts transaction via Overledger’s autoExecuteSearchTransaction API. The documentation can be found [here](https://docs.overledger.io/#operation/autoExecuteSearchTransactionRequest). 
+In this exercise, we will read our first Accounts transaction via Overledger’s autoExecuteSearchTransaction API. The documentation can be found [here](https://docs.overledger.io/#operation/autoExecuteSearchTransactionRequest). 
 
 #### DLT Network Information
 
@@ -16,12 +16,12 @@ We will be interacting with the Ethereum Ropsten and the XRP Ledger testnets. Th
 
 #### Prerequisites
 
-It is assumed that you have already setup your environment by following [these instructions](./CLASS1.md) and that you have completed the previous exercises to search for a block using Overledger [here](./CLASS2.md) and to search for a UTXO transaction using Overledger [here](./CLASS3.md).
+It is assumed that you have already setup your environment by following [these instructions](./Exercise1.md) and that you have completed the previous exercises to search for a block using Overledger [here](./Exercise2.md) and to search for a UTXO transaction using Overledger [here](./Exercise3.md).
 
 
 ##### Overledger Auto Execute Transaction Search API Response
 
-See [here](./CLASS3.md) for further details on the response body.
+See [here](./Exercise3.md) for further details on the response body.
 
 ###### Auto Execute Transaction Search API Response Origins and Destinations
 
@@ -39,13 +39,15 @@ Note that accounts based transactions that are contract invocations have a more 
 
 #### Searching for the Latest Payment Transaction
 
-Given the example `examples/transaction-search/autoexecute-transaction-search.js` file and the location information listed above, can you understand how to change this file to instead return the latest payment transaction on the Ethereum Ropsten and XRP Ledger testnets? Recall that the following is required to run the file:
+We will demostrate searching the for an Accounts transaction through this specific challenge. Given the example `examples/transaction-search/autoexecute-transaction-search.js` file (previously used in Exercise 3) and the location information listed above, can you understand how to change this file to instead return the latest payment transaction on the Ethereum Ropsten and XRP Ledger testnets? Recall that the following is required to run the file:
 
 ```
 node examples/transaction-search/autoexecute-transaction-search.js password=MY_PASSWORD
 ```
 
-Remember that this script first gets the latest block, then if the block is not empty it will ask Overledger for the last transaction in the block. It gets the last transaction as transactions in a block are processed in order. Should the last transaction in the block not be a payment one, then the script will ask Overledger for the previous transaction in the block, and so on until a payment transaction is found.
+You will see in the example script that we are using the `/autoexecution/search/transaction?transactionId=${transactionId}` Overledger URL to search for the given transactionId.
+
+This script is the same as in [Exercise 3](./Exercise3.md). Recall that this script firstly gets the latest block, then if the block is not empty it will ask Overledger for the last transaction in the block. It gets the last transaction as transactions in a block are processed in order. Should the last transaction in the block not be a payment one, then the script will ask Overledger for the previous transaction in the block, and so on until a payment transaction is found.
 
 Note that in the foundations course, you don't have to concern yourself with the other transaction types, but they will be covered in a future course.
 
@@ -58,7 +60,7 @@ Take a look at a third party explorer for the DLT testnets we are using, e.g. [t
 Choose a transaction from a block in these explorers. Can you understand how to modify the example script to search for your chosen transactions (use your transaction IDs)?
 
 #### Troubleshooting
-This class was tested in  Ubuntu 20.04.2 LTS Release: 20.04 Codename: focal, with nvm version 0.35.3, and node version 16.3.0. 
+This class was tested in Ubuntu 20.04.2 LTS Release: 20.04 Codename: focal, with nvm version 0.35.3, and node version 16.3.0. 
 
 #### Error: bad decrypt 
 
@@ -72,3 +74,26 @@ Cause: the secure env package cannot decrypt the .env.enc file because the provi
 
 Solution: provide the password with which .env.enc was encrypted when running the script.
 
+#### Error: .env.enc does not exist 
+
+Description:
+
+```
+Secure-env :  ERROR OCCURED .env.enc does not exist.
+```
+
+Cause: You are missing the encrypted environment file in the folder that you are running from.
+
+Solution: Return to the top level folder and encrypt .env as described in Exercise 1.
+
+#### Error: Missing Password
+
+Description:
+
+```
+Error: Please insert a password to decrypt the secure env file.
+```
+
+Cause: You did not include the password as a command line option.
+
+Solution: Include the password as a command line option as stated in your terminal print out.

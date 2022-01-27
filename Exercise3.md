@@ -4,7 +4,7 @@
 
 ### Exercise - Read your first UTXO Transaction
 
-For this task, we will read our first UTXO transaction via Overledger’s autoExecuteSearchTransaction API. The documentation for this endpoint can be found [here](https://docs.overledger.io/#operation/autoExecuteSearchTransactionRequest). 
+In this exercise, we will read our first UTXO transaction via Overledger’s autoExecuteSearchTransaction API. The documentation for this endpoint can be found [here](https://docs.overledger.io/#operation/autoExecuteSearchTransactionRequest). 
 
 #### DLT Network Information
 
@@ -14,17 +14,19 @@ We will be interacting with the Bitcoin testnet. The relevant Overledger locatio
 
 #### Prerequisites
 
-It is assumed that you have already setup your environment by following [these instructions](./CLASS1.md) and that you have completed the previous exercise to search for a block using Overledger [here](./CLASS2.md).
+It is assumed that you have already setup your environment by following [these instructions](./Exercise1.md) and that you have completed the previous exercise to search for a block using Overledger [here](./Exercise2.md).
 
 #### Searching for the Latest Payment Transaction
 
-We will search for the latest payment transaction on the Bitcoin test network. To do so, run the following script:
+We will demostrate searching for a UTXO transaction through a specific example. In this example we will search for the latest payment transaction on the Bitcoin test network. To do so, run the following script:
 
 ```
 node examples/transaction-search/autoexecute-transaction-search.js password=MY_PASSWORD
 ```
 
-This script first gets the latest block, then if the block is not empty it will ask Overledger for the last transaction in the block. It gets the last transaction as transactions in a block are processed in order. Should the last transaction in the block not be a payment one, then the script will ask Overledger for the previous transaction in the block, and so on until a payment transaction is found.
+You will see in the example script that we are using the `/autoexecution/search/transaction?transactionId=${transactionId}` Overledger URL to search for the given transactionId.
+
+The full details of this script is as follows. Firstly it gets the latest block, then if the block is not empty it will ask Overledger for the last transaction in the block. It gets the last transaction as transactions in a block are processed in order. Should the last transaction in the block not be a payment one, then the script will ask Overledger for the previous transaction in the block, and so on until a payment transaction is found.
 
 Note that in the foundations course, you don't have to concern yourself with the other transaction types, but they will be covered in a future course.
 
@@ -54,11 +56,10 @@ For parameter by parameter descriptions see the [documentation](https://docs.ove
 
 ###### Auto Execute Transaction Search API Response Origins and Destinations
 
-In the UTXO model, a transaction contains one or more origins (inputs) and one or more destinations (inputs). In the UTXO model the related identifiers have specific meaning:
+In the UTXO model, a transaction contains one or more origins (inputs) and one or more destinations (outputs). In the UTXO model the origin and destination identifiers have specific meanings:
 
-- OriginId: This is a reference to a transactionId:DestinationArrayIndex of an unspent transaction output that is now being spent.
-  
-- DestinationId: This is a reference to an externally owned account (controlled by a private key) or to a smart contract address (controlled by smart contract code). An externally owned account requires a signature to spent the BTC associated to this transaction output. Whereas a smart contract address requires some user defined parameters to be satisfied in order for the transaction output to be spent. 
+- OriginId: This is a reference to the transactionId and DestinationArrayIndex of an unspent transaction output that is now being spent.
+- DestinationId: This is a reference to an externally owned account (controlled by a private key) or to a smart contract address (controlled by smart contract code). An externally owned account requires a signature to spent the BTC associated to this transaction output. Whereas a smart contract address requires some user defined parameters to be satisfied in order for the transaction output to be spent.
 
 #### Challenges
 
@@ -69,7 +70,7 @@ Take a look at a third party explorer for the Bitcoin testnet we are using, e.g.
 Choose a transaction from a block in this explorer. Can you understand how to modify the example script to search for your chosen transaction?
 
 #### Troubleshooting
-This class was tested in  Ubuntu 20.04.2 LTS Release: 20.04 Codename: focal, with nvm version 0.35.3, and node version 16.3.0. 
+This exercise was tested in Ubuntu 20.04.2 LTS Release: 20.04 Codename: focal, with nvm version 0.35.3, and node version 16.3.0. 
 
 #### Error: bad decrypt 
 
@@ -83,3 +84,26 @@ Cause: the secure env package cannot decrypt the .env.enc file because the provi
 
 Solution: provide the password with which .env.enc was encrypted when running the script.
 
+#### Error: .env.enc does not exist 
+
+Description:
+
+```
+Secure-env :  ERROR OCCURED .env.enc does not exist.
+```
+
+Cause: You are missing the encrypted environment file in the folder that you are running from.
+
+Solution: Return to the top level folder and encrypt .env as described in Exercise 1.
+
+#### Error: Missing Password
+
+Description:
+
+```
+Error: Please insert a password to decrypt the secure env file.
+```
+
+Cause: You did not include the password as a command line option.
+
+Solution: Include the password as a command line option as stated in your terminal print out.

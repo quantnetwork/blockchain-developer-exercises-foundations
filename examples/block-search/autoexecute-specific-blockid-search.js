@@ -20,11 +20,11 @@ log4js.configure({
   },
 });
 
-log.info("Loading secure environment variables defined in .env.enc");
+log.info("Loading password passed in via the command line");
 const PASSWORD_INPUT = process.argv.slice(2).toString();
 const SENV_PASSWORD = PASSWORD_INPUT.split("=")[1];
 
-// Check for provided password for the secure env
+// Check for provided password
 if (!SENV_PASSWORD) {
   log.error(
     "Please insert a password to decrypt the secure env file. Example: \n node examples/block-search/autoexecute-specific-blockid-search.js password=MY_PASSWORD",
@@ -76,7 +76,7 @@ log.info("Executing ", courseModule);
       overledgerRequestMetaData,
     );
 
-    log.info("Sending a Request to Overledger for the Parent Block");
+    log.info("Sending a Request to Overledger for the Parent Block (Using BlockId Search)");
     const parentBlockId =
       overledgerLatestBlockResponse.data.executionBlockSearchResponse.block
         .linkedBlocks.parent;
