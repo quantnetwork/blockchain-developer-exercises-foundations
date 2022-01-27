@@ -150,6 +150,30 @@ Cause: the secure env package cannot decrypt the .env.enc file because the provi
 
 Solution: provide the password with which .env.enc was encrypted when running the script.
 
+#### Error: .env.enc does not exist 
+
+Description:
+
+```
+Secure-env :  ERROR OCCURED .env.enc does not exist.
+```
+
+Cause: You are missing the encrypted environment file in the folder that you are running from.
+
+Solution: Return to the top level folder and encrypt .env as described in Exercise 1.
+
+#### Error: Missing Password
+
+Description:
+
+```
+Error: Please insert a password to decrypt the secure env file.
+```
+
+Cause: You did not include the password as a command line option.
+
+Solution: Include the password as a command line option as stated in your terminal print out.
+
 #### Error: bitcoin transaction failure
 
 Status returned from Overledger regarding a bitcoin transaction execution:
@@ -161,3 +185,4 @@ Status returned from Overledger regarding a bitcoin transaction execution:
 Cause: You have either provided the wrong Bitcoin address to *.env*, or the comand line provided transaction is not the funding transaction issued by the faucet or the funding transaction has not yet be included in a block of the blockchain or the faucet is not working correctly. 
 
 Solution: Firstly check that the provided fundingTx in the command line variables is correct. This is the most likely error. Check that this transaction has been included in a block of the blockchain. If this is both correct, check the bitcoin address and related private key is correct in the *.env* file, if it is not correct then you need to re-enter the bitcoin address and private key, re-encrypt the *.env* file and you need to request again funds from the bitcoin faucet to send the funds to the new address you added to the *.env* file. Finally if all these checks pass, assume the bitcoin faucet you choose is faulty and find another one.
+

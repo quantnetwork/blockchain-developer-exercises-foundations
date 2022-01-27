@@ -6,7 +6,9 @@
 
 In this exercise, we are going to setup the development environment and introduce the Github repository containing the code for assignments. 
 
-The distributed ledger technologies studied can be accessed via Overledger DLT Gateway. We will be using the Overledger Javascript v2 SDK to interact with Overledger. More details on this SDK can be found [here](https://github.com/quantnetwork/overledger-sdk-javascript-v2). Therefore our development environment will use [Node.js](https://nodejs.org/en/). Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine. Node comes with a package manager called [npm](https://www.npmjs.com/). We will use npm to install the necessary dependencies to our project.
+The distributed ledger technologies studied can be accessed via Overledger DLT Gateway. We will be using the Overledger Javascript v2 SDK to interact with Overledger. Therefore our development environment will use [Node.js](https://nodejs.org/en/). Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine. Node comes with a package manager called [npm](https://www.npmjs.com/). We will use npm to install the necessary dependencies to our project.
+
+Note that more details on the SDK used in this course can be found [here](https://github.com/quantnetwork/overledger-sdk-javascript-v2). The examples in this course were made specifically to complement the FutureLearn course theory. There are additional more simple examples using this SDK found [here](https://github.com/quantnetwork/overledger-sdk-javascript-v2/tree/develop/examples).
 
 #### Obtaining the project
 First, you need to clone the project (or fork and clone). We advise you to [fork the project](https://docs.github.com/en/get-started/quickstart/fork-a-repo).

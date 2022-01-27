@@ -103,7 +103,7 @@ You can search for a specific block via its blockId in the Ethereum Ropsten DLT 
 
 You will see in the example script that we are using the `"/autoexecution/search/block/${blockId}"` Overledger URL to search for a block with the given blockId.
 
-Notice that to find a valid blockId it firstly searches the current block, then finds the parent of the current block using the standardised data model and searches for that block.
+To search for a specific valid blockId, the script firstly searches for the current block using the latest keyword, then finds the blockId of the latest block's parent and uses that blockId to search.
 
 Because the logic of this file is built on the standardised data model, all we have to do to make the same script applicable to the Bitcoin testnet or the XRP Ledger testnet is to change the location object (in line 60). So give it a go!
 
@@ -114,6 +114,8 @@ node examples/block-search/autoexecute-specific-blocknumber-search.js password=M
 ```
 
 You will see in the example script that we are using the `"/autoexecution/search/block/${blockNumber}"` Overledger URL to search for a block with the given blockNumber.
+
+The logic of this script is similar to the previous one. I.e. the script searches for the latest block first to find the current block number, and then finds the blockNumber of the latest block's parent and uses that blockNumber to search.
 
 #### Challenges
 
@@ -130,7 +132,7 @@ Choose a block from these explorers. Can you understand how to modify the exampl
 #### Troubleshooting
 This exercise was tested in Ubuntu 20.04.2 LTS Release: 20.04 Codename: focal, with nvm version 0.35.3, and node version 16.3.0. 
 
-#### Error: bad decrypt 
+#### Error: Bad Decrypt 
 
 Description:
 
@@ -142,3 +144,27 @@ Cause: the secure env package cannot decrypt the .env.enc file because the provi
 
 Solution: provide the password with which .env.enc was encrypted when running the script.
 
+
+#### Error: Encrypted Environment File Does Not Exist 
+
+Description:
+
+```
+Secure-env :  ERROR OCCURED .env.enc does not exist.
+```
+
+Cause: You are missing the encrypted environment file in the folder that you are running from.
+
+Solution: Return to the top level folder and encrypt .env as described in Exercise 1.
+
+#### Error: Missing Password
+
+Description:
+
+```
+Error: Please insert a password to decrypt the secure env file.
+```
+
+Cause: You did not include the password as a command line option.
+
+Solution: Include the password as a command line option as stated in your terminal print out.

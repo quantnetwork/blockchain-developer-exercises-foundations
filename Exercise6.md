@@ -85,3 +85,26 @@ Cause: the secure env package cannot decrypt the .env.enc file because the provi
 
 Solution: provide the password with which .env.enc was encrypted when running the script.
 
+#### Error: .env.enc does not exist 
+
+Description:
+
+```
+Secure-env :  ERROR OCCURED .env.enc does not exist.
+```
+
+Cause: You are missing the encrypted environment file in the folder that you are running from.
+
+Solution: Return to the top level folder and encrypt .env as described in Exercise 1.
+
+#### Error: Missing Password
+
+Description:
+
+```
+Error: Please insert a password to decrypt the secure env file.
+```
+
+Cause: You did not include the password as a command line option.
+
+Solution: Include the password as a command line option as stated in your terminal print out.

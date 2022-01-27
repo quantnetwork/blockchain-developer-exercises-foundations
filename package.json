@@ -6,7 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "generate-env": "secure-env .env -s MY_PASSWORD",
     "format:lint": "eslint 'examples/**/*.js' --quiet --fix",
-    "format:prettier": "prettier --config ./.prettierrc.js 'examples/**/*.js' --write"  
+    "format:prettier": "prettier --config ./.prettierrc.js 'examples/**/*.js' --write"
   },
   "repository": {
     "type": "git",
@@ -32,14 +32,14 @@
   "dependencies": {
     "@quantnetwork/overledger-bundle": "2.1.1",
     "@quantnetwork/overledger-types": "2.1.1",
-    "log4js": "6.3.0",
+    "log4js": "^6.4.1",
     "npm-run": "5.0.1",
     "secure-env": "1.2.0"
   },
   "devDependencies": {
     "eslint": "8.2.0",
     "eslint-config-airbnb": "19.0.2",
-    "eslint-config-node": "4.1.0",
+    "eslint-config-node": "^2.0.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-import": "2.25.3",
     "eslint-plugin-jsx-a11y": "6.5.1",
