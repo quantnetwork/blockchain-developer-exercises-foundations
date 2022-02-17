@@ -71,7 +71,9 @@ Take a look at a third party explorer for the DLT testnets we are using, e.g. [t
 Choose any account address from these explorers. Can you understand how to modify the example script to search for that account's balance and sequence?
 
 #### Troubleshooting
-This class was tested in Ubuntu 20.04.2 LTS Release: 20.04 Codename: focal, with nvm version 0.35.3, and node version 16.3.0. 
+This exercise was tested in Ubuntu 20.04.2 LTS Release: 20.04 Codename: focal, with nvm version 0.35.3, and node version 16.3.0. 
+
+This exercise was additionally tested in MacOS Monterey Version 12.0.1, with nvm version 0.39.0, and node version 16.3.0. 
 
 #### Error: bad decrypt 
 

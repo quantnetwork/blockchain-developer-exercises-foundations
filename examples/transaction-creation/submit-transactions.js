@@ -163,79 +163,86 @@ log.info("Executing ", courseModule);
       xrpLedgerDestination,
     ];
 
-    // We will send be sending the minimal amount of each main protocol token (BTC, ETH, XRP) on each DLT network
-    const overledgerAmounts = ["0.00001", "0.000000000000000001", "0.00001"];
+    // We will send be sending the safe amounts of each main protocol token (BTC, ETH, XRP) on each DLT network
+    // (safe as Bitcoin can require the amount sent to be over a certain level of satoshis)
+    // (safe as XRPL requires the amount sent to a new address to be over a certain limit)
+    const overledgerAmounts = ["0.00001", "0.0000000000000001", "10"];
     // Note that as we are connected to the testnet DLT networks, these tokens do not have real world value
     const overledgerUnits = ["BTC", "ETH", "XRP"];
 
-    log.info("Entering loop to prepare, sign and send one transaction");
+    log.info("Entering loop to prepare, sign and send one transaction\n");
 
     count = 0;
     let prepareTransactionRequest = {};
     const prepareTransactionResponse = {};
     const executeTransactionRequest = [];
     const executeTransactionResponse = [];
-    // format the transaction request
-    prepareTransactionRequest = {
-      type: "PAYMENT",
-      location: {
-        technology: overledgerRequestMetaData[count].location.technology,
-        network: overledgerRequestMetaData[count].location.network,
-      },
-      urgency: "normal",
-      requestDetails: {
-        overledgerSigningType: "overledger-javascript-library",
-        message: "OVL Message Example",
-        origin: [
-          {
-            originId: overledgerOrigins[count],
-          },
-        ],
-        destination: [
-          {
-            destinationId: overledgerDestinations[count],
-            payment: {
-              amount: overledgerAmounts[count],
-              unit: overledgerUnits[count],
+    while (count < 3){
+      // format the transaction request
+      prepareTransactionRequest = {
+        type: "PAYMENT",
+        location: {
+          technology: overledgerRequestMetaData[count].location.technology,
+          network: overledgerRequestMetaData[count].location.network,
+        },
+        urgency: "normal",
+        requestDetails: {
+          overledgerSigningType: "overledger-javascript-library",
+          message: "OVL Message Example",
+          origin: [
+            {
+              originId: overledgerOrigins[count],
             },
-          },
-        ],
-      },
-    };
-    log.info(`OVL prepare transaction request:\n\n${JSON.stringify(prepareTransactionRequest)}`);
-    // send the standardised transaction to Overledger to prepare the native data stucture
-    prepareTransactionResponse[count] = await overledgerInstance.post(
-      "/preparation/transaction",
-      prepareTransactionRequest,
-    );
+          ],
+          destination: [
+            {
+              destinationId: overledgerDestinations[count],
+              payment: {
+                amount: overledgerAmounts[count],
+                unit: overledgerUnits[count],
+              },
+            },
+          ],
+        },
+      };
+      log.info(`Using DLT: ${overledgerRequestMetaData[count].location.technology}\n`);
 
-    log.info(
-      `OVL prepare request response:\n\n${JSON.stringify(
+      log.info(`OVL prepare transaction request:\n\n${JSON.stringify(prepareTransactionRequest)}\n`);
+      // send the standardised transaction to Overledger to prepare the native data stucture
+      prepareTransactionResponse[count] = await overledgerInstance.post(
+        "/preparation/transaction",
+        prepareTransactionRequest,
+      );
+
+      log.info(
+        `OVL prepare request response:\n\n${JSON.stringify(
+          prepareTransactionResponse[count].data,
+        )}\n`,
+      );
+
+      // sign the native transaction
+      log.info(`Signing transaction\n`);
+      let signedTransactionResponse = await overledger.sign(
+        overledgerRequestMetaData[count].location.technology.replace(/\s+/g, '-').toLowerCase(),
         prepareTransactionResponse[count].data,
-      )}`,
-    );
-
-    // sign the native transaction
-    log.info(`Signing transaction`);
-    let signedTransactionResponse = await overledger.sign(
-      overledgerRequestMetaData[count].location.technology.replace(/\s+/g, '-').toLowerCase(),
-      prepareTransactionResponse[count].data,
-    );
-    executeTransactionRequest[count] = {
-      requestId: prepareTransactionResponse[count].data.requestId,
-      signed: signedTransactionResponse.signedTransaction,
-    };
-    log.info(`OVL execute transaction request ${count}: ${JSON.stringify(executeTransactionRequest[count])}`);
-    // submit the signed transaction to Overledger
-    executeTransactionResponse[count] = await overledgerInstance.post(
-      "/execution/transaction",
-      executeTransactionRequest[count],
-    );
-    log.info(
-      `Printing Out Overledger's Response for a transaction prepared, signed and submitted onto the ${
-        overledgerRequestMetaData[count].location.technology
-      } testnet:\n\n${JSON.stringify(executeTransactionResponse[count].data)}\n\n`,
-    );
+      );
+      executeTransactionRequest[count] = {
+        requestId: prepareTransactionResponse[count].data.requestId,
+        signed: signedTransactionResponse.signedTransaction,
+      };
+      log.info(`OVL execute transaction request ${count}:\n\n${JSON.stringify(executeTransactionRequest[count])}\n`);
+      // submit the signed transaction to Overledger
+      executeTransactionResponse[count] = await overledgerInstance.post(
+        "/execution/transaction",
+        executeTransactionRequest[count],
+      );
+      log.info(
+        `Printing Out Overledger's Response for a transaction prepared, signed and submitted onto the ${
+          overledgerRequestMetaData[count].location.technology
+        } testnet:\n\n${JSON.stringify(executeTransactionResponse[count].data)}\n\n`,
+      );
+      count++;
+    }
   } catch (e) {
     log.error("error", e);
   }

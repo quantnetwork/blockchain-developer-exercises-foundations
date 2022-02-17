@@ -39,7 +39,7 @@ Note that accounts based transactions that are contract invocations have a more 
 
 #### Searching for the Latest Payment Transaction
 
-We will demostrate searching the for an Accounts transaction through this specific challenge. Given the example `examples/transaction-search/autoexecute-transaction-search.js` file (previously used in Exercise 3) and the location information listed above, can you understand how to change this file to instead return the latest payment transaction on the Ethereum Ropsten and XRP Ledger testnets? Recall that the following is required to run the file:
+We will demostrate searching for an Accounts transaction through this specific challenge. Given the example `examples/transaction-search/autoexecute-transaction-search.js` file (previously used in Exercise 3) and the location information listed above, can you understand how to change this file to instead return the latest payment transaction on the Ethereum Ropsten and XRP Ledger testnets? Recall that the following is required to run the file:
 
 ```
 node examples/transaction-search/autoexecute-transaction-search.js password=MY_PASSWORD
@@ -60,7 +60,9 @@ Take a look at a third party explorer for the DLT testnets we are using, e.g. [t
 Choose a transaction from a block in these explorers. Can you understand how to modify the example script to search for your chosen transactions (use your transaction IDs)?
 
 #### Troubleshooting
-This class was tested in Ubuntu 20.04.2 LTS Release: 20.04 Codename: focal, with nvm version 0.35.3, and node version 16.3.0. 
+This exercise was tested in Ubuntu 20.04.2 LTS Release: 20.04 Codename: focal, with nvm version 0.35.3, and node version 16.3.0. 
+
+This exercise was additionally tested in MacOS Monterey Version 12.0.1, with nvm version 0.39.0, and node version 16.3.0. 
 
 #### Error: bad decrypt 
 

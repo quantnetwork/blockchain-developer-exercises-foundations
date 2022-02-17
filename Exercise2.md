@@ -44,7 +44,7 @@ We will start by searching for the latest block on the Bitcoin DLT network. To d
 node examples/block-search/autoexecute-latest-block-search.js password=MY_PASSWORD
 ```
 
-You will see in the example script that we are using the `"/autoexecution/search/block/latest"` Overledger URL to search for the latest block.
+You will see in the example script (referenced above) that we are using the `"/autoexecution/search/block/latest"` Overledger URL to search for the latest block.
 
 See that the response has two main objects due to Overledger’s preparation and execution model:
 
@@ -101,11 +101,11 @@ You can search for a specific block via its blockId in the Ethereum Ropsten DLT 
  node examples/block-search/autoexecute-specific-blockid-search.js password=MY_PASSWORD
  ```
 
-You will see in the example script that we are using the `"/autoexecution/search/block/${blockId}"` Overledger URL to search for a block with the given blockId.
+You will see in the example script (referenced above) that we are using the `"/autoexecution/search/block/${blockId}"` Overledger URL to search for a block with the given blockId.
 
 To search for a specific valid blockId, the script firstly searches for the current block using the latest keyword, then finds the blockId of the latest block's parent and uses that blockId to search.
 
-Because the logic of this file is built on the standardised data model, all we have to do to make the same script applicable to the Bitcoin testnet or the XRP Ledger testnet is to change the location object (in line 60). So give it a go!
+Because the logic of this file is built on the standardised data model, all we have to do to make the same script applicable to the Bitcoin testnet or the XRP Ledger testnet is to change the location object (in line 63). So give it a go!
 
 Finally note that you can search for a specific block via the blockId or the block number. You can search for a specific block number in the XRP Ledger DLT network by running the following:
 
@@ -113,9 +113,9 @@ Finally note that you can search for a specific block via the blockId or the blo
 node examples/block-search/autoexecute-specific-blocknumber-search.js password=MY_PASSWORD
 ```
 
-You will see in the example script that we are using the `"/autoexecution/search/block/${blockNumber}"` Overledger URL to search for a block with the given blockNumber.
+You will see in the example script (referenced above) that we are using the `"/autoexecution/search/block/${blockNumber}"` Overledger URL to search for a block with the given blockNumber.
 
-The logic of this script is similar to the previous one. I.e. the script searches for the latest block first to find the current block number, and then finds the blockNumber of the latest block's parent and uses that blockNumber to search.
+The logic of this script is similar to the previous one. I.e. the script searches for the latest block first to find the current block number, and then finds the blockNumber of the latest block's parent and uses that blockNumber to search. Again the Overledger standardised data model is used so again this script can be modified to operate over other DLT Networks by simply changing the location object.
 
 #### Challenges
 
@@ -131,6 +131,8 @@ Choose a block from these explorers. Can you understand how to modify the exampl
 
 #### Troubleshooting
 This exercise was tested in Ubuntu 20.04.2 LTS Release: 20.04 Codename: focal, with nvm version 0.35.3, and node version 16.3.0. 
+
+This exercise was additionally tested in MacOS Monterey Version 12.0.1, with nvm version 0.39.0, and node version 16.3.0. 
 
 #### Error: Bad Decrypt 
 

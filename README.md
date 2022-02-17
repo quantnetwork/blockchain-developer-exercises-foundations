@@ -5,7 +5,7 @@ Welcome to the repository for the developer tasks of the Future Learn's **open-s
 
 This course aims at providing a reliable basis for developers to get started in the blockchain and distributed ledger technology domain.
 
-This course is divided into **articles** and **developer exercises**, where the articles explain the theoretical foundations behind what is applied in the exercises. To access the articles you will need to sign up on [Future Learn](https://www.futurelearn.com/courses/become-a-blockchain-developer-foundations).  
+This course is mainly divided into **articles** and **developer exercises**, where the articles explain the theoretical foundations behind what is applied in the exercises. To access the articles you will need to sign up on [Future Learn](https://www.futurelearn.com/courses/become-a-blockchain-developer-foundations). This is a course that you can take and complete at any time (i.e. there are no live classes). Note that there are free and paid access levels for this course. Consult the "Ways to Learn" section of the course page for more information.
 
 
 ## Course Outcomes

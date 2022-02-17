@@ -6,17 +6,16 @@
 
 In this exercise, we are going to setup the development environment and introduce the Github repository containing the code for assignments. 
 
-The distributed ledger technologies studied can be accessed via Overledger DLT Gateway. We will be using the Overledger Javascript v2 SDK to interact with Overledger. Therefore our development environment will use [Node.js](https://nodejs.org/en/). Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine. Node comes with a package manager called [npm](https://www.npmjs.com/). We will use npm to install the necessary dependencies to our project.
+The distributed ledger technologies studied can be accessed via the Overledger DLT Gateway. We will be using the Overledger Javascript v2 SDK to interact with Overledger. Therefore our development environment will use [Node.js](https://nodejs.org/en/). Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine. Node comes with a package manager called [npm](https://www.npmjs.com/). We will use npm to install the necessary dependencies to our project.
 
 Note that more details on the SDK used in this course can be found [here](https://github.com/quantnetwork/overledger-sdk-javascript-v2). The examples in this course were made specifically to complement the FutureLearn course theory. There are additional more simple examples using this SDK found [here](https://github.com/quantnetwork/overledger-sdk-javascript-v2/tree/develop/examples).
 
 #### Obtaining the project
-First, you need to clone the project (or fork and clone). We advise you to [fork the project](https://docs.github.com/en/get-started/quickstart/fork-a-repo).
+First, you need to download this repository code onto your local computer. To do so, we advise you to [fork the project](https://docs.github.com/en/get-started/quickstart/fork-a-repo) and clone the code. If you fork the project first, you will be able to push your changes into your own repository, so that you can more easily discuss your code with fellow learners.
 
-To clone the project, on the terminal run:
-`git clone https://github.com/quantnetwork/blockchain-developer-exercises-foundations` (in case you forked the project, the clone would be `https://github.com/YOUR_USERNAME/blockchain-developer-exercises-foundations`, where `YOUR_USERNAME` is your Github username).
+To clone the project after you have forked, open a terminal in your desired folder and run: `git clone https://github.com/YOUR_USERNAME/blockchain-developer-exercises-foundations`, where `YOUR_USERNAME` is your Github username). Alternatively, if you have not forked, you can run `git clone https://github.com/quantnetwork/blockchain-developer-exercises-foundations`.
 
-Navigate to the exercises folder by typing:
+Now navigate to the exercises folder by typing:
 `cd blockchain-developer-exercises-foundations`
 
 You're almost go to go! But first, we need to install the dependencies.
@@ -116,7 +115,7 @@ Great! Now we have an encrypted env file, *.env.enc*, that will be parsed and se
 
 When looking into our scripts that connects to Overledger, you may notice that connections to Overledger use the OAuth2 protocol, meaning your interactions with Overledger are mediated by an access token.
 
-Run the script (make sure to replace MY_PASSWORD by the password you used to encrypt *.env*):
+To see an example of these tokens, run the following script (make sure to replace MY_PASSWORD by the password you used to encrypt *.env*):
 
 ```
 node examples/configuration/configure-sdk.js password=MY_PASSWORD
@@ -124,7 +123,7 @@ node examples/configuration/configure-sdk.js password=MY_PASSWORD
 
 Great! You can see how tokens are obtained from Overledger. Three types of tokens are given (following the [OAuth 2.0 protocol](https://oauth.net/2/)): the `access token`, the `refresh token` and the `id token`. 
 
-The `access token` allows our examples to make API requests on behalf of you. In practice, you are issuing requests to Overledger, and this token authenticates you. It is important that you keep this token private, as someone holding it can make requests to Overledger on your behalf. The access token has an expiration date, typically ranging from a few hours to a few weeks. The `refresh token` does not expire and it is used to re-issue an access token. The refresh token helps the user avoiding to sign-in every time an access token expires. The `id token` refers to a token specific to [OpenID Connect](https://openid.net/connect/), a protocol built on top of OAuth 2.0. The id token encodes the user’s authentication information, for example, different types of attributes.
+The `access token` allows our examples to make API requests on behalf of you. In practice, you are issuing requests to Overledger, and this token authenticates you. It is important that you keep this token private, as someone holding it can make requests to Overledger on your behalf. The access token has an expiration date, typically ranging from a few hours to a few weeks. The `refresh token` does not expire and it is used to re-issue an access token. The refresh token helps the user avoid signing in every time an access token expires. The `id token` refers to a token specific to [OpenID Connect](https://openid.net/connect/), a protocol built on top of OAuth 2.0. The id token encodes the user’s authentication information, for example, different types of attributes.
 
 All the tokens are [JSON Web Tokens (JWT)](https://en.wikipedia.org/wiki/JSON_Web_Token). "JWTs are an open, industry standard RFC 7519 method for representing claims securely between two parties".
 
@@ -132,7 +131,9 @@ You can inspect the content of each token with a [JWT decoder](https://jwt.io/).
 
 
 ### Troubleshooting
-This exercise was tested in Ubuntu 20.04.2 LTS Release: 20.04 Codename: focal, with nvm version 0.35.3, and node version 16.3.0. 
+This exercise was tested firstly in Ubuntu 20.04.2 LTS Release: 20.04 Codename: focal, with nvm version 0.35.3, and node version 16.3.0. 
+
+This exercise was additionally tested in MacOS Monterey Version 12.0.1, with nvm version 0.39.0, and node version 16.3.0. 
 
 #### Error: bad decrypt 
 

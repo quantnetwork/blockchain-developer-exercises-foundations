@@ -32,8 +32,7 @@ The full details of this script is as follows. Firstly it gets the latest block,
 
 - UNSPENT_PENDING: This transaction output has been created in a transaction that Overledger currently deems not final (hence the PENDING suffix). This transaction has not yet been spent in any other transaction (hence the UNSPENT prefix).
 - UNSPENT_SUCCESSFUL: This transaction output has been created in a transaction that Overledger deems final (hence the SUCCESSFUL suffix). This transaction has not yet been spent in any other transaction (hence the UNSPENT prefix).
-- SPENT_PENDING: This transaction has been spent in another transaction (hence the SPENT prefix). But this spending transaction has not yet been deemed as final by Overledger (hence the PENDING suffix). 
-- SPENT_SUCCESSFUL: This transaction has been spent in another transaction (hence the SPENT prefix). And this spending transaction has been deemed as final by Overledger (hence the SUCCESSFUL suffix). 
+- SPENT: This transaction has been spent in another transaction. 
 - UNSPENDABLE_PENDING: This transaction output has been created in a transaction that Overledger currently deems not final (hence the PENDING suffix). But this transaction output can never be spent, because it has no unlocking condition (hence the UNSPENDABLE prefix).
 - UNSPENDABLE_SUCCESSFUL: This transaction output has been created in a transaction that Overledger deems final (hence the SUCCESSFUL suffix). But this transaction output can never be spent, because it has no unlocking condition (hence the UNSPENDABLE prefix).
 
@@ -69,7 +68,9 @@ Take a look at a third party explorer for the Bitcoin testnet we are using, e.g.
 Choose a transaction from a block in this explorer. Then choose a specific transaction output. Can you understand how to modify the example script to search for your chosen transaction output?
 
 #### Troubleshooting
-This class was tested in Ubuntu 20.04.2 LTS Release: 20.04 Codename: focal, with nvm version 0.35.3, and node version 16.3.0. 
+This exercise was tested in Ubuntu 20.04.2 LTS Release: 20.04 Codename: focal, with nvm version 0.35.3, and node version 16.3.0. 
+
+This exercise was additionally tested in MacOS Monterey Version 12.0.1, with nvm version 0.39.0, and node version 16.3.0. 
 
 #### Error: bad decrypt 
 
