@@ -244,6 +244,6 @@ log.info("Executing ", courseModule);
       count++;
     }
   } catch (e) {
-    log.error("error", e);
+    log.error("", e);
   }
 })();

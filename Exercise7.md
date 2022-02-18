@@ -46,7 +46,7 @@ Note that faucets can be occasionally empty or can change frequently, if your ha
 
 **IMPORTANT NOTE 1: For Bitcoin and Ethereum, note that the faucet funding transactions needs to be in a block of the corresponding blockchain before it can be used. Whereas XRP ledger funds will be available as soon as you see the generated information on the XRP ledger faucet screen.**
 
-**IMPORTANT NOTE 2: For Bitcoin you will need to note down the transactionId the faucet uses to provide you with funds. This is so the example below will run correctly.**
+**IMPORTANT NOTE 2: For Bitcoin you will need to note down the transactionId the faucet uses to provide you with funds. This is so the example below will run correctly. You should also request at least 0.0001 BTC from any faucet you use.**
  
 **IMPORTANT NOTE 3: For Ethereum, there are many different test networks available (e.g. Ropsten, Rinkeby, Kovan,...). Tokens issued on one test network cannot be used on another test network. So make sure that any faucet you use is a Ropsten testnet faucet.** 
 
@@ -80,7 +80,7 @@ This example will create transactions on the Bitcoin testnet, Ethereum Ropsten t
 node examples/transaction-creation/submit-transactions.js password=MY_PASSWORD fundingTx=MY_BITCOIN_FUNDING_TX
 ```
 
-Note that an extra command line parameter is required, which is a bitcoin transaction that you have received from the bitcoin faucet and includes an unspent transaction output that you have not yet used. 
+Note that an extra command line parameter is required, which is a bitcoin transaction that you have received from the bitcoin faucet and includes an unspent transaction output that you have *not yet used*. 
 
 You will see in the example script that we are using:
 
@@ -108,9 +108,9 @@ to sign the transaction and:
 ```
 to send the transaction to Overledger, who forwards it onto the DLT network.
 
-The full details of this script is as follows. It firstly creates random DLT accounts to send the transactions to. Next the script makes sure that you provided a valid bitcoin funding transaction by fetching the given transaction and looping over it's UTXOs looking for a match to your Bitcoin address. If it doesn't find it, it means that either you have provided the wrong Bitcoin address to *.env*, or the provided transaction is not the funding transaction issued by the faucet, or the faucet is not working correctly. 
+The full details of this script is as follows. It firstly creates random DLT accounts to send the transactions to. Next the script makes sure that you provided a valid bitcoin funding transaction by fetching the given transaction and looping over it's UTXOs looking for a match to your Bitcoin address. If it doesn't find it, it means that either the transaction is not yet in a block of the blockchain, or the provided transaction is not the funding transaction issued by the faucet, or you have provided the wrong Bitcoin address to *.env*, or the faucet is not working correctly. 
 
-After this, the script constructs the origin and destination of each of your bitcoin, ethereum and XRP ledger transactions. Recall that an accounts based transaction origin is an address, whereas a UTXO based transaction origin is a UTXOid (transactionId:OutputIndex). Whereas the transaction destination of both accounts and UTXO transactions is an address. The script then sets the minimum value of BTC, ETH or XRP to be transferred via these transactions. 
+After this, the script constructs the origin and destination of each of your bitcoin, ethereum and XRP ledger transactions. Recall that an accounts based transaction origin is an address, whereas a UTXO based transaction origin is a UTXOid (transactionId:OutputIndex). Whereas the transaction destination of both accounts and UTXO transactions is an address. The script then sets the value of BTC, ETH or XRP to be transferred via these transactions. Note that as transaction fees in BTC are implicit, the transaction fee is taken from the last destination.
 
 Now the script has enough information to submit each transaction to the DLT network. Therefore the script enters a loop which completes three main steps for each DLT network. Firstly the script sends a standardised transaction to OVL to be prepared and receives the response in the DLT native data format. Secondly the script signs the native data form of the transaction. Thirdly the script sends the signed transaction to Overledger for it to be added onto the DLT network.
 
@@ -189,7 +189,71 @@ Status returned from Overledger regarding a bitcoin transaction execution:
 {"value":"FAILED","code":"TXN1501","description":"-25: Missing inputs","message":"Missing inputs","timestamp":"2022-01-24T22:42:10.282652Z"}
 ```
 
-Cause: You have either provided the wrong Bitcoin address to *.env*, or the comand line provided transaction is not the funding transaction issued by the faucet or the funding transaction has not yet be included in a block of the blockchain or the faucet is not working correctly. 
+Cause: You have either: (1) provided the wrong Bitcoin address to *.env*; or (2) the comand line provided transaction is not the funding transaction issued by the faucet; or (3) the faucet funding transaction has not yet be included in a block of the blockchain; or (4) you have already spent the output of this transaction; or (5) the faucet is not working correctly. 
 
-Solution: Firstly check that the provided fundingTx in the command line variables is correct. This is the most likely error. Check that this transaction has been included in a block of the blockchain. If this is both correct, check the bitcoin address and related private key is correct in the *.env* file, if it is not correct then you need to re-enter the bitcoin address and private key, re-encrypt the *.env* file and you need to request again funds from the bitcoin faucet to send the funds to the new address you added to the *.env* file. Finally if all these checks pass, assume the bitcoin faucet you choose is faulty and find another one.
+Solution: Firstly check that the provided fundingTx in the command line variables is correct. This is the most likely error. Check that this transaction has been included in a block of the blockchain and that the destination (output) related to your address is not yet spent. If these are all correct, check the bitcoin address and related private key is correct in the *.env* file, if it is not correct then you need to re-enter the bitcoin address and private key, re-encrypt the *.env* file and you need to request again funds from the bitcoin faucet to send the funds to the new address you added to the *.env* file. Finally if all these checks pass, assume the bitcoin faucet you choose is faulty and find another one.
 
+#### Error: incorrect bitcoin transaction provided
+
+Description:
+
+```
+Error: The providing bitcoin funding transaction does not have a transaction output assigned to your Bitcoin address. Please recheck the provided bitcoinTx.
+```
+
+Cause: The Bitcoin transaction id you provided in the command line does not have a destination (output) that is assigned to your address. 
+
+Solution: Recheck the transaction that the faucet send to your address and correct the terminal entry. 
+
+
+#### Error: failed to map overledger standardised transaction to bitcoin native data.
+
+Overledger rejects the bitcoin preparation request.
+
+Description:
+```
+Error: Request failed with status code 500
+```
+
+with the following in the data object:
+
+```
+description: 'Failed to map the Overledger Transaction request to the native standard.'
+```
+
+Cause: The is an issue with the formatting of your preparation request. Most likely your BTC payment amount is too low (meaning that the recommend transaction fee to add the transaction to the block would lead to a negative payment value).
+
+Solution: Raise you BTC payment amount (but it is still required to be less than the given amount from the faucet)
+
+
+#### Error: Insufficient funds for ethereum transaction
+
+Status returned from Overledger regarding a ethereum transaction execution:
+
+```
+{"value":"FAILED","code":"TXN1501","description":"-32000: insufficient funds for gas * price + value","message":"insufficient funds for gas * price + value","timestamp":"1645196615"}}
+```
+
+Cause: You have either: (1) provided the wrong Ethereum address to *.env*; or (2) the faucet funding transaction has not yet be included in a block of the blockchain; or (3) you have already spent all of your faucet provided funds. 
+
+Solution: Firstly check that your ethereum address has a balance. This is the most likely error. If it doesn't, check that that the funding transaction has been included in a block of the blockchain. If these are all fine, check the ethereum address and related private key is correct in the *.env* file, if it is not correct then you need to re-enter the ethereum address and private key, re-encrypt the *.env* file and you may need to request again funds from the ethereum faucet to the new address you added to the *.env* file. Finally if all these checks pass, assume the ethereum faucet you choose is faulty and find another one.
+
+
+#### Error: failed to map overledger standardised transaction to xrp ledger native data
+
+Overledger rejects the xrp ledger preparation request.
+
+Description:
+```
+Error: Request failed with status code 500
+```
+
+with the following in the data object:
+
+```
+description: 'Failed to map the Overledger Transaction request to the native standard.'
+```
+
+Cause: The is an issue with the formatting of your preparation request. Most likely your XRP payment amount is too high (as your XRPL address is not funded).
+
+Solution: Use the XRP address and secret generated from the [xrp ledger testnet faucet](https://xrpl.org/xrp-testnet-faucet.html). 
