@@ -29,14 +29,22 @@ Completing the course exercises will provide you with the foundational practical
 - How to read blocks, transactions and state information from these DLT networks
 - How to add new transactions to these DLT networks
 
-Future courses will expand on these features to show how more complicated mDapps can be built.
+The practical elements of this course are made possible via utilising Quant's Overledger. When new DLT networks are added to Overledger's public version (through new Overledger release versions), the exercises of this course will easily run against any newly connected DLT network via a simple change to one parameter (the location object), as explained later.  
 
+## Future Courses
+
+Future courses will expand on this course's outcomes to show how more complicated multi-ledger decentralised applications can be built. Currently the second course is scheduled to cover in detail smart contracts, tokens and consensus protocols, whereas the third course is scheduled to cover interoperability and scalability in detail. 
+
+
+## Issues, Suggestions & Improvements
+
+Issues related to these exercises can be discussed with your fellow learners in the FutureLearn course discussion boards. Quant technical support can be contacted at support@quant.zendesk.com. Finally, if you have suggested changes, you can raise them in this github repo via pull requests method. 
 
 ## Maintainers
 
 | Mainteiner      	| Github                                    	| Email                              	|
 |-----------------	|-------------------------------------------	|------------------------------------	|
-| Dr. Luke Riley	| [luke](https://github.com/lukerQuant) 	| luke.riley@quant.network 	|
+| Dr. Luke Riley	| [lukerQuant](https://github.com/lukerQuant) 	| luke.riley@quant.network 	|
 
 ## Acknowledgements
 
