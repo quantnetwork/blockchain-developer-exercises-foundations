@@ -1,5 +1,5 @@
 # Become a Blockchain Developer: Foundations
-![](https://img.shields.io/github/issues/quantnetwork/blockchain-developer-exercises-foundations) ![](https://img.shields.io/github/issues-raw/quantnetwork/blockchain-developer-exercises-foundations/help%20wanted) ![](https://img.shields.io/github/forks/quantnetwork/blockchain-developer-exercises-foundations) ![](https://img.shields.io/github/stars/quantnetwork/blockchain-developer-exercises-foundations) ![](https://img.shields.io/github/license/quantnetwork/blockchain-developer-exercises-foundations) ![](https://img.shields.io/github/v/release/quantnetwork/blockchain-developer-exercises-foundations)
+![](https://img.shields.io/github/issues/quantnetwork/blockchain-developer-exercises-foundations) ![](https://img.shields.io/github/forks/quantnetwork/blockchain-developer-exercises-foundations) ![](https://img.shields.io/github/stars/quantnetwork/blockchain-developer-exercises-foundations)
 
 Welcome to the repository for the developer tasks of the Future Learn's **open-source course** [Become a Blockchain Developer: Foundations Edition](https://www.futurelearn.com/courses/become-a-blockchain-developer-foundations) 🎓.
 
