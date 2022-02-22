@@ -107,6 +107,8 @@ Since the environment variables information is very sensitive, we want to secure
 
 Now, we will encrypt the *.env* file. For this, run on your terminal (replace MY_PASSWORD for a password of your choice):
 
+*Note that MY_PASSWORD is a password for the encryption of the .env file and decryption of the .env.enc file. It does not related to your Overledger password described in the previous section.*
+
 ```
 npm-run secure-env .env -s MY_PASSWORD
 ```
