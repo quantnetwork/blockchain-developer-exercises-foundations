@@ -110,6 +110,10 @@ Now, we will encrypt the *.env* file. For this, run on your terminal (replace MY
 ```
 npm-run secure-env .env -s MY_PASSWORD
 ```
+or 
+```
+secure-env .env -s MY_PASSWORD
+```
 
 Note that if you are running on windows and the above did not work, try:
 ```
