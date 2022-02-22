@@ -111,6 +111,11 @@ Now, we will encrypt the *.env* file. For this, run on your terminal (replace MY
 npm-run secure-env .env -s MY_PASSWORD
 ```
 
+Note that if you are running on windows and the above did not work, try:
+```
+./node_modules/secure-env/dist/es5/lib/cli.js .env -s MY_PASSWORD
+```
+
 Great! Now we have an encrypted env file, *.env.enc*, that will be parsed and securely read by the SDK. For extra security, delete *.env*.
 
 When looking into our scripts that connects to Overledger, you may notice that connections to Overledger use the OAuth2 protocol, meaning your interactions with Overledger are mediated by an access token.
@@ -146,4 +151,15 @@ Secure-env :  ERROR OCCURED Error: error:06065064:digital envelope routines:EVP_
 Cause: the secure env package cannot decrypt the .env.enc file because the provided password was incorrect.
 
 Solution: provide the password with which .env.enc was encrypted when running the script.
+
+#### Error: ENOENT
+
+Description:
+```
+Error: spawn secure-env ENOENT
+```
+Cause: If you are running on windows you can encounter this error.
+
+Solution: Run `./node_modules/secure-env/dist/es5/lib/cli.js .env -s MY_PASSWORD`. If you are still having trouble, consult [here](https://www.npmjs.com/package/secure-env#encrypt-env) for alternative command line options.
+
 
