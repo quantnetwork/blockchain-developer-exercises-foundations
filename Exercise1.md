@@ -10,6 +10,8 @@ The distributed ledger technologies studied can be accessed via the Overledger D
 
 Note that more details on the SDK used in this course can be found [here](https://github.com/quantnetwork/overledger-sdk-javascript-v2). The examples in this course were made specifically to complement the FutureLearn course theory. There are additional more simple examples using this SDK found [here](https://github.com/quantnetwork/overledger-sdk-javascript-v2/tree/develop/examples).
 
+*Note that the following works for Mac and Linux based Operating Systems. If you are using a Windows machine it is recommended that you run the exercises via Windows Subsystem for Linux (WSL), see for example [this guide](https://docs.microsoft.com/en-us/windows/wsl/install).*
+
 #### Obtaining the project
 First, you need to download this repository code onto your local computer. To do so, we advise you to [fork the project](https://docs.github.com/en/get-started/quickstart/fork-a-repo) and clone the code. If you fork the project first, you will be able to push your changes into your own repository, so that you can more easily discuss your code with fellow learners.
 
