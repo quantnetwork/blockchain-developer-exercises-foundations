@@ -170,4 +170,13 @@ Cause: If you are running on windows you can encounter this error.
 
 Solution: Run `./node_modules/secure-env/dist/es5/lib/cli.js .env -s MY_PASSWORD`. If you are still having trouble, consult [here](https://www.npmjs.com/package/secure-env#encrypt-env) for alternative command line options.
 
+#### Error: Both UserPoolId and ClientId are required
 
+Description:
+```
+Error: Both UserPoolId and ClientId are required.
+```
+
+Cause: This can be caused by a few possible client side issues.
+
+Solution: Firstly make sure that your userPoolId has not been edited from the default value. Secondly, check that you have all the requested parameters in your .env file as described [here](https://github.com/quantnetwork/blockchain-developer-exercises-foundations/blob/main/Exercise1.md#setting-your-overledger-connection-details) AND that you have deleted the current .env.enc file and re-encypted your .env file via the process described [here](https://github.com/quantnetwork/blockchain-developer-exercises-foundations/blob/main/Exercise1.md#securing-your-overledger-connection-details). If there are still issues remaining consider and resolve any possible typos introduced into the .env file for the parameter names, especially the CLIENT_ID one. 
