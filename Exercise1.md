@@ -107,6 +107,15 @@ Note that in Exercise 7 we will be adding to the parameter list in the *.env* fi
 
 Since the environment variables information is very sensitive, we want to securely fill them in a file that is then encrypted. To do so, duplicate the *.env.example* file and rename it to *.env*. After that, fill the variables USER_NAME, PASSWORD, CLIENT_ID, and CLIENT_SECRET. You may ignore the remaining ones, for now.
 
+These variables inside your .env file should now look something like:
+
+```
+USER_NAME=firstName.lastName@domain.com
+PASSWORD=mySecretPassword
+CLIENT_ID=1yyyj5sssf2kkktudddrs2xxx6
+CLIENT_SECRET=1aaawrjr133dv383cr1222atg66662f6ccccl5oeeeeeeu5zzzza
+```
+
 Now, we will encrypt the *.env* file. For this, run on your terminal (replace MY_PASSWORD for a password of your choice):
 
 *Note that MY_PASSWORD is a password for the encryption of the .env file and decryption of the .env.enc file. It does not related to your Overledger password described in the previous section.*
