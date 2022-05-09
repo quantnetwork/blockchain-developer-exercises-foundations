@@ -30,8 +30,8 @@
   },
   "homepage": "https://github.com/RafaelAPB/quant-blockchain-developer-course-examples#readme",
   "dependencies": {
-    "@quantnetwork/overledger-bundle": "2.1.1",
-    "@quantnetwork/overledger-types": "2.1.1",
+    "@quantnetwork/overledger-bundle": "^2.2.1",
+    "@quantnetwork/overledger-types": "^2.2.1",
     "log4js": "^6.4.1",
     "npm-run": "5.0.1",
     "secure-env": "1.2.0"
