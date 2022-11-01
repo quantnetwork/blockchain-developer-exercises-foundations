@@ -4,7 +4,7 @@
 
 ### Exercise - Read Data From Distributed Ledgers
 
-In this exercise, we will be reading blocks via Overledger’s *autoExecuteSearchBlock* API. The documentation for this endpoint can be found [here](https://docs.overledger.io/#operation/autoExecuteSearchBlockRequest). 
+In this exercise, we will be reading blocks via Overledger’s *autoExecuteSearchBlock* API. The documentation for this endpoint can be found [here](https://docs.overledger.io/tag/Block-Search#operation/autoExecuteSearchBlockRequest). 
 
 Recall that Overledger allows two forms of interaction:
 
