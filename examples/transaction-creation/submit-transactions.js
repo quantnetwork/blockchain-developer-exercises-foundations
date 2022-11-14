@@ -103,7 +103,7 @@ log.info("Executing ", courseModule);
       {
         location: {
           technology: "Ethereum",
-          network: "Ropsten Testnet",
+          network: "Ethereum Goerli Testnet",
         },
       },
       {

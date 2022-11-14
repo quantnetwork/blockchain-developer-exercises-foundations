@@ -8,9 +8,9 @@ In this exercise, we will read our first Accounts transaction via Overledger’s
 
 #### DLT Network Information
 
-We will be interacting with the Ethereum Ropsten and the XRP Ledger testnets. The relevant Overledger location objects are as follows:
+We will be interacting with the Ethereum Goerli and the XRP Ledger testnets. The relevant Overledger location objects are as follows:
 
-1. `Location = {“technology”: “Ethereum”, “network”: “Ropsten Testnet”}`
+1. `Location = {“technology”: “Ethereum”, “network”: “Ethereum Goerli Testnet”}`
    
 2. `Location = {“technology”: “XRP Ledger”, “network”: “Testnet”}`
 
@@ -39,7 +39,7 @@ Note that accounts based transactions that are contract invocations have a more 
 
 #### Searching for the Latest Payment Transaction
 
-We will demostrate searching for an Accounts transaction through this specific challenge. Given the example `examples/transaction-search/autoexecute-transaction-search.js` file (previously used in Exercise 3) and the location information listed above, can you understand how to change this file to instead return the latest payment transaction on the Ethereum Ropsten and XRP Ledger testnets? Recall that the following is required to run the file:
+We will demostrate searching for an Accounts transaction through this specific challenge. Given the example `examples/transaction-search/autoexecute-transaction-search.js` file (previously used in Exercise 3) and the location information listed above, can you understand how to change this file to instead return the latest payment transaction on the Ethereum Goerli and XRP Ledger testnets? Recall that the following is required to run the file:
 
 ```
 node examples/transaction-search/autoexecute-transaction-search.js password=MY_PASSWORD
@@ -55,7 +55,7 @@ All the logic in this script is based on the Overledger standardised data model.
 
 ##### Searching for a Specific Transaction
 
-Take a look at a third party explorer for the DLT testnets we are using, e.g. [the Ethereum Ropsten Testnet](https://ropsten.etherscan.io/) or [the XRP Ledger Testnet](https://blockexplorer.one/xrp/testnet).
+Take a look at a third party explorer for the DLT testnets we are using, e.g. [the Ethereum Goerli Testnet](https://goerli.etherscan.io/) or [the XRP Ledger Testnet](https://blockexplorer.one/xrp/testnet).
 
 Choose a transaction from a block in these explorers. Can you understand how to modify the example script to search for your chosen transactions (use your transaction IDs)?
 
