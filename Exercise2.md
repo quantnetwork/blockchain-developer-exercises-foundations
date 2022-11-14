@@ -25,12 +25,12 @@ We will be interacting with the Bitcoin, Ethereum & XRP Ledger testnets. Each ne
 `Location = {“technology”: “Bitcoin”, “network”: “Testnet”}`
 
 2. Ethereum 
-`Location = {“technology”: “Ethereum”, “network”: “Ropsten Testnet”}`
+`Location = {“technology”: “Ethereum”, “network”: “Ethereum Goerli Testnet”}`
 
 3. XRP
 `Location = {“technology”: “XRP Ledger”, “network”: “Testnet”}`
 
-Note that Ethereum has a named test network (Ropsten) above as Ethereum has multiple test networks (e.g. Ropsten, Rinkeby, Kovan etc). Therefore the additional name differentiates one test network from another. 
+Note that Ethereum has a named test network (Goerli) above as Ethereum has multiple test networks (e.g. Goerli, Sepolia, Ropsten, Rinkeby, Kovan etc). Therefore the additional name differentiates one test network from another. 
 
 #### Prerequisites
 
@@ -95,7 +95,7 @@ B. COMPUTATION = The computational processing size of the block expressed as the
 
 #### Searching for a Specific Block in Other DLT Networks
 
-You can search for a specific block via its blockId in the Ethereum Ropsten DLT network by running the following:
+You can search for a specific block via its blockId in the Ethereum Goerli DLT network by running the following:
 
  ```
  node examples/block-search/autoexecute-specific-blockid-search.js password=MY_PASSWORD
@@ -121,11 +121,11 @@ The logic of this script is similar to the previous one. I.e. the script searche
 
 ##### Searching for the Latest Block in Other DLT Networks
 
-Given the example `examples/block-search/autoexecute-latest-block-search.js` file and the location information listed above, can you understand how to change this file to instead query the latest block on the Ethereum Ropsten and XRP Ledger testnets? Hint: Look at the overledgerRequestMetaData object.
+Given the example `examples/block-search/autoexecute-latest-block-search.js` file and the location information listed above, can you understand how to change this file to instead query the latest block on the Ethereum Goerli and XRP Ledger testnets? Hint: Look at the overledgerRequestMetaData object.
 
 ##### Searching for a Specific Block
 
-Take a look at a third party explorer for the DLT testnets we are using, e.g. [the Bitcoin Testnet](https://blockstream.info/testnet/), [the Ethereum Ropsten Testnet](https://ropsten.etherscan.io/), or [the XRP Ledger Testnet](https://blockexplorer.one/xrp/testnet). 
+Take a look at a third party explorer for the DLT testnets we are using, e.g. [the Bitcoin Testnet](https://blockstream.info/testnet/), [the Ethereum Goerli Testnet](https://goerli.etherscan.io/), or [the XRP Ledger Testnet](https://blockexplorer.one/xrp/testnet). 
 
 Choose a block from these explorers. Can you understand how to modify the example scripts to search for your chosen block?
 

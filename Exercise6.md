@@ -10,9 +10,9 @@ Note that unlike blocks and transactions, the state data model of utxo and accou
 
 #### DLT Network Information
 
-We will be interacting with the Ethereum Ropsten and the XRP Ledger testnets. The relevant Overledger location objects are as follows:
+We will be interacting with the Ethereum Goerli and the XRP Ledger testnets. The relevant Overledger location objects are as follows:
 
-1. `Location = {“technology”: “Ethereum”, “network”: “Ropsten Testnet”}`
+1. `Location = {“technology”: “Ethereum”, “network”: “Ethereum Goerli Testnet”}`
    
 2. `Location = {“technology”: “XRP Ledger”, “network”: “Testnet”}`
 
@@ -22,7 +22,7 @@ It is assumed that you have already setup your environment by following [these i
 
 #### Searching Accounts for Specific Properties
 
-We will demostrate searching the Accounts state through a specific example. This example will search a subset of addresses and identify the address with the largest balance and the address with the largest sequence number. To be in the subset of addresses searched, an address will have had to send a transaction in the latest block of the Ethereum Ropsten testnet. To run the example, enter:
+We will demostrate searching the Accounts state through a specific example. This example will search a subset of addresses and identify the address with the largest balance and the address with the largest sequence number. To be in the subset of addresses searched, an address will have had to send a transaction in the latest block of the Ethereum Goerli testnet. To run the example, enter:
 
 ```
 node examples/state-search/autoexecute-accounts-search.js password=MY_PASSWORD
@@ -66,7 +66,7 @@ Given the example `./examples/state-search/autoexecute-accounts-search.js` file 
 
 ##### Searching for a Specific Address
 
-Take a look at a third party explorer for the DLT testnets we are using, e.g. [the Ethereum Ropsten Testnet](https://ropsten.etherscan.io/) or [the XRP Ledger Testnet](https://blockexplorer.one/xrp/testnet).
+Take a look at a third party explorer for the DLT testnets we are using, e.g. [the Ethereum Goerli Testnet](https://goerli.etherscan.io/) or [the XRP Ledger Testnet](https://blockexplorer.one/xrp/testnet).
 
 Choose any account address from these explorers. Can you understand how to modify the example script to search for that account's balance and sequence?
 

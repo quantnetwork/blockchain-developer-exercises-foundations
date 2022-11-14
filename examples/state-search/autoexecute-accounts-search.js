@@ -63,7 +63,7 @@ log.info("Executing ", courseModule);
     const overledgerRequestMetaData = {
       location: {
         technology: "Ethereum",
-        network: "Ropsten Testnet",
+        network: "Ethereum Goerli Testnet",
       },
     };
     const overledgerInstance = overledger.provider.createRequest(
