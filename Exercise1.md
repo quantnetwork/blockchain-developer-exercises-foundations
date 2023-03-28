@@ -40,10 +40,10 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 nvm is now installed and ready to use. Now we need to install a specific version of node with nvm. Run:
 
 ```
-nvm install 16.3.0
+nvm install 16.11.0
 ```
 
-This installed Node.js version 16.3.0. It is important for everyone to have the same Node version, to avoid inconsistent results when it is running modules. Now we make sure we have the latest npm
+This installed Node.js version 16.11.0. It is important for everyone to have the same Node version, to avoid inconsistent results when it is running modules. Now we make sure we have the latest npm
 
 ```
 nvm install-latest-npm
@@ -143,13 +143,13 @@ To see an example of these tokens, run the following script (make sure to replac
 node examples/configuration/configure-sdk.js password=MY_PASSWORD
 ```
 
-Great! You can see how tokens are obtained from Overledger. Three types of tokens are given (following the [OAuth 2.0 protocol](https://oauth.net/2/)): the `access token`, the `refresh token` and the `id token`. 
+Great! You can see how tokens are obtained from Overledger.
 
-The `access token` allows our examples to make API requests on behalf of you. In practice, you are issuing requests to Overledger, and this token authenticates you. It is important that you keep this token private, as someone holding it can make requests to Overledger on your behalf. The access token has an expiration date, typically ranging from a few hours to a few weeks. The `refresh token` does not expire and it is used to re-issue an access token. The refresh token helps the user avoid signing in every time an access token expires. The `id token` refers to a token specific to [OpenID Connect](https://openid.net/connect/), a protocol built on top of OAuth 2.0. The id token encodes the user’s authentication information, for example, different types of attributes.
+You are provided with an `access token`, which allows our examples to make API requests on behalf of you. In practice, you are issuing requests to Overledger, and this token authenticates you. It is important that you keep this token private, as someone holding it can make requests to Overledger on your behalf. The access token has an expiration date, typically ranging from a few hours to a few weeks.
 
-All the tokens are [JSON Web Tokens (JWT)](https://en.wikipedia.org/wiki/JSON_Web_Token). "JWTs are an open, industry standard RFC 7519 method for representing claims securely between two parties".
+The access tokens is a [JSON Web Tokens (JWT)](https://en.wikipedia.org/wiki/JSON_Web_Token). "JWTs are an open, industry standard RFC 7519 method for representing claims securely between two parties".
 
-You can inspect the content of each token with a [JWT decoder](https://jwt.io/). 
+You can inspect the content of token with a [JWT decoder](https://jwt.io/). 
 
 
 ### Troubleshooting

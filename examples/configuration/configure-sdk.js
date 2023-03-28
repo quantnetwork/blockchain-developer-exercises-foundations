@@ -49,8 +49,6 @@ log.info("Executing ", courseModule);
         process.env.CLIENT_SECRET,
       );
     log.info("accessToken:\n", refreshTokensResponse.accessToken);
-    log.info("refreshToken:\n", refreshTokensResponse.refreshToken);
-    log.info("idToken:\n", refreshTokensResponse.idToken);
   } catch (e) {
     log.error("error", e);
   }
