@@ -1,3 +1,11 @@
+❗IMPORTANT❗
+
+This repository has been archived and will no longer be maintained.
+
+For documentation regarding Overledger, refer to https://docs.overledger.dev/
+
+❗IMPORTANT❗
+
 # Become a Blockchain Developer: Foundations
 ![](https://img.shields.io/github/issues/quantnetwork/blockchain-developer-exercises-foundations) ![](https://img.shields.io/github/forks/quantnetwork/blockchain-developer-exercises-foundations) ![](https://img.shields.io/github/stars/quantnetwork/blockchain-developer-exercises-foundations)
 
